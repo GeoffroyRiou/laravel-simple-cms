@@ -12,7 +12,6 @@ use Filament\PanelProvider;
 use Filament\SpatieLaravelTranslatablePlugin;
 use Filament\Support\Colors\Color;
 use Filament\Widgets;
-use GeoffroyRiou\NrCms\Plugin\NrCmsPlugin;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -56,7 +55,6 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->plugin(new NrCmsPlugin)
             ->plugin(
                 SpatieLaravelTranslatablePlugin::make()
                     ->defaultLocales(['fr'])
