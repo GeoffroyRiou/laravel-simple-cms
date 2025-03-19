@@ -49,9 +49,9 @@ class PageResource extends Resource
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('slug')
-                    ->label(__('Parent path'))
+                    ->label(__('Path'))
                     ->formatStateUsing(function ($record): string {
-                        return $record->getUrlPath(includeSelf: false);
+                        return $record->url_path;
                     })
                     ->size(TextColumn\TextColumnSize::ExtraSmall)
                     ->color('gray'),

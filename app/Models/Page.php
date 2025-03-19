@@ -18,9 +18,13 @@ class Page extends Model
 
     public function getUrlPath(bool $includeSelf = true): string
     {
-        $method = $includeSelf ? 'ancestorsAndSelf' : 'ancestors';
 
-        return $this->$method()->pluck('slug')->reverse()->implode('/');
+        if(!empty($this->parent_id) ) {
+            $method = $includeSelf ? 'ancestorsAndSelf' : 'ancestors';
+            return $this->$method()->pluck('slug')->reverse()->implode('/');
+        }
+        
+        return $this->slug;
     }
 
     public function getViewName(): string

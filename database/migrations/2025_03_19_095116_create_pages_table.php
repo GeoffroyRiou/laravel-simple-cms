@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
+            $table->string('url_path')->nullable();
             $table->boolean('published')->default(0);
             $table->json('page_blocks')->nullable();
             $table->unsignedBigInteger('parent_id')->nullable();

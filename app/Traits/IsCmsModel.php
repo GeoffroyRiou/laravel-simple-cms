@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use RalphJSmit\Laravel\SEO\Support\HasSEO;
 use Spatie\Translatable\HasTranslations;
 
@@ -24,6 +25,7 @@ trait IsCmsModel
             [
                 'title',
                 'slug',
+                'url_path',
                 'published',
                 'page_blocks',
             ]
@@ -46,6 +48,17 @@ trait IsCmsModel
         );
     }
 
+    public static function bootIsCmsModel()
+    {
+        static::created(function (Model $model) {
+            $model->url_path = $model->getUrlPath();
+            $model->save();
+        });
+        static::updating(function (Model $model) {
+            $model->url_path = $model->getUrlPath();
+        });
+    }
+
     /**
      * Get the route name for the page.
      */
@@ -64,7 +77,7 @@ trait IsCmsModel
      */
     public function getUrl(): string
     {
-        return url($this->getUrlPath());
+        return url($this->url_path);
     }
 
     /**
