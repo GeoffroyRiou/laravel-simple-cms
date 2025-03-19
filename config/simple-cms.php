@@ -21,12 +21,13 @@ return [
     ],
 
     'bgColors' => [
-        'bg-indigo-800' => 'Indigo',
+        'bg-indigo-600' => 'Indigo',
         'bg-slate-800' => 'Noir',
         'bg-white' => 'Blanc',
     ],
 
     'textColors' => [
+        'text-indigo-800' => 'Indigo',
         'text-slate-800' => 'Noir',
         'text-white' => 'Blanc',
     ]

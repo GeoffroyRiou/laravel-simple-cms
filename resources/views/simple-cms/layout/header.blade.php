@@ -1,4 +1,4 @@
-<header class="bg-indigo-800">
+<header class="bg-indigo-600">
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between gap-10 h-16" x-data="{ open: false }">
             <a href="/" class="flex-shrink-0 flex items-center" aria-label="Home">

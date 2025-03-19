@@ -22,32 +22,44 @@ class ContentWithImage
             ->label('Contenu avec image')
             ->icon('heroicon-o-rectangle-group')
             ->schema([
-                Section::make('')->schema(ImageSchema::make()),
-                Toggle::make('image_right')
-                    ->label('Image à droite')
-                    ->default(false),
-                Toggle::make('image_full')
-                    ->label('Image couvrante')
-                    ->default(false),
-                TextInput::make('title')
-                    ->label('Titre'),
-                RichEditor::make('text')
-                    ->label('Texte')
-                    ->required(),
-                Select::make('bgColor')
-                    ->label('Couleur de fond')
-                    ->options(config('simple-cms.bgColors'))
-                    ->required(),
-                Select::make('textColor')
-                    ->label('Couleur du texte')
-                    ->options(config('simple-cms.textColors'))
-                    ->required(),
+
+                Section::make('')->schema(
+                    array_merge(
+                        ImageSchema::make(),
+                        [
+
+                            Toggle::make('image_right')
+                                ->label('Image à droite')
+                                ->default(false),
+                            Toggle::make('image_full')
+                                ->label('Image couvrante')
+                                ->default(false),
+                        ]
+                    )
+                ),
+
+                Section::make('')->schema([
+                    TextInput::make('title')
+                        ->label('Titre'),
+                    RichEditor::make('text')
+                        ->label('Texte')
+                        ->required(),
+                    Select::make('bgColor')
+                        ->label('Couleur de fond')
+                        ->options(config('simple-cms.bgColors'))
+                        ->required(),
+                    Select::make('textColor')
+                        ->label('Couleur du texte')
+                        ->options(config('simple-cms.textColors'))
+                        ->required(),
+                ]),
+
                 Toggle::make('add_button')
                     ->label('Activer le bouton')
                     ->default(true)->live(),
                 Section::make('')
                     ->label('Bouton')
-                    ->schema(LinkSchema::make('button'))
+                    ->schema(LinkSchema::make('button', canChangeColor: true))
                     ->visible(fn(Get $get): bool => $get('add_button')),
             ]);
     }

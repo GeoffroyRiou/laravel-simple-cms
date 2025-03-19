@@ -118,6 +118,7 @@ class MenuService
                 'label' => $item['label'],
                 'url' => $url,
                 'blank' => $item['blank'] ?? false,
+                'variant' => $item['variant'] ?? '',
             ];
 
             if($includeChildren && !empty($item['children'])){

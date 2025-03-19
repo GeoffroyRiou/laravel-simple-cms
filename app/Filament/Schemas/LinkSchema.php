@@ -11,11 +11,11 @@ use App\Services\MenuService;
 
 class LinkSchema
 {
-    public static function make(string $fieldname): array
+    public static function make(string $fieldname, bool $canChangeColor = false): array
     {
         $menuService = app()->make(MenuService::class);
 
-        return [
+        $fields = [
             ToggleButtons::make($fieldname.'.type')
                 ->label(__('Type'))
                 ->options([
@@ -28,20 +28,31 @@ class LinkSchema
             TextInput::make($fieldname.'.url')
                 ->label(__('Url'))
                 ->required()
-                ->visible(fn(Get $get): bool => $get('type') == 'external_link'),
+                ->visible(fn(Get $get): bool => $get($fieldname.'.type') == 'external_link'),
             Select::make($fieldname.'.page')
                 ->label(__('Page'))
                 ->options($menuService->getMenuableModels())
                 ->required()
                 ->searchable()
-                ->visible(fn(Get $get): bool => $get('type') == 'page')
+                ->visible(fn(Get $get): bool => $get($fieldname.'.type') == 'page')
                 ->columnSpanFull(),
             TextInput::make($fieldname.'.label')
                 ->label(__('Label'))
-                ->visible(fn(Get $get): bool => $get('type') !== null)
+                ->visible(fn(Get $get): bool => $get($fieldname.'.type') !== null)
                 ->required(),
             Toggle::make($fieldname.'.blank')
                 ->label(__('Open in a new tab')),
         ];
+
+        if($canChangeColor){
+            $fields[] = Select::make($fieldname.'.variant')
+                ->label(__('Apparence'))
+                ->options([
+                    'primary' => 'Foncée',
+                    'primary-invert' => 'Claire',
+                ]);
+        }
+
+        return $fields;
     }
 }
