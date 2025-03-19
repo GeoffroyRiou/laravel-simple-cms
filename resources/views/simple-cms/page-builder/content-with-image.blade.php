@@ -29,7 +29,7 @@
                     {!! $text !!}
                 </div>
 
-                <x-simple-cms::button variant="button-primary" :data="$button"/>
+                <x-simple-cms::button variant="button-primary-invert" :data="$button"/>
             </div>
         </div>
     </div>
