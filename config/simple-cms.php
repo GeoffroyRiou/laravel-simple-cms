@@ -5,10 +5,10 @@ declare(strict_types=1);
 return [
     /**
      * Namespace of the custom page builder blocks 
-     * ex: "App\\Blocks"
+     * ex: "App\\Filament\\Blocks"
      */
     'blocks' => [
-        //
+        'App\\Filament\\Blocks',
     ],
 
     /**

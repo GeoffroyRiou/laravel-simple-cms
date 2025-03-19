@@ -8,7 +8,7 @@ use App\Services\MenuService;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class MainMenu extends Component
+class Menu extends Component
 {
 
     private ?MenuModel $menu;
@@ -30,7 +30,7 @@ class MainMenu extends Component
             return '';
         }
 
-        return view('simple-cms::components.main-menu.main-menu', [
+        return view('simple-cms.menu.menu', [
             'title' => $this->menu->title,
             'items' => $this->menuService->hydrateMenu($this->menu->items)
         ]);

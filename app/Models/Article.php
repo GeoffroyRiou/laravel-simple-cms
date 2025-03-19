@@ -11,6 +11,7 @@ class Article extends Model
     use IsCmsModel;
 
     protected $fillable = [
+        'illustration',
         'category_id',
     ];
 
