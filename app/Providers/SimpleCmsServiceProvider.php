@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Services\ImageService;
 use App\Services\MenuService;
 use App\Services\ReflectionService;
 use Illuminate\Support\Facades\Blade;
@@ -22,6 +23,11 @@ class SimpleCmsServiceProvider extends ServiceProvider
         // Bind the MenuService
         $this->app->singleton(MenuService::class, function ($app) {
             return new MenuService($app->make(ReflectionService::class));
+        });
+
+        // Bind the ImageService
+        $this->app->bind('imageHelper', function ($app) {
+            return new ImageService();
         });
     }
 
