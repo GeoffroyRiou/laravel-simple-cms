@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Views\Components;
+namespace App\View\Components\SimpleCms;
 
 use Closure;
 use App\Models\Menu as MenuModel;

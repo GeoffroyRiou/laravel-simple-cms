@@ -33,5 +33,6 @@ class SimpleCmsServiceProvider extends ServiceProvider
          */
 
         Blade::anonymousComponentPath(resource_path('views/simple-cms'), 'simple-cms');
+        Blade::componentNamespace('App\\View\\Components\\SimpleCms', 'simple-cms');
     }
 }
