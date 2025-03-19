@@ -11,12 +11,12 @@ use App\Services\MenuService;
 
 class LinkSchema
 {
-    public static function make(): array
+    public static function make(string $fieldname): array
     {
         $menuService = app()->make(MenuService::class);
 
         return [
-            ToggleButtons::make('type')
+            ToggleButtons::make($fieldname.'.type')
                 ->label(__('Type'))
                 ->options([
                     'page' => __('Page'),
@@ -25,22 +25,22 @@ class LinkSchema
                 ->live()
                 ->inline()
                 ->required(),
-            TextInput::make('url')
+            TextInput::make($fieldname.'.url')
                 ->label(__('Url'))
                 ->required()
                 ->visible(fn(Get $get): bool => $get('type') == 'external_link'),
-            Select::make('page')
+            Select::make($fieldname.'.page')
                 ->label(__('Page'))
                 ->options($menuService->getMenuableModels())
                 ->required()
                 ->searchable()
                 ->visible(fn(Get $get): bool => $get('type') == 'page')
                 ->columnSpanFull(),
-            TextInput::make('label')
+            TextInput::make($fieldname.'.label')
                 ->label(__('Label'))
                 ->visible(fn(Get $get): bool => $get('type') !== null)
                 ->required(),
-            Toggle::make('blank')
+            Toggle::make($fieldname.'.blank')
                 ->label(__('Open in a new tab')),
         ];
     }

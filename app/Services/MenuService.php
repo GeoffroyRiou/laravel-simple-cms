@@ -70,7 +70,7 @@ class MenuService
      * @param array $items
      * @return array
      */
-    public function hydrateMenu(array $items): array
+    public function hydrateMenu(array $items, bool $includeChildren = true): array
     {
         $result = [];
         $pageIds = [];
@@ -118,11 +118,12 @@ class MenuService
                 'label' => $item['label'],
                 'url' => $url,
                 'blank' => $item['blank'] ?? false,
-                'children' => [],
             ];
 
-            // If there are children, recursively call this function
-            if (!empty($item['children'])) {
+            if($includeChildren && !empty($item['children'])){
+                $currentItem['children'] = [];
+
+                // Recursively call this function
                 $currentItem['children'] = $this->hydrateMenu($item['children']);
             }
 

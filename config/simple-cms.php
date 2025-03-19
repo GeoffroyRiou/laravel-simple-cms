@@ -20,15 +20,14 @@ return [
         //
     ],
 
-    /**
-     * Pages url prefix
-     * ex: "pages"
-     */
-    'pages_url_prefix' => 'pages',
+    'bgColors' => [
+        'bg-indigo-800' => 'Indigo',
+        'bg-slate-800' => 'Noir',
+        'bg-white' => 'Blanc',
+    ],
 
-    /**
-     * Articles url prefix
-     * ex: "articles"
-     */
-    'articles_url_prefix' => 'articles',
+    'textColors' => [
+        'text-slate-800' => 'Noir',
+        'text-white' => 'Blanc',
+    ]
 ];
