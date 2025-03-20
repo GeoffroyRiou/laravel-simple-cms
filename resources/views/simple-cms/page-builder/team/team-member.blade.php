@@ -1,6 +1,6 @@
 @props(['data' => []])
 
-<div class="group bg-white border border-indigo-200 rounded-lg p-5 text-center">
+<div {{ $attributes->merge(['class' => 'group bg-white border border-indigo-200 rounded-lg p-5 text-center']) }}>
 
     @if (!empty($data['image']))
         <x-simple-cms::image :path="$data['image']" width="150" height="150" crop="true" class="rounded-full mx-auto" />
