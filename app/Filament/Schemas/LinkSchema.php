@@ -46,7 +46,7 @@ class LinkSchema
 
         if($canChangeColor){
             $fields[] = Select::make($fieldname.'.variant')
-                ->label(__('Apparence'))
+                ->label(__('Appearance'))
                 ->options([
                     'primary' => 'Foncée',
                     'primary-invert' => 'Claire',

@@ -1,0 +1,18 @@
+{
+    "(and :count more error)": "(et :count erreur supplémentaire)",
+    "(and :count more errors)": "(et :count erreurs supplémentaires)",
+    "Path" : "Chemin",
+    "FAQ" : "FAQ",
+    "Title" : "Titre",
+    "Add another question" : "Ajouter une autre question",
+    "Rich content" : "Contenu riche",
+    "Published" : "Publié",
+    "Type" : "Type",
+    "External link" : "Lien externe",
+    "Slug" : "Slug",
+    "Label" : "Libellé",
+    "Open in a new tab" : "Ouvrir dans un nouvel onglet",
+    "View page" : "Voir la page",
+    "Article categories" : "Catégories d'articles",
+    "Appearance" : "Apparence"
+}
