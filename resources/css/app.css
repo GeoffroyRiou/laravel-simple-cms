@@ -13,3 +13,8 @@
 }
 
 @import './simple-cms.css';
+
+body{
+    @apply
+    text-indigo-950;
+}

@@ -3,13 +3,13 @@
     'image_full' => false,
     'image_right' => false,
     'bgColor' => 'bg-white',
-    'textColor' => 'text-slate-900',
+    'textColor' => 'text-indigo-950',
     'title' => '',
     'text' => '',
     'url' => '',
     'label' => '',
     'blank' => '',
-    'button' => null,
+    'button' => [],
 ])
 
 <section class="{{ $bgColor }}">

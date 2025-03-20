@@ -29,7 +29,7 @@ return [
 
     'textColors' => [
         'text-indigo-800' => 'Indigo',
-        'text-slate-800' => 'Noir',
+        'text-indigo-950' => 'Noir',
         'text-white' => 'Blanc',
     ]
 ];

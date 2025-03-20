@@ -54,7 +54,7 @@
 
             <div :class="open ? 'block' : 'hidden lg:block'"
                 class="flex-1 flex items-center fixed top-16 right-0 w-full bg-slate-900 lg:static lg:bg-transparent">
-                <x-simple-cms::menu :menuId="1" id="main-menu" />
+                <x-simple-cms::menu :menuId="6" id="main-menu" />
             </div>
         </div>
     </div>

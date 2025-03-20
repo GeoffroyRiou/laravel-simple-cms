@@ -9,7 +9,7 @@
         <div class="divide-y divide-gray-100 rounded-xl border border-gray-100 bg-white">
             @foreach ($questions as $question)
                 <details class="group p-6 [&_summary::-webkit-details-marker]:hidden">
-                    <summary class="flex cursor-pointer items-center justify-between gap-1.5 text-gray-900">
+                    <summary class="flex cursor-pointer items-center justify-between gap-1.5 text-indigo-950">
                         <h2 class="text-lg font-medium">{{ $question['title'] }}</h2>
 
                         <span class="relative size-5 shrink-0">
@@ -29,7 +29,7 @@
                         </span>
                     </summary>
 
-                    <div class="simple-cms-content mt-4 leading-relaxed text-gray-700">
+                    <div class="simple-cms-content mt-4 leading-relaxed text-indigo-800">
                         {!! $question['text'] ?? '' !!}
                     </div>
                 </details>

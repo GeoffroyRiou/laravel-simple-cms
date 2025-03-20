@@ -646,7 +646,7 @@ class MenubarNavigation {
 // Initialize menubar editor
 
 window.addEventListener('load', function () {
-    var menubarNavs = document.querySelectorAll('.nrcms-menu');
+    var menubarNavs = document.querySelectorAll('.simple-cms-menu');
     for (var i = 0; i < menubarNavs.length; i++) {
         new MenubarNavigation(menubarNavs[i]);
     }

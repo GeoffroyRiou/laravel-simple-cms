@@ -2,7 +2,7 @@
     'content' => '',
     'bgColor' => '',
     'bgColorInner' => '',
-    'textColor' => 'text-slate-900',
+    'textColor' => 'text-indigo-950',
     'textCentered' => false,
 ])
 

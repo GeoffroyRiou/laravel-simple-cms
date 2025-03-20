@@ -10,14 +10,19 @@ use Illuminate\View\View;
 
 class Button extends Component
 {
-    private array $data;
-    public function __construct(private MenuService $menuService, array $data) {
+    private array $data = [];
+    public function __construct(private MenuService $menuService, ?array $data) {
+
+        if(!$data) {
+            return;
+        }
+
         $this->data = $this->menuService->hydrateMenu([$data] , false)[0] ?? [];
     }
 
     public function render(): View{
         return view('simple-cms.button.button', [
-            'data' => $this->data,
+            'data' => $this->data ?? [],
         ]);
     }
 }

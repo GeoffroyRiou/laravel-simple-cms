@@ -11,12 +11,14 @@ use App\Services\MenuService;
 
 class LinkSchema
 {
-    public static function make(string $fieldname, bool $canChangeColor = false): array
+    public static function make(string $fieldname = '', bool $canChangeColor = false): array
     {
         $menuService = app()->make(MenuService::class);
 
+        $prefix  = $fieldname ? $fieldname.'' : '';
+
         $fields = [
-            ToggleButtons::make($fieldname.'.type')
+            ToggleButtons::make($prefix.'type')
                 ->label(__('Type'))
                 ->options([
                     'page' => __('Page'),
@@ -25,27 +27,27 @@ class LinkSchema
                 ->live()
                 ->inline()
                 ->required(),
-            TextInput::make($fieldname.'.url')
+            TextInput::make($prefix.'url')
                 ->label(__('Url'))
                 ->required()
-                ->visible(fn(Get $get): bool => $get($fieldname.'.type') == 'external_link'),
-            Select::make($fieldname.'.page')
+                ->visible(fn(Get $get): bool => $get($prefix.'type') == 'external_link'),
+            Select::make($prefix.'page')
                 ->label(__('Page'))
                 ->options($menuService->getMenuableModels())
                 ->required()
                 ->searchable()
-                ->visible(fn(Get $get): bool => $get($fieldname.'.type') == 'page')
+                ->visible(fn(Get $get): bool => $get($prefix.'type') == 'page')
                 ->columnSpanFull(),
-            TextInput::make($fieldname.'.label')
+            TextInput::make($prefix.'label')
                 ->label(__('Label'))
-                ->visible(fn(Get $get): bool => $get($fieldname.'.type') !== null)
+                ->visible(fn(Get $get): bool => $get($prefix.'type') !== null)
                 ->required(),
-            Toggle::make($fieldname.'.blank')
+            Toggle::make($prefix.'blank')
                 ->label(__('Open in a new tab')),
         ];
 
         if($canChangeColor){
-            $fields[] = Select::make($fieldname.'.variant')
+            $fields[] = Select::make($prefix.'variant')
                 ->label(__('Appearance'))
                 ->options([
                     'primary' => 'Foncée',

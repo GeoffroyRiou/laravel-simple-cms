@@ -7,7 +7,7 @@
         @endphp
         <li role="none" class="relative">
             <a role="menuitem" href="{{ $item['url'] ?? '' }}" @if ($item['blank']) target="_blank" @endif
-                class="flex gap-2 items-center {{ $level == 1 ? 'rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white' : 'px-3 py-2 text-sm font-medium text-gray-900' }}"
+                class="flex gap-2 items-center {{ $level == 1 ? 'rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-indigo-800' : 'px-3 py-2 text-sm font-medium text-indigo-900' }}"
                 @if ($hasChildren) aria-haspopup="true" aria-expanded="false" @endif>
                 {{ $item['label'] }} {{ $hasChildren ? '+' : '' }}
             </a>
