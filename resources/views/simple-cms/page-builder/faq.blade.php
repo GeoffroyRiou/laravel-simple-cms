@@ -6,7 +6,7 @@
 
     <div class="mx-auto px-5 flex flex-col gap-5 xl:max-w-10/12">
 
-        <div class="divide-y divide-gray-100 rounded-xl border border-gray-100 bg-white">
+        <div class="divide-y divide-indigo-100 rounded-xl border border-indigo-100 bg-white">
             @foreach ($questions as $question)
                 <details class="group p-6 [&_summary::-webkit-details-marker]:hidden">
                     <summary class="flex cursor-pointer items-center justify-between gap-1.5 text-indigo-950">

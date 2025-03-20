@@ -15,7 +15,7 @@ class LinkSchema
     {
         $menuService = app()->make(MenuService::class);
 
-        $prefix  = $fieldname ? $fieldname.'' : '';
+        $prefix  = $fieldname ? $fieldname.'.' : '';
 
         $fields = [
             ToggleButtons::make($prefix.'type')
@@ -52,7 +52,8 @@ class LinkSchema
                 ->options([
                     'primary' => 'Foncée',
                     'primary-invert' => 'Claire',
-                ]);
+                ])
+                ->required();
         }
 
         return $fields;
