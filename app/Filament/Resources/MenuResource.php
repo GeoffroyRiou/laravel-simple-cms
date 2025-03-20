@@ -44,7 +44,7 @@ class MenuResource extends Resource
                 AdjacencyList::make('items')
                     ->labelKey('label')
                     ->childrenKey('children')
-                    ->form(LinkSchema::make())
+                    ->form(LinkSchema::make(canChangeColor: false))
                     ->visible(fn(Get $get): bool => $get('id') !== null)
                     ->columnSpanFull()
             ]);

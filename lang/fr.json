@@ -24,5 +24,7 @@
     "Text" : "Texte",
     "Button" : "Bouton",
     "Buttons" : "Boutons",
-    "Add a button" : "Ajouter un bouton"
+    "Add a button" : "Ajouter un bouton",
+    "Icon" : "Icône",
+    "Icon before label" : "Icône placée devant"
 }

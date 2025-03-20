@@ -11,14 +11,14 @@ use App\Services\MenuService;
 
 class LinkSchema
 {
-    public static function make(string $fieldname = '', bool $canChangeColor = false): array
+    public static function make(string $fieldname = '', bool $canChangeColor = true, bool $hasIcon = true): array
     {
         $menuService = app()->make(MenuService::class);
 
-        $prefix  = $fieldname ? $fieldname.'.' : '';
+        $prefix  = $fieldname ? $fieldname . '.' : '';
 
         $fields = [
-            ToggleButtons::make($prefix.'type')
+            ToggleButtons::make($prefix . 'type')
                 ->label(__('Type'))
                 ->options([
                     'page' => __('Page'),
@@ -26,34 +26,43 @@ class LinkSchema
                 ])
                 ->live()
                 ->inline()
+                ->columnSpanFull()
                 ->required(),
-            TextInput::make($prefix.'url')
+            TextInput::make($prefix . 'label')
+                ->label(__('Label'))
+                ->visible(fn(Get $get): bool => $get($prefix . 'type') !== null)
+                ->required(),
+            TextInput::make($prefix . 'url')
                 ->label(__('Url'))
                 ->required()
-                ->visible(fn(Get $get): bool => $get($prefix.'type') == 'external_link'),
-            Select::make($prefix.'page')
+                ->visible(fn(Get $get): bool => $get($prefix . 'type') == 'external_link'),
+            Select::make($prefix . 'page')
                 ->label(__('Page'))
                 ->options($menuService->getMenuableModels())
                 ->required()
                 ->searchable()
-                ->visible(fn(Get $get): bool => $get($prefix.'type') == 'page')
+                ->visible(fn(Get $get): bool => $get($prefix . 'type') == 'page'),
+            Toggle::make($prefix . 'blank')
+                ->label(__('Open in a new tab'))
                 ->columnSpanFull(),
-            TextInput::make($prefix.'label')
-                ->label(__('Label'))
-                ->visible(fn(Get $get): bool => $get($prefix.'type') !== null)
-                ->required(),
-            Toggle::make($prefix.'blank')
-                ->label(__('Open in a new tab')),
         ];
 
-        if($canChangeColor){
-            $fields[] = Select::make($prefix.'variant')
+        if ($canChangeColor) {
+            $fields[] = Select::make($prefix . 'variant')
                 ->label(__('Appearance'))
                 ->options([
                     'primary' => 'Foncée',
                     'primary-invert' => 'Claire',
                 ])
                 ->required();
+        }
+
+        if ($hasIcon) {
+            $fields[] = Select::make($prefix . 'icon')
+                ->label(__('Icon'))
+                ->options(config('simple-cms.icons'));
+            $fields[] = Toggle::make($prefix . 'iconReverse')
+                ->label(__('Icon before label'));
         }
 
         return $fields;

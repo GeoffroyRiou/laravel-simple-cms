@@ -114,12 +114,10 @@ class MenuService
                 $url = $page ? $page->getUrl() : '#';
             }
 
-            $currentItem = [
-                'label' => $item['label'],
+            // Default data
+            $currentItem = array_merge($item, [
                 'url' => $url,
-                'blank' => $item['blank'] ?? false,
-                'variant' => $item['variant'] ?? '',
-            ];
+            ]);
 
             if($includeChildren && !empty($item['children'])){
                 $currentItem['children'] = [];

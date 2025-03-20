@@ -31,5 +31,10 @@ return [
         'text-indigo-800' => 'Indigo',
         'text-indigo-950' => 'Noir',
         'text-white' => 'Blanc',
+    ],
+
+    'icons' => [
+        'icon-arrow-right' => 'Flèche',
+        'icon-download' => 'Téléchargement',
     ]
 ];

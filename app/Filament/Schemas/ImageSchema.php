@@ -17,6 +17,7 @@ class ImageSchema
             ->label($label)
             ->image()
             ->maxSize(5120)
+            ->columnSpanFull()
         ];
     }
 }

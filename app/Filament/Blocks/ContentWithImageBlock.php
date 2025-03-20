@@ -36,21 +36,25 @@ class ContentWithImageBlock
                                 ->default(false),
                         ]
                     )
-                ),
+                )
+                ->columns(2),
 
                 Section::make('')->schema([
                     TextInput::make('title')
-                        ->label('Titre'),
+                        ->label('Titre')
+                        ->columnSpanFull(),
                     RichEditor::make('text')
                         ->label('Texte')
-                        ->required(),
+                        ->required()
+                        ->columnSpanFull(),
                     Select::make('bgColor')
                         ->label('Couleur de fond')
                         ->options(config('simple-cms.bgColors')),
                     Select::make('textColor')
                         ->label('Couleur du texte')
                         ->options(config('simple-cms.textColors')),
-                ]),
+                ])
+                ->columns(2),
 
                 Toggle::make('add_button')
                     ->label('Activer le bouton')
@@ -58,6 +62,7 @@ class ContentWithImageBlock
                 Section::make('')
                     ->label('Bouton')
                     ->schema(LinkSchema::make('button', canChangeColor: true))
+                    ->columns(2)
                     ->visible(fn(Get $get): bool => $get('add_button')),
             ]);
     }

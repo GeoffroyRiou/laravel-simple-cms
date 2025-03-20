@@ -21,7 +21,7 @@ class Button extends Component
     }
 
     public function render(): View{
-        return view('simple-cms.button.button', [
+        return view('simple-cms.button', [
             'data' => $this->data ?? [],
         ]);
     }
