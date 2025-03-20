@@ -15,7 +15,7 @@
                 @switch($block['type'])
                     @case('textarea')
                         <label for="{{ $block['data']['slug'] }}"
-                            class="text-sm">{{ $block['data']['label'] }}{{ $block['data']['required'] ? '*' : '' }}</label>
+                            class="text-sm text-indigo-800 ">{{ $block['data']['label'] }}{{ $block['data']['required'] ? '*' : '' }}</label>
                         <textarea id="{{ $block['data']['slug'] }}" wire:model="formData.{{ $block['data']['slug'] }}"
                             class="border border-indigo-200 rounded-lg px-5 py-2 block w-full"></textarea>
                     @break
@@ -29,7 +29,7 @@
                     @break
 
                     @case('choices')
-                        <label class="text-sm" for="field_{{ $block['data']['slug'] }}">{{ $block['data']['label'] }}</label>
+                        <label class="text-sm text-indigo-800 " for="field_{{ $block['data']['slug'] }}">{{ $block['data']['label'] }}</label>
 
                         <div class="flex flex-col gap-3 md:flex-row md:flex-wrap">
                             @switch($block['data']['type'])
@@ -66,14 +66,14 @@
 
                     @case('file')
                         <label for="{{ $block['data']['slug'] }}"
-                            class="text-sm">{{ $block['data']['label'] }}{{ $block['data']['required'] ? '*' : '' }}</label>
+                            class="text-sm text-indigo-800 ">{{ $block['data']['label'] }}{{ $block['data']['required'] ? '*' : '' }}</label>
                         <input id="{{ $block['data']['slug'] }}" wire:model="formData.{{ $block['data']['slug'] }}"
                             type="file" class="border border-indigo-200 rounded-lg px-5 py-2 block w-full">
                     @break
 
                     @default
                         <label for="{{ $block['data']['slug'] }}"
-                            class="text-sm">{{ $block['data']['label'] }}{{ $block['data']['required'] ? '*' : '' }}</label>
+                            class="text-sm text-indigo-800 ">{{ $block['data']['label'] }}{{ $block['data']['required'] ? '*' : '' }}</label>
                         <input id="{{ $block['data']['slug'] }}" wire:model="formData.{{ $block['data']['slug'] }}"
                             type="{{ $block['data']['type'] ?? 'text' }}"
                             class="border border-indigo-200 rounded-lg px-5 py-2 block w-full">
@@ -81,10 +81,10 @@
                 @endswitch
             </div>
         @endforeach
-        <div class="contact-form__row -fullWidth">
+        <div class="flex justify-center col-span-full mt-5">
             <button type="submit"
                 class="inline-flex items-center justify-between gap-3 rounded-sm border px-8 py-3 focus:ring-3 focus:outline-hidden w-fit 
- border border-indigo-600 bg-indigo-600 text-white hover:bg-transparent hover:text-indigo-600 cursor-pointer">
+ border border-indigo-600 bg-indigo-600 text-white hover:bg-transparent hover:text-indigo-600 cursor-pointer mx-auto">
                 Envoyer
             </button>
         </div>
