@@ -2,9 +2,9 @@
 
 
 
-<section class="py-8">
+<section class="py-5">
 
-    <div class="max-w-6/12 mx-auto px-5 flex flex-col gap-5">
+    <div class="mx-auto px-5 flex flex-col gap-5 xl:max-w-10/12">
 
         <div class="divide-y divide-gray-100 rounded-xl border border-gray-100 bg-white">
             @foreach ($questions as $question)
@@ -29,7 +29,7 @@
                         </span>
                     </summary>
 
-                    <div class="mt-4 leading-relaxed text-gray-700">
+                    <div class="simple-cms-content mt-4 leading-relaxed text-gray-700">
                         {!! $question['text'] ?? '' !!}
                     </div>
                 </details>

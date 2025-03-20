@@ -21,8 +21,9 @@ return [
     ],
 
     'bgColors' => [
+        'bg-slate-100' => 'Gris clair',
         'bg-indigo-600' => 'Indigo',
-        'bg-slate-800' => 'Noir',
+        'bg-slate-900' => 'Noir',
         'bg-white' => 'Blanc',
     ],
 

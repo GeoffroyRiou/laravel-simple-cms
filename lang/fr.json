@@ -5,7 +5,7 @@
     "FAQ" : "FAQ",
     "Title" : "Titre",
     "Add another question" : "Ajouter une autre question",
-    "Rich content" : "Contenu riche",
+    "Rich Content" : "Contenu riche",
     "Published" : "Publié",
     "Type" : "Type",
     "External link" : "Lien externe",
@@ -14,5 +14,6 @@
     "Open in a new tab" : "Ouvrir dans un nouvel onglet",
     "View page" : "Voir la page",
     "Article categories" : "Catégories d'articles",
-    "Appearance" : "Apparence"
+    "Appearance" : "Apparence",
+    "Text centered" : "Texte centré"
 }
