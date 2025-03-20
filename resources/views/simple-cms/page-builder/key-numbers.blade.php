@@ -10,7 +10,7 @@
                     <img src="{{ Storage::url($number['picto']) }}" alt="" class="w-10 h-10" loading="lazy" class="icon" />
                 </figure>
                 <div class="flex flex-col gap-3 text-center">
-                    <p class="text-xl font-bold">{{ $number['number'] }}</p>
+                    <p class="text-4xl font-bold text-indigo-600">{{ $number['number'] }}</p>
                     <p class="text-sm italic">{{ $number['description'] }}</p>
                 </div>
             </div>

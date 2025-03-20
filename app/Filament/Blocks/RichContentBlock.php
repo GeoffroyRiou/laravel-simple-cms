@@ -33,7 +33,7 @@ class RichContentBlock
                     ->label('Couleur du texte')
                     ->options(config('simple-cms.textColors'))
                     ->columnSpan(1),
-                    Toggle::make('textCentered')
+                Toggle::make('textCentered')
                     ->label(__('Text centered'))
                     ->columnSpan(1),
             ])->columns(3);
