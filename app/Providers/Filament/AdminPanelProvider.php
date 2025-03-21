@@ -19,6 +19,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Pboivin\FilamentPeek\FilamentPeekPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -62,9 +63,10 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-o-envelope')
                     ->collapsed(),
             ])
-            ->plugin(
+            ->plugins([
                 SpatieLaravelTranslatablePlugin::make()
-                    ->defaultLocales(['fr'])
-            );
+                    ->defaultLocales(['fr']),
+                FilamentPeekPlugin::make(),
+            ]);
     }
 }
