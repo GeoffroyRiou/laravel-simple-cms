@@ -31,7 +31,9 @@ class EditPage extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            PreviewAction::make(),
+            PreviewAction::make()
+                ->icon('heroicon-o-eye')
+                ->color('info'),
             Actions\LocaleSwitcher::make(),
             Actions\DeleteAction::make(),
         ];

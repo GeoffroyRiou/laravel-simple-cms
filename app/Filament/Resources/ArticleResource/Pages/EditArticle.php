@@ -31,9 +31,11 @@ class EditArticle extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            PreviewAction::make(),
-            Actions\LocaleSwitcher::make(),
+            PreviewAction::make()
+                ->icon('heroicon-o-eye')
+                ->color('info'),
             Actions\DeleteAction::make(),
+            Actions\LocaleSwitcher::make(),
         ];
     }
 }
