@@ -34,7 +34,7 @@ class ContactFormResource extends Resource
 
     protected static ?string $navigationGroup = 'Formulaires';
 
-    protected static ?int $navigationSort = 9;
+    protected static ?string $navigationIcon = 'heroicon-o-envelope';
 
     public static function form(Form $form): Form
     {

@@ -26,6 +26,10 @@ class MenuResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-list-bullet';
 
+    protected static ?int $navigationSort = 10;
+
+    protected static ?string $navigationGroup = 'Outils';
+
     public static function form(Form $form): Form
     {
         $menuService = app()->make(MenuService::class);

@@ -9,7 +9,12 @@ class ArticleResource extends ContentResource
 {
     protected static ?string $model = Article::class;
 
+    protected static ?string $navigationLabel = 'Articles';
+
+    protected static ?string $navigationGroup = 'Actualités';
+
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
+
     protected static bool $shouldRegisterNavigation = true;
     public static bool $hasParent = false;
 

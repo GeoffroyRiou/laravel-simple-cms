@@ -23,7 +23,10 @@ class ContactFormEntryResource extends Resource
 
     protected static ?string $navigationLabel = 'Entrées de formulaire';
 
-    protected static ?int $navigationSort = 10;
+    protected static ?string $navigationIcon = 'heroicon-o-circle-stack';
+
+    protected static ?int $navigationSort = 2;
+
 
     public static function table(Table $table): Table
     {
