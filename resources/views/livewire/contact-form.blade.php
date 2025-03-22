@@ -81,7 +81,7 @@
                 @endswitch
             </div>
         @endforeach
-        <div class="contact-form__row -fullWidth">
+        <div class="col-span-full">
             <button type="submit"
                 class="inline-flex items-center justify-between gap-3 rounded-sm border px-8 py-3 focus:ring-3 focus:outline-hidden w-fit 
  border border-indigo-600 bg-indigo-600 text-white hover:bg-transparent hover:text-indigo-600 cursor-pointer">
