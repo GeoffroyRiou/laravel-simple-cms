@@ -1,0 +1,106 @@
+<?php
+
+namespace App\Models;
+
+use App\Traits\Menuable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use RalphJSmit\Laravel\SEO\Support\HasSEO;
+use Spatie\Translatable\HasTranslations;
+use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
+
+abstract class Content extends Model
+{
+    use Menuable, HasSEO, HasTranslations, HasRecursiveRelationships;
+
+
+    public $table = 'contents';
+    public $routeName = 'cms.content';
+    public $viewName = 'simple-cms.default-page';
+
+    protected $fillable = [
+        'title',
+        'slug',
+        'url_path',
+        'published',
+        'page_blocks',
+        'model_path',
+        'parent_id',
+        'category_id',
+        'illustration',
+    ];
+
+    protected $casts = [
+        'page_blocks' => 'array',
+    ];
+
+    protected $translatable = [
+        'title',
+        'slug',
+        'url_path',
+        'page_blocks',
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('model_path', function (Builder $builder) {
+            $builder->where('model_path', static::class);
+        });
+
+        static::creating(function (Model $model) {
+            $model->model_path = static::class;
+        });
+
+        static::created(function (Model $model) {
+            $model->url_path = $model->getUrlPath();
+            $model->save();
+        });
+
+        static::updating(function (Model $model) {
+            $model->model_path = static::class;
+            $model->url_path = $model->getUrlPath();
+        });
+    }
+    /**
+     * Get the URL for the page.
+     */
+    public function getUrl(): string
+    {
+        return url($this->url_path);
+    }
+
+    /**
+     * Get the URL path for the page.
+     */
+    public function getUrlPath(bool $includeSelf = true): string
+    {
+
+        if (!empty($this->parent_id)) {
+            $method = $includeSelf ? 'ancestorsAndSelf' : 'ancestors';
+            return $this->$method()->pluck('slug')->reverse()->implode('/');
+        }
+
+        return $this->slug;
+    }
+
+    /**
+     * Scope a query to only include published pages.
+     */
+    public function scopePublished(Builder $query): void
+    {
+        $query->where('published', true);
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class)->with('ancestorsAndSelf');
+    }
+
+    public function ancestors()
+    {
+        return $this->category->ancestorsAndSelf ?? collect();
+    }
+}

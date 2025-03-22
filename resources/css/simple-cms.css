@@ -35,7 +35,7 @@
         @apply
         flex
         flex-col
-        gap-2
+        gap-2 
         list-inside
         list-disc;
     }
@@ -50,7 +50,7 @@
         italic
         border-l-4
         p-5
-        bg-slate-100
+        bg-slate-200/20
         border-slate-300
         rounded-r-lg;
     }

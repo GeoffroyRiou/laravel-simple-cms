@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Content;
 use App\Services\ReflectionService;
 use Illuminate\View\View;
-use App\Traits\IsCmsModel;
 use Illuminate\Database\Eloquent\Model;
 
 class CmsController extends Controller
@@ -26,7 +26,7 @@ class CmsController extends Controller
             abort(404);
         }
 
-        return view($model->getViewName() ?? null, compact('model'));
+        return view($model->viewName ?? null, compact('model'));
     }
 
     /**
@@ -54,7 +54,12 @@ class CmsController extends Controller
 
         foreach ($modelClasses as $modelClass) {
 
-            if (!$this->reflectionService->usesTrait($modelClass, IsCmsModel::class)) {
+            if (
+                !(
+                    $this->reflectionService->isClassInstantiable($modelClass) &&
+                    $this->reflectionService->hasParentOfType($modelClass, Content::class)
+                )
+            ) {
                 continue;
             }
 
