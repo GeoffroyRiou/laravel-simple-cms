@@ -9,7 +9,11 @@
             <a role="menuitem" href="{{ $item['url'] ?? '' }}" @if ($item['blank']) target="_blank" @endif
                 class="flex gap-2 items-center {{ $level == 1 ? 'rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-indigo-800' : 'px-3 py-2 text-sm font-medium text-indigo-900' }}"
                 @if ($hasChildren) aria-haspopup="true" aria-expanded="false" @endif>
-                {{ $item['label'] }} {{ $hasChildren ? '+' : '' }}
+                {{ $item['label'] }}
+
+                @if ($hasChildren)
+                    <x-icon-arrow-down class="w-4 h-4"/>
+                @endif
             </a>
             @if (!empty($item['children']))
                 <x-simple-cms::menu.level :children="$item['children']" role="menu" aria-label="{{ $item['label'] }}"

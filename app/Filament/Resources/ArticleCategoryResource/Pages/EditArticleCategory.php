@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Filament\Resources\ArticleResource\Pages;
+namespace App\Filament\Resources\ArticleCategoryResource\Pages;
 
-use App\Filament\Resources\ArticleResource;
+use App\Filament\Resources\ArticleCategoryResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditArticle extends EditRecord
+class EditArticleCategory extends EditRecord
 {
     use EditRecord\Concerns\Translatable;
-    
-    protected static string $resource = ArticleResource::class;
+
+    protected static string $resource = ArticleCategoryResource::class;
 
     protected function getHeaderActions(): array
     {

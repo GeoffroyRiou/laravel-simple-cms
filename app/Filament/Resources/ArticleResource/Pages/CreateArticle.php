@@ -8,5 +8,7 @@ use Filament\Resources\Pages\CreateRecord;
 
 class CreateArticle extends CreateRecord
 {
+    use CreateRecord\Concerns\Translatable;
+    
     protected static string $resource = ArticleResource::class;
 }

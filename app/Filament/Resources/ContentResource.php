@@ -33,52 +33,31 @@ abstract class ContentResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $formSchema = [];
 
         // Base Fields
-        $formSchema = [
-            self::getCmsSection()
-                ->columnSpan(2),
-        ];
+        $formSchema[] = self::getCmsSection()
+            ->columnSpan(2);
 
-        // Sidebar
 
-        $categoryClass = (new (static::$model))->categoryModel ?? null;
-
-        if (static::$hasParent || $categoryClass || static::$hasIllustration) {
-
-            $sidebarSchema = [];
-
-            if (static::$hasIllustration) {
-                $sidebarSchema[] = Section::make()->schema([
-                    self::getIllustrationField()
-                        ->panelAspectRatio('2:0.6'),
-                ]);
-            }
-
-            if (static::$hasParent) {
-                $sidebarSchema[] = Section::make()->schema([
-                    self::getParentSelectionField(static::$model, static::$model),
-                ]);
-            }
-
-            if ($categoryClass) {
-                $sidebarSchema[] = Section::make()->schema([
-                    self::getParentSelectionField(static::$model, $categoryClass, 'category_id', sectionLabel: 'Category'),
-                ]);
-            }
-
-            $formSchema[] = Section::make('')
-                ->schema($sidebarSchema)
-                ->columnSpan(1);
+        // Illustration
+        if (static::$hasIllustration) {
+            $formSchema[] = Section::make()->schema([
+                self::getIllustrationField()
+            ])->columnSpan(1);
         }
 
         // Page Builder
-        $formSchema[] = self::getPageBuilderSection();
+        $formSchema[] = self::getPageBuilderSection()
+            ->collapsible()
+            ->collapsed();
 
         // SEO
         $formSchema[] = Section::make('Metas')->schema([
             SEO::make()->columnSpanFull()
-        ]);
+        ])
+            ->collapsible()
+            ->collapsed();
 
         return $form
             ->schema($formSchema)
@@ -123,7 +102,7 @@ abstract class ContentResource extends Resource
 
     public static function getPageBuilderSection(): Section
     {
-        return Section::make('Page Builder')->schema([
+        return Section::make(__('Page Builder'))->schema([
             PageBuilder::make('page_blocks')
                 ->columnSpanFull()
         ]);
@@ -131,21 +110,41 @@ abstract class ContentResource extends Resource
 
     public static function getCmsSection(): Section
     {
+        $sectionSchema = [
+            Toggle::make('published')
+                ->label(__('Published'))
+                ->default(true)
+                ->columnSpanFull(),
+            TextInput::make('title')
+                ->label(__('Title'))
+                ->required()
+                ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                ->live(onBlur: true),
+            TextInput::make('slug')
+                ->label(__('Slug'))
+                ->required(),
+        ];
+
+        // Hierarchical
+
+        $categoryClass = (new (static::$model))->categoryModel ?? null;
+
+        if (static::$hasParent || $categoryClass) {
+
+            
+
+            if (static::$hasParent) {
+                $sectionSchema[] = self::getParentSelectionField(static::$model, static::$model)->columnSpan(1);
+            }
+
+            if ($categoryClass) {
+                $sectionSchema[] = self::getParentSelectionField(static::$model, $categoryClass, 'category_id', sectionLabel: 'Category')->columnSpan(1);
+            }
+        }
+
         return Section::make('')
-            ->schema([
-                Toggle::make('published')
-                    ->label(__('Published'))
-                    ->default(true)
-                    ->columnSpanFull(),
-                TextInput::make('title')
-                    ->label(__('Title'))
-                    ->required()
-                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
-                    ->live(onBlur: true),
-                TextInput::make('slug')
-                    ->label(__('Slug'))
-                    ->required(),
-            ]);
+            ->schema($sectionSchema)
+            ->columns(2);
     }
 
     public static function getIllustrationField(): FileUpload

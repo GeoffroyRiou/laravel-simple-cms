@@ -64,6 +64,7 @@ abstract class Content extends Model
             $model->url_path = $model->getUrlPath();
         });
     }
+
     /**
      * Get the URL for the page.
      */
@@ -83,6 +84,12 @@ abstract class Content extends Model
             return $this->$method()->pluck('slug')->reverse()->implode('/');
         }
 
+        if (!empty($this->category_id)) {
+            $ancestorsPath = $this->ancestors()->pluck('slug')->reverse()->implode('/');
+
+            return $ancestorsPath . '/' . $this->slug;
+        }
+
         return $this->slug;
     }
 
@@ -94,9 +101,12 @@ abstract class Content extends Model
         $query->where('published', true);
     }
 
-    public function category(): BelongsTo
+    public function category(): ?BelongsTo
     {
-        return $this->belongsTo(Category::class)->with('ancestorsAndSelf');
+        if ($this->categoryModel) {
+            return $this->belongsTo($this->categoryModel)->with('ancestorsAndSelf');
+        }
+        return null;
     }
 
     public function ancestors()

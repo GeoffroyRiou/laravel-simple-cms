@@ -1,6 +1,9 @@
 {
     "(and :count more error)": "(et :count erreur supplémentaire)",
     "(and :count more errors)": "(et :count erreurs supplémentaires)",
+    "Page Builder" : "Blocs de la page",
+    "Add a block" : "Ajouter un bloc",
+    "Category" : "Catégorie",
     "Path" : "Chemin",
     "FAQ" : "FAQ",
     "Title" : "Titre",
@@ -9,7 +12,7 @@
     "Published" : "Publié",
     "Type" : "Type",
     "External link" : "Lien externe",
-    "Slug" : "Slug",
+    "Slug" : "Identifiant de la page",
     "Label" : "Libellé",
     "Open in a new tab" : "Ouvrir dans un nouvel onglet",
     "View page" : "Voir la page",

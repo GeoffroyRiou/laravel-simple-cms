@@ -11,6 +11,7 @@ class ArticleResource extends ContentResource
 
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
     protected static bool $shouldRegisterNavigation = true;
+    public static bool $hasParent = false;
 
 
     public static function getPages(): array
