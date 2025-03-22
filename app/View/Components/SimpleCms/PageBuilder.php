@@ -20,7 +20,7 @@ class PageBuilder extends Component
     public function render(): View|Closure|string
     {
         return view('simple-cms.page-builder.page-builder', [
-            'blocks' => $this->model->page_blocks ?? []
+            'blocks' => $this->model->page_blocks ?: []
         ]);
     }
 }

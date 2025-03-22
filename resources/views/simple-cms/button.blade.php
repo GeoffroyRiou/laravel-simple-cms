@@ -3,9 +3,11 @@
 @if (!empty($data['url']))
     @php
         extract($data);
-        $class = 'inline-flex items-center justify-between gap-3 rounded-sm border px-8 py-3 focus:ring-3 focus:outline-hidden w-fit ';
+        $class = 'inline-flex items-center gap-3 rounded-sm border px-8 py-3 focus:ring-3 focus:outline-hidden w-fit ';
 
-        $class .= !empty($data['iconReverse']) ? 'flex-row-reverse' : '';
+        $class .= !empty($data['iconReverse']) ? 'flex-row-reverse ' : '';
+
+        $class .= !empty($icon) ? 'justify-between ' : 'justify-center ';
 
         switch ($variant ?? 'primary') {
             case 'primary':

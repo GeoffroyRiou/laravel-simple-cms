@@ -41,7 +41,7 @@ class CmsController extends Controller
 
     private function render(Model $model): View
     {
-        return view('simple-cms.pages.home', compact('model'));
+        return view(config('simple-cms.home_view_name'), compact('model'));
     }
 
     /**

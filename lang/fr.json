@@ -31,5 +31,8 @@
     "Title": "Titre",
     "Type": "Type",
     "View page": "Voir la page",
-    "External link": "Lien externe"
+    "External link": "Lien externe",
+    "Spacer" : "Espacement",
+    "Background color" : "Couleur de fond",
+    "Size" : "Taille"
 }

@@ -11,7 +11,7 @@
                 media="({{ $size['breakpoint'] }})" />
         @endforeach
         <img src="{{ SimpleCmsImage::imageUrl($path, $defaultSize['width'], $defaultSize['height'], $defaultSize['crop']) }}"
-            loading="lazy" {{ $attributes->merge(['class' => '']) }} width={{ $defaultSize['width'] }}
+            loading="lazy" {{ $attributes->merge(['class' => 'w-full h-full object-cover']) }} width={{ $defaultSize['width'] }}
             height={{ $defaultSize['height'] }} />
     </picture>
 @endif
