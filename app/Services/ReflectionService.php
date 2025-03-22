@@ -28,20 +28,13 @@ class ReflectionService
      */
     public function hasParentOfType(string $className, string $parentClassName): bool
     {
-        // Create a reflection class for the model
-        $reflection = new ReflectionClass($className);
-
-        // Get the parent class of the model
-        $parent = $reflection->getParentClass();
-
-        // Check if the parent class is the one we are looking for
-        while ($parent) {
-            if ($parent->name === $parentClassName) {
+        $currentClass = $className;
+        while ($currentClass !== false) {
+            if ($currentClass === $parentClassName) {
                 return true;
             }
-            $parent = $parent->getParentClass();
+            $currentClass = get_parent_class($currentClass);
         }
-
         return false;
     }
 
@@ -50,9 +43,18 @@ class ReflectionService
      */
     public function usesTrait(string $className, string $traitName): bool
     {
-        $reflection = new ReflectionClass($className);
-        $traits = $reflection->getTraits();
-        return array_key_exists($traitName, $traits);
+        // Check if the current class uses the trait
+        if (in_array($traitName, class_uses($className))) {
+            return true;
+        }
+
+        // Check if the parent class uses the trait
+        $parentClass = get_parent_class($className);
+        if ($parentClass && in_array($traitName, class_uses($parentClass))) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
