@@ -27,7 +27,7 @@ class CmsController extends Controller
             abort(404);
         }
 
-        return $this->render($model);
+        return $this->render($model, $model->viewName ?? null);
     }
 
     public function home(): View
@@ -36,12 +36,12 @@ class CmsController extends Controller
         if (!$model) {
             abort(404);
         }
-        return $this->render($model);
+        return $this->render($model, config('simple-cms.home_view_name'));
     }
 
-    private function render(Model $model): View
+    private function render(Model $model, string $viewName): View
     {
-        return view(config('simple-cms.home_view_name'), compact('model'));
+        return view($viewName ?? null, compact('model'));
     }
 
     /**
