@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Content;
+use App\Models\Page;
 use App\Services\ReflectionService;
 use Illuminate\View\View;
 use Illuminate\Database\Eloquent\Model;
@@ -18,7 +19,7 @@ class CmsController extends Controller
         $this->modelPaths = array_merge($defaultPaths, [app_path('Models')]);
     }
 
-    public function __invoke(string $path): View
+    public function content(string $path): View
     {
         $model = $this->getModel($this->getSlug($path));
 
@@ -26,7 +27,21 @@ class CmsController extends Controller
             abort(404);
         }
 
-        return view($model->viewName ?? null, compact('model'));
+        return $this->render($model);
+    }
+
+    public function home(): View
+    {
+        $model = Page::where('is_home', true)->first();
+        if (!$model) {
+            abort(404);
+        }
+        return $this->render($model);
+    }
+
+    private function render(Model $model): View
+    {
+        return view('simple-cms.pages.home', compact('model'));
     }
 
     /**

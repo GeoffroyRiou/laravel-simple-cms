@@ -37,14 +37,16 @@ abstract class ContentResource extends Resource
 
         // Base Fields
         $formSchema[] = self::getCmsSection()
-            ->columnSpan(2);
+            ->columnSpan(2)
+            ->visible(fn($record): bool => !$record || !$record->is_home);
 
 
         // Illustration
         if (static::$hasIllustration) {
             $formSchema[] = Section::make()->schema([
                 self::getIllustrationField()
-            ])->columnSpan(1);
+            ])->columnSpan(1)
+            ->visible(fn($record): bool => !$record || !$record->is_home);
         }
 
         // Page Builder
@@ -89,7 +91,8 @@ abstract class ContentResource extends Resource
             ->actions([
                 self::getTableViewPageAction(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->visible(fn($record): bool => !$record->is_home),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

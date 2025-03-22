@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('url_path')->nullable();
             $table->boolean('published')->default(0);
             $table->json('page_blocks')->nullable();
+            $table->boolean('is_home')->default(0);
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
 

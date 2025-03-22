@@ -17,7 +17,7 @@ abstract class Content extends Model
 
     public $table = 'contents';
     public $routeName = 'cms.content';
-    public $viewName = 'simple-cms.default-page';
+    public $viewName = 'simple-cms.pages.default-page';
 
     protected $fillable = [
         'title',
@@ -29,6 +29,7 @@ abstract class Content extends Model
         'parent_id',
         'category_id',
         'illustration',
+        'is_home',
     ];
 
     protected $casts = [
@@ -78,6 +79,10 @@ abstract class Content extends Model
      */
     public function getUrlPath(bool $includeSelf = true): string
     {
+
+        if ($this->is_home) {
+            return '/';
+        }
 
         if (!empty($this->parent_id)) {
             $method = $includeSelf ? 'ancestorsAndSelf' : 'ancestors';

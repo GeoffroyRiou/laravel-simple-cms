@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Page;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -19,5 +20,15 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('secret'),
             'role' => 'admin',
         ]);
+
+        $homePage = Page::make([
+            'is_home' => true,
+            'published' => true,
+        ]);
+        foreach (config('app.locales', []) as $locale) {
+            $homePage->setTranslation('title', $locale, __('Home'));
+            $homePage->setTranslation('slug', $locale, 'home');
+        }
+        $homePage->save();
     }
 }
