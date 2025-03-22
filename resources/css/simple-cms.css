@@ -1,3 +1,12 @@
+.dark, .simple-cms-content.dark{
+
+    blockquote{
+        @apply
+        bg-primary/70;
+    }
+}
+
+
 .simple-cms-content{
     @apply
     flex
@@ -9,7 +18,8 @@
 
     h2, h3{
         @apply
-        font-bold
+        font-title
+        font-light
     }
 
     h2{
@@ -28,7 +38,8 @@
         @apply
         underline-offset-2
         underline
-        hover:text-indigo-600;
+        text-primary
+        hover:text-current;
     }
 
     ul{ 
@@ -50,8 +61,8 @@
         italic
         border-l-4
         p-5
-        bg-slate-200/20
-        border-slate-300
+        bg-primary/20
+        border-primary
         rounded-r-lg;
     }
 

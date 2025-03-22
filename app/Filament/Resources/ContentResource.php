@@ -46,13 +46,12 @@ abstract class ContentResource extends Resource
             $formSchema[] = Section::make()->schema([
                 self::getIllustrationField()
             ])->columnSpan(1)
-            ->visible(fn($record): bool => !$record || !$record->is_home);
+                ->visible(fn($record): bool => !$record || !$record->is_home);
         }
 
         // Page Builder
         $formSchema[] = self::getPageBuilderSection()
-            ->collapsible()
-            ->collapsed();
+            ->collapsible();
 
         // SEO
         $formSchema[] = Section::make('Metas')->schema([
@@ -134,7 +133,7 @@ abstract class ContentResource extends Resource
 
         if (static::$hasParent || $categoryClass) {
 
-            
+
 
             if (static::$hasParent) {
                 $sectionSchema[] = self::getParentSelectionField(static::$model, static::$model)->columnSpan(1);

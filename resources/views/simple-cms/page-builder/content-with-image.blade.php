@@ -2,8 +2,8 @@
     'image' => null,
     'image_full' => false,
     'image_right' => false,
-    'bgColor' => 'bg-white',
-    'textColor' => 'text-indigo-950',
+    'bgColor' => '',
+    'darkMode' => false,
     'title' => '',
     'text' => '',
     'url' => '',
@@ -12,7 +12,7 @@
     'button' => [],
 ])
 
-<section class="{{ $bgColor }}">
+<section class="{{ $bgColor }} {{ $darkMode ? 'dark' : '' }}">
     <div
         class="flex flex-col gap-5 md:grid md:grid-cols-2 md:items-center {{ $image_full ? 'md:gap-0' : 'xl:max-w-10/12 p-5 mx-auto md:gap-10 lg:gap-16' }}">
         @if (!empty($image))
@@ -22,7 +22,7 @@
             </figure>
         @endif
         <div class="flex-1 lg:px-16  {{ $image_full ? 'pb-5 px-5' : '' }}  {{ $image_right ? 'md:order-1' : '' }}">
-            <div class="flex flex-col gap-5 md:gap-5 max-w-[500px] {{ $textColor }}">
+            <div class="flex flex-col gap-5 md:gap-5 max-w-[500px] text-dark dark:text-light">
                 <x-simple-cms::headings.h2 :$title />
 
                 <div class="simple-cms-content">

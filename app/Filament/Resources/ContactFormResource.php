@@ -62,7 +62,7 @@ class ContactFormResource extends Resource
                             ->collapsed()
                             ->blocks([
                                 Builder\Block::make('text')
-                                    ->label('Texte simple')
+                                    ->label(fn(?array $state): ?string => $state['label'] ?? 'Champ de texte')
                                     ->icon('heroicon-o-document-text')
                                     ->schema([
                                         TextInput::make('label')
@@ -81,7 +81,7 @@ class ContactFormResource extends Resource
                                         Toggle::make('fullWidth')->label('Pleine largeur')->default(false),
                                     ]),
                                 Builder\Block::make('textarea')
-                                    ->label('Zone de texte')
+                                    ->label(fn(?array $state): ?string => $state['label'] ?? 'Zone de texte')
                                     ->icon('heroicon-o-bars-3-bottom-left')
                                     ->schema([
                                         TextInput::make('label')
@@ -98,7 +98,7 @@ class ContactFormResource extends Resource
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
                                 Builder\Block::make('choices')
-                                    ->label('Choix multiples')
+                                    ->label(fn(?array $state): ?string => $state['label'] ?? 'Choix multiples')
                                     ->icon('heroicon-o-list-bullet')
                                     ->schema([
                                         TextInput::make('label')
@@ -115,7 +115,7 @@ class ContactFormResource extends Resource
                                         Toggle::make('fullWidth')->label('Pleine largeur')->default(false),
                                     ]),
                                 Builder\Block::make('file')
-                                    ->label('Fichier')
+                                    ->label(fn(?array $state): ?string => $state['label'] ?? 'Fichier')
                                     ->icon('heroicon-o-arrow-up-on-square')
                                     ->schema([
                                         TextInput::make('label')
@@ -133,7 +133,7 @@ class ContactFormResource extends Resource
                                         Toggle::make('fullWidth')->label('Pleine largeur')->default(false),
                                     ]),
                                 Builder\Block::make('optin')
-                                    ->label('Consentement')
+                                    ->label(fn(?array $state): ?string => $state['label'] ?? 'Consentement')
                                     ->icon('heroicon-o-check-badge')
                                     ->schema([
                                         TextInput::make('slug')

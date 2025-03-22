@@ -27,22 +27,9 @@ return [
      * Key is the css class that will be applied
      */
     'bgColors' => [
-        'bg-slate-100' => 'Gris clair',
-        'bg-indigo-600' => 'Indigo',
-        'bg-slate-900' => 'Noir',
-        'bg-white' => 'Blanc',
-    ],
-
-    /**
-     * Text colors
-     * Used for the page builder blocks
-     * ex: 'text-slate-100' => 'Gray'
-     * Key is the css class that will be applied
-     */
-    'textColors' => [
-        'text-indigo-800' => 'Indigo',
-        'text-indigo-950' => 'Noir',
-        'text-white' => 'Blanc',
+        'bg-primary' => 'Couleur principale',
+        'bg-dark' => 'Couleur foncée',
+        'bg-light' => 'Couleur claire',
     ],
 
     /**

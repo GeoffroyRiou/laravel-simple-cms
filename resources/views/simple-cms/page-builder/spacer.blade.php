@@ -1,19 +1,19 @@
 @props([
     'bgColor' => '',
     'text' => '',
-    'textColor' => '',
+    'darkMode' => false,
     'size' => '',
 ])
 
-<div class="{{ $size }} {{ $bgColor }}">
+<div class="{{ $size }} {{ $bgColor }} {{ $darkMode ? 'dark' : '' }}">
 
     @if ($text)
         <span class="flex items-center max-w-10/12 mx-auto">
-            <span class="h-px flex-1 bg-slate-400/30"></span>
+            <span class="min-w-5 h-px flex-1 bg-dark/30 dark:bg-light/30"></span>
 
-            <span class="shrink-0 px-4 {{ $textColor }}">{{ $text }}</span>
+            <span class="text-center px-4 uppercase tracking-widest text-xs text-dark dark:text-light">{{ $text }}</span>
 
-            <span class="h-px flex-1 bg-slate-400/30"></span>
+            <span class="min-w-5 h-px flex-1 bg-dark/30 dark:bg-light/30"></span>
         </span>
     @endif
 </div>

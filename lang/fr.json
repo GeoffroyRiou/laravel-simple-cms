@@ -32,7 +32,10 @@
     "Type": "Type",
     "View page": "Voir la page",
     "External link": "Lien externe",
-    "Spacer" : "Espacement",
+    "Spacer" : "Espace",
     "Background color" : "Couleur de fond",
-    "Size" : "Taille"
+    "Size" : "Taille",
+    "Empty spacer" : "Espace vide",
+    "Dark mode" : "Activer le mode sombre",
+    "Content" : "Contenu" 
 }

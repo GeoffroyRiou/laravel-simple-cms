@@ -26,9 +26,10 @@ class PageBuilder extends Builder
             ->blockNumbers(false)
             ->blockPickerColumns(3)
             ->schema($this->loadBlocksSchema())
+            ->blockIcons()
             ->collapsible()
-            ->cloneable()
-            ->collapsed();
+            ->collapsed()
+            ->cloneable();
     }
 
     protected function loadBlocksSchema(): array

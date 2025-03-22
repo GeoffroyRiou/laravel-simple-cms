@@ -51,10 +51,9 @@ class LinkSchema
             $fields[] = Select::make($prefix . 'variant')
                 ->label(__('Appearance'))
                 ->options([
-                    'primary' => 'Foncée',
-                    'primary-invert' => 'Claire',
-                ])
-                ->required();
+                    'buttondark' => 'Foncée',
+                    'buttonlight' => 'Claire',
+                ]);
         }
 
         if ($hasIcon) {
