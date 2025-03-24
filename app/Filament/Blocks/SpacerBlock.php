@@ -14,7 +14,14 @@ class SpacerBlock
     {
         return Block::make('simple-cms::page-builder.spacer')
             ->icon('heroicon-o-arrows-pointing-out')
-            ->label(fn(?array $state): ?string => !empty($state['text']) ? Str::limit($state['text']) : __('Empty spacer'))
+            ->label(function(?array $state): ?string{
+                $label = !empty($state['text']) ? Str::limit($state['text']) : __('Empty spacer');
+
+                $label .= !empty($state['size']) ? ' - '.config('simple-cms.spacers')[$state['size']] : '';
+                $label .= !empty($state['bgColor']) ? ', '.config('simple-cms.bgColors')[$state['bgColor']] : '';
+
+                return $label;
+            })
             ->schema([
                 TextInput::make('text')
                     ->label(__('Text'))
