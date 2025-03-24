@@ -28,7 +28,7 @@ class MenuResource extends Resource
 
     protected static ?int $navigationSort = 10;
 
-    protected static ?string $navigationGroup = 'Outils';
+    protected static ?string $navigationGroup = 'Paramètres';
 
     public static function form(Form $form): Form
     {

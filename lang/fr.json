@@ -24,7 +24,7 @@
     "Path": "Chemin",
     "Published": "Publié",
     "Rich Content": "Contenu riche",
-    "Slug": "Identifiant de la page",
+    "Slug": "Identifiant",
     "Team": "Équipe",
     "Text": "Texte",
     "Text centered": "Texte centré",
@@ -38,6 +38,8 @@
     "Empty spacer" : "Espacement",
     "Dark mode" : "Activer le mode sombre",
     "Content" : "Contenu",
+    "Phone" : "Téléphone",
+    "Text area" : "Zone de texte",
     "Content with image" : "Contenu avec image",
     "Spacing" : "Espacement",
     "Vertical spacing" : "Espacement vertical" 

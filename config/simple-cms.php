@@ -41,6 +41,9 @@ return [
     'icons' => [
         'icon-arrow-right' => 'Flèche',
         'icon-download' => 'Téléchargement',
+        'icon-mail' => 'Email',
+        'icon-phone' => 'Téléphone',
+        'icon-pinmap' => 'Marqueur',
     ],
 
 

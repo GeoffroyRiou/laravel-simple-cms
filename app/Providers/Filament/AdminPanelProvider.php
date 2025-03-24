@@ -65,7 +65,7 @@ class AdminPanelProvider extends PanelProvider
                 'Contenu éditorial',
                 'Actualités',
                 'Formulaires',
-                'Outils',
+                'Paramètres',
             ])
             ->navigationItems([
                 NavigationItem::make('Aller au site')
