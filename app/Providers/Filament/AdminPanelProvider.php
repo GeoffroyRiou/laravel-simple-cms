@@ -6,7 +6,7 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Navigation\NavigationGroup;
+use Filament\Navigation\NavigationItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -19,6 +19,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Pboivin\FilamentPeek\FilamentPeekPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -40,7 +41,6 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -56,15 +56,23 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->navigationGroups([
-                NavigationGroup::make()
-                    ->label('Formulaires')
-                    ->icon('heroicon-o-envelope')
-                    ->collapsed(),
-            ])
-            ->plugin(
+            ->plugins([
                 SpatieLaravelTranslatablePlugin::make()
-                    ->defaultLocales(['fr'])
-            );
+                    ->defaultLocales(['fr']),
+                FilamentPeekPlugin::make(),
+            ])
+            ->navigationGroups([
+                'Contenu éditorial',
+                'Actualités',
+                'Formulaires',
+                'Outils',
+            ])
+            ->navigationItems([
+                NavigationItem::make('Aller au site')
+                    ->url('/')
+                    ->icon('heroicon-o-globe-europe-africa')
+                    ->sort(-3),
+            ])
+            ->sidebarCollapsibleOnDesktop();
     }
 }

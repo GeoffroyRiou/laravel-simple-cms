@@ -24,13 +24,53 @@ class ReflectionService
     }
 
     /**
+     * Check if the class inherit from a sepecific class
+     */
+    public function hasParentOfType(string $className, string $parentClassName): bool
+    {
+        $currentClass = $className;
+        while ($currentClass !== false) {
+            if ($currentClass === $parentClassName) {
+                return true;
+            }
+            $currentClass = get_parent_class($currentClass);
+        }
+        return false;
+    }
+
+    /**
      * Check if the class uses a specific trait
      */
     public function usesTrait(string $className, string $traitName): bool
     {
+        // Check if the current class uses the trait
+        if (in_array($traitName, class_uses($className))) {
+            return true;
+        }
+
+        // Check if the parent class uses the trait
+        $parentClass = get_parent_class($className);
+        if ($parentClass && in_array($traitName, class_uses($parentClass))) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if the class is instantiable
+     */
+    function isClassInstantiable($className)
+    {
+        // Create a reflection class for the given class name
         $reflection = new ReflectionClass($className);
-        $traits = $reflection->getTraits();
-        return array_key_exists($traitName, $traits);
+
+        // Check if the class is instantiable
+        if ($reflection->isInstantiable()) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

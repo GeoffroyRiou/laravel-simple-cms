@@ -37,7 +37,7 @@ class LinkSchema
                 ->required()
                 ->visible(fn(Get $get): bool => $get($prefix . 'type') == 'external_link'),
             Select::make($prefix . 'page')
-                ->label(__('Page'))
+                ->label(__('Content'))
                 ->options($menuService->getMenuableModels())
                 ->required()
                 ->searchable()
@@ -51,10 +51,9 @@ class LinkSchema
             $fields[] = Select::make($prefix . 'variant')
                 ->label(__('Appearance'))
                 ->options([
-                    'primary' => 'Foncée',
-                    'primary-invert' => 'Claire',
-                ])
-                ->required();
+                    'buttondark' => 'Foncée',
+                    'buttonlight' => 'Claire',
+                ]);
         }
 
         if ($hasIcon) {

@@ -13,13 +13,17 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Get;
+use Illuminate\Support\Str;
 
 class ContentWithImageBlock
 {
     public static function make(): Block
     {
         return Block::make('simple-cms::page-builder.content-with-image')
-            ->label('Contenu avec image')
+
+            ->label(function (?array $state): string {
+                return !empty($state['title']) ? Str::limit(strip_tags($state['title']), 50) : __('Rich Content');
+            })
             ->icon('heroicon-o-rectangle-group')
             ->schema([
 
@@ -37,7 +41,7 @@ class ContentWithImageBlock
                         ]
                     )
                 )
-                ->columns(2),
+                    ->columns(2),
 
                 Section::make('')->schema([
                     TextInput::make('title')
@@ -50,11 +54,11 @@ class ContentWithImageBlock
                     Select::make('bgColor')
                         ->label('Couleur de fond')
                         ->options(config('simple-cms.bgColors')),
-                    Select::make('textColor')
-                        ->label('Couleur du texte')
-                        ->options(config('simple-cms.textColors')),
+                    Toggle::make('darkMode')
+                        ->label(__('Dark mode'))
+                        ->columnSpanFull(),
                 ])
-                ->columns(2),
+                    ->columns(2),
 
                 Toggle::make('add_button')
                     ->label('Activer le bouton')

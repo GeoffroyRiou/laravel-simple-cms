@@ -12,16 +12,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('contents', function (Blueprint $table) {
             $table->id();
+            $table->string('model_path');
             $table->string('title');
             $table->string('slug');
+            $table->string('illustration')->nullable();
             $table->string('url_path')->nullable();
             $table->boolean('published')->default(0);
             $table->json('page_blocks')->nullable();
+            $table->boolean('is_home')->default(0);
             $table->unsignedBigInteger('parent_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
 
-            $table->foreign('parent_id')->references('id')->on('pages')->onDelete('set null');
+            $table->foreign('parent_id')->references('id')->on('contents')->onDelete('set null');
+            $table->foreign('category_id')->references('id')->on('contents')->onDelete('set null');
 
             $table->timestamps();
         });
@@ -32,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pages');
+        Schema::dropIfExists('contents');
     }
 };

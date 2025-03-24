@@ -1,4 +1,4 @@
-<header class="bg-indigo-600">
+<header class="bg-dark">
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between gap-10 h-16" x-data="{ open: false }">
             <a href="/" class="flex-shrink-0 flex items-center" aria-label="Home">
@@ -54,7 +54,7 @@
 
             <div :class="open ? 'block' : 'hidden lg:block'"
                 class="flex-1 flex items-center fixed top-16 right-0 w-full bg-slate-900 lg:static lg:bg-transparent">
-                <x-simple-cms::menu :menuId="6" id="main-menu" />
+                <x-simple-cms::menu :menuId="1" id="main-menu" />
             </div>
         </div>
     </div>

@@ -5,18 +5,20 @@ namespace App\Filament\Resources\ArticleResource\Pages;
 use App\Filament\Resources\ArticleResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
-use Filament\Resources\Pages\EditRecord\Concerns\Translatable;
+use Pboivin\FilamentPeek\Pages\Actions\PreviewAction;
+use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
 
 class EditArticle extends EditRecord
 {
-
-    use Translatable;
-
+    use EditRecord\Concerns\Translatable;
+    use HasPreviewModal;
+    
     protected static string $resource = ArticleResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
+            PreviewAction::make(),
             Actions\LocaleSwitcher::make(),
             Actions\DeleteAction::make(),
         ];

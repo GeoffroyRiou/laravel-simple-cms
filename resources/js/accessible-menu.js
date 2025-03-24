@@ -53,16 +53,6 @@ class MenubarNavigation {
             moveFocus = true;
         }
 
-        // Update content area
-        h1Node = document.querySelector('.page .main h1');
-        if (h1Node) {
-            h1Node.textContent = linkName;
-            h1Node.tabIndex = -1;
-            if (moveFocus) {
-                h1Node.focus();
-            }
-        }
-
         // Update aria-current
         this.menuitems.forEach((item) => {
             item.removeAttribute('aria-current');

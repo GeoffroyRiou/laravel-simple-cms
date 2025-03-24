@@ -22,9 +22,13 @@ class ButtonsBlock
                     ->options(config('simple-cms.bgColors')),
                 Repeater::make('buttons')
                     ->label('')
+                    ->itemLabel(fn(array $state): ?string => $state['label'] ?? __('Button'))
                     ->schema(
                         LinkSchema::make()
                     )
+                    ->cloneable()
+                    ->collapsed()
+                    ->collapsible()
                     ->columns(2)
                     ->addActionLabel(__('Add a button'))
             ]);

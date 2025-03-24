@@ -2,11 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use Dom\Text;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\ToggleButtons;
 use App\Filament\Resources\MenuResource\Pages;
 
 use Filament\Forms\Form;
@@ -19,7 +15,6 @@ use Filament\Tables\Table;
 use App\Filament\Schemas\LinkSchema;
 use App\Models\Menu;
 use App\Services\MenuService;
-use League\CommonMark\Extension\CommonMark\Node\Inline\Link;
 use Saade\FilamentAdjacencyList\Forms\Components\AdjacencyList;
 
 class MenuResource extends Resource
@@ -30,6 +25,10 @@ class MenuResource extends Resource
     protected static ?string $model = Menu::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-list-bullet';
+
+    protected static ?int $navigationSort = 10;
+
+    protected static ?string $navigationGroup = 'Outils';
 
     public static function form(Form $form): Form
     {
@@ -44,7 +43,7 @@ class MenuResource extends Resource
                 AdjacencyList::make('items')
                     ->labelKey('label')
                     ->childrenKey('children')
-                    ->form(LinkSchema::make(canChangeColor: false))
+                    ->form(LinkSchema::make(canChangeColor: false, hasIcon: false))
                     ->visible(fn(Get $get): bool => $get('id') !== null)
                     ->columnSpanFull()
             ]);

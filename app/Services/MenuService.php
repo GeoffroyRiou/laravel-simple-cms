@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Models\Content;
 use App\Models\Menu;
 use App\Traits\Menuable;
 use App\Traits\IsCmsModel;
@@ -28,8 +29,8 @@ class MenuService
 
         foreach ($modelClasses as $modelClass) {
             if (
-                $this->reflectionService->usesTrait($modelClass, Menuable::class) ||
-                $this->reflectionService->usesTrait($modelClass, IsCmsModel::class)
+                $this->reflectionService->isClassInstantiable($modelClass) &&
+                $this->reflectionService->usesTrait($modelClass, Menuable::class)
             ) {
                 $menuableModels = array_merge(
                     $menuableModels,
@@ -119,7 +120,7 @@ class MenuService
                 'url' => $url,
             ]);
 
-            if($includeChildren && !empty($item['children'])){
+            if ($includeChildren && !empty($item['children'])) {
                 $currentItem['children'] = [];
 
                 // Recursively call this function
