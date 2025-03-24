@@ -14,7 +14,7 @@
 
         // Dark
         $class .=
-            'buttondark:border-primary buttondark:bg-primary buttondark:text-light buttondark:hover:bg-light buttondark:hover:border-primary buttondark:hover:text-primary ';
+            'buttondark:border-light buttondark:bg-primary buttondark:text-light buttondark:hover:bg-light buttondark:hover:border-primary buttondark:hover:text-primary ';
 
         $class .= !empty($data['iconReverse']) ? 'flex-row-reverse ' : '';
 

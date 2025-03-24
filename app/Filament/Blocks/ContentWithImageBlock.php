@@ -22,7 +22,7 @@ class ContentWithImageBlock
         return Block::make('simple-cms::page-builder.content-with-image')
 
             ->label(function (?array $state): string {
-                return !empty($state['title']) ? Str::limit(strip_tags($state['title']), 50) : __('Rich Content');
+                return !empty($state['title']) ? Str::limit(strip_tags($state['title']), 50) : __('Content with image');
             })
             ->icon('heroicon-o-rectangle-group')
             ->schema([
