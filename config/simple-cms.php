@@ -51,6 +51,7 @@ return [
      * Key is the css classes that will be applied
      */
     'spacers' => [
+        '' => 'Aucun',
         'py-2.5' => 'S',
         'py-2.5 md:py-5' => 'M',
         'py-5 md:py-8' => 'L',

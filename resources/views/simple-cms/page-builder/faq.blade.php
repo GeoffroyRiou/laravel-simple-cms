@@ -1,8 +1,13 @@
-@props(['questions' => [], 'title' => '', 'text' => ''])
+@props([
+    'questions' => [],
+    'title' => '',
+    'text' => '',
+    'spacer' => '',
+])
 
 
 
-<section class="py-5">
+<section class="{{ $spacer }}">
 
     <div class="mx-auto px-5 flex flex-col gap-5 xl:max-w-10/12">
 

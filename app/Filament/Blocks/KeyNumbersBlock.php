@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Filament\Blocks;
 
+use App\Filament\Schemas\SpacerSchema;
 use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 
@@ -37,6 +39,10 @@ class KeyNumbersBlock
                 Select::make('bgColor')
                     ->label('Couleur de fond')
                     ->options(config('simple-cms.bgColors')),
+                Section::make(__('Vertical spacing'))
+                    ->schema(SpacerSchema::make())
+                    ->collapsible()
+                    ->collapsed()
             ]);
     }
 }

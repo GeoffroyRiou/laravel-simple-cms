@@ -2,6 +2,7 @@
 
 namespace App\Filament\Blocks;
 
+use App\Filament\Schemas\SpacerSchema;
 use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -14,28 +15,31 @@ class SpacerBlock
     {
         return Block::make('simple-cms::page-builder.spacer')
             ->icon('heroicon-o-arrows-pointing-out')
-            ->label(function(?array $state): ?string{
+            ->label(function (?array $state): ?string {
                 $label = !empty($state['text']) ? Str::limit($state['text']) : __('Empty spacer');
 
-                $label .= !empty($state['size']) ? ' - '.config('simple-cms.spacers')[$state['size']] : '';
-                $label .= !empty($state['bgColor']) ? ', '.config('simple-cms.bgColors')[$state['bgColor']] : '';
+                $label .= !empty($state['size']) ? ' - ' . config('simple-cms.spacers')[$state['size']] : '';
+                $label .= !empty($state['bgColor']) ? ', ' . config('simple-cms.bgColors')[$state['bgColor']] : '';
 
                 return $label;
             })
-            ->schema([
-                TextInput::make('text')
-                    ->label(__('Text'))
-                    ->columnSpanFull(),
-                Select::make('bgColor')
-                    ->label(__('Background color'))
-                    ->options(config('simple-cms.bgColors')),
-                Select::make('size')
-                    ->label(__('Size'))
-                    ->options(config('simple-cms.spacers'))
-                    ->required(),
-                Toggle::make('darkMode')
-                    ->label(__('Dark mode')),
-            ])
+            ->schema(
+                array_merge(
+                    [
+                        TextInput::make('text')
+                            ->label(__('Text'))
+                            ->columnSpanFull(),
+                        Select::make('bgColor')
+                            ->label(__('Background color'))
+                            ->options(config('simple-cms.bgColors')),
+                    ],
+                    SpacerSchema::make(),
+                    [
+                        Toggle::make('darkMode')
+                            ->label(__('Dark mode')),
+                    ]
+                )
+            )
             ->columns(2);
     }
 }

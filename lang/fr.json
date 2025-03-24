@@ -35,8 +35,10 @@
     "Spacer" : "Espace",
     "Background color" : "Couleur de fond",
     "Size" : "Taille",
-    "Empty spacer" : "Espace vide",
+    "Empty spacer" : "Espacement",
     "Dark mode" : "Activer le mode sombre",
     "Content" : "Contenu",
-    "Content with image" : "Contenu avec image" 
+    "Content with image" : "Contenu avec image",
+    "Spacing" : "Espacement",
+    "Vertical spacing" : "Espacement vertical" 
 }

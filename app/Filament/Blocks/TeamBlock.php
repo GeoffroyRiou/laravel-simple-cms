@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Blocks;
 
 use App\Filament\Schemas\ImageSchema;
+use App\Filament\Schemas\SpacerSchema;
 use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
@@ -46,7 +47,11 @@ class TeamBlock
                     ->cloneable()
                     ->collapsed()
                     ->collapsible()
-                    ->addActionLabel(__('Add a member'))
+                    ->addActionLabel(__('Add a member')),
+                Section::make(__('Vertical spacing'))
+                    ->schema(SpacerSchema::make())
+                    ->collapsible()
+                    ->collapsed()
             ]);
     }
 }

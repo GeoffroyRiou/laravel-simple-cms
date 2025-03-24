@@ -2,10 +2,10 @@
     'bgColor' => '',
     'text' => '',
     'darkMode' => false,
-    'size' => '',
+    'spacer' => '',
 ])
 
-<div class="{{ $size }} {{ $bgColor }} {{ $darkMode ? 'dark' : '' }}">
+<div class="{{ $spacer }} {{ $bgColor }} {{ $darkMode ? 'dark' : '' }}">
 
     @if ($text)
         <span class="flex items-center max-w-10/12 mx-auto">

@@ -6,6 +6,7 @@ namespace App\Filament\Blocks;
 
 use App\Filament\Schemas\ImageSchema;
 use App\Filament\Schemas\LinkSchema;
+use App\Filament\Schemas\SpacerSchema;
 use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
@@ -68,6 +69,10 @@ class ContentWithImageBlock
                     ->schema(LinkSchema::make('button', canChangeColor: true))
                     ->columns(2)
                     ->visible(fn(Get $get): bool => $get('add_button')),
+                Section::make(__('Vertical spacing'))
+                    ->schema(SpacerSchema::make())
+                    ->collapsible()
+                    ->collapsed()
             ]);
     }
 }

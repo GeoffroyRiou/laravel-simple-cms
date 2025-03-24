@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Filament\Blocks;
 
 use App\Filament\Fields\ContactFormSelect;
+use App\Filament\Schemas\SpacerSchema;
 use App\Models\ContactForm;
 use Filament\Forms\Components\Builder\Block;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Get;
@@ -36,6 +38,10 @@ class ContactFormBlock
                     ->columnSpan(1),
                 Toggle::make('darkMode')
                     ->label(__('Dark mode')),
+                Section::make(__('Vertical spacing'))
+                    ->schema(SpacerSchema::make())
+                    ->collapsible()
+                    ->collapsed()
             ])
             ->columns(2);
     }

@@ -2,8 +2,10 @@
 
 namespace App\Filament\Blocks;
 
+use App\Filament\Schemas\SpacerSchema;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Builder\Block;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Illuminate\Support\Str;
@@ -14,8 +16,8 @@ class RichContentBlock
     {
         return Block::make('simple-cms::page-builder.rich_content')
             ->label(__('Rich Content'))
-            ->label( function(?array $state): string {
-                return !empty($state['content']) ? Str::limit(strip_tags($state['content']), 50) : __('Rich Content');          
+            ->label(function (?array $state): string {
+                return !empty($state['content']) ? Str::limit(strip_tags($state['content']), 50) : __('Rich Content');
             })
             ->icon('heroicon-o-newspaper')
             ->schema([
@@ -38,6 +40,10 @@ class RichContentBlock
                     ->columnSpan(1),
                 Toggle::make('darkMode')
                     ->label(__('Dark mode')),
+                Section::make(__('Vertical spacing'))
+                    ->schema(SpacerSchema::make())
+                    ->collapsible()
+                    ->collapsed()
             ])->columns(2);
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Filament\Blocks;
 
+use App\Filament\Schemas\SpacerSchema;
 use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
 
 class FAQBlock
 {
@@ -25,7 +27,11 @@ class FAQBlock
                     ->cloneable()
                     ->collapsed()
                     ->collapsible()
-                    ->addActionLabel(__('Add another question'))
+                    ->addActionLabel(__('Add another question')),
+                Section::make(__('Vertical spacing'))
+                    ->schema(SpacerSchema::make())
+                    ->collapsible()
+                    ->collapsed()
             ]);
     }
 }
