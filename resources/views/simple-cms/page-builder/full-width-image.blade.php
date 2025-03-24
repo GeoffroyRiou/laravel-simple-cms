@@ -1,6 +1,7 @@
 @props([
     'image' => null,
     'bgColor' => '',
+    'index' => 0,
 ])
 
 <section class="{{ $bgColor }} {{ $bgColor ? 'p-5' : '' }}">
@@ -8,6 +9,6 @@
         <x-simple-cms::picture class="{{ $bgColor ? 'rounded-lg' : '' }}" :path="$image" :sizes="[
             ['breakpoint' => '', 'width' => 760, 'height' => 400, 'crop' => true],
             ['breakpoint' => 'min-width:760px', 'width' => 1920, 'height' => 500, 'crop' => true],
-        ]" />
+        ]" :$index/>
     </div>
 </section>

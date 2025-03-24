@@ -1,4 +1,4 @@
-@props(['path', 'sizes' => []])
+@props(['path', 'sizes' => [], 'index' => 0])
 @use('App\Facades\SimpleCmsImage')
 
 @if (!empty($sizes))
@@ -11,7 +11,7 @@
                 media="({{ $size['breakpoint'] }})" />
         @endforeach
         <img src="{{ SimpleCmsImage::imageUrl($path, $defaultSize['width'], $defaultSize['height'], $defaultSize['crop']) }}"
-            loading="lazy" {{ $attributes->merge(['class' => 'w-full h-full object-cover']) }} width={{ $defaultSize['width'] }}
-            height={{ $defaultSize['height'] }} />
+            @if($index > 3)loading="lazy"@endif {{ $attributes->merge(['class' => 'w-full h-full object-cover']) }} width={{ $defaultSize['width'] }}
+            height={{ $defaultSize['height'] }} alt=""/>
     </picture>
 @endif
