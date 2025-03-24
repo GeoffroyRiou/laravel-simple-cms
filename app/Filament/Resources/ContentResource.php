@@ -76,7 +76,7 @@ abstract class ContentResource extends Resource
                 TextColumn::make('slug')
                     ->label(__('Path'))
                     ->formatStateUsing(function ($record): string {
-                        return $record->url_path;
+                        return $record->url_path ?? '';
                     })
                     ->size(TextColumn\TextColumnSize::ExtraSmall)
                     ->color('gray'),
@@ -88,10 +88,10 @@ abstract class ContentResource extends Resource
                 //
             ])
             ->actions([
-                self::getTableViewPageAction(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
-                    ->visible(fn($record): bool => !$record->is_home),
+                    ->visible(fn($record): bool => !$record->is_home),                    
+                self::getTableViewPageAction(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -185,6 +185,7 @@ abstract class ContentResource extends Resource
         return Action::make('go')
             ->label(__('View page'))
             ->icon('heroicon-o-eye')
-            ->url(fn($record) => $record->getUrl());
+            ->url(fn($record) => $record->getUrl())
+            ->openUrlInNewTab();
     }
 }

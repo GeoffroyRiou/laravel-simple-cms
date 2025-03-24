@@ -53,11 +53,7 @@ abstract class Content extends Model
 
         static::creating(function (Model $model) {
             $model->model_path = static::class;
-        });
-
-        static::created(function (Model $model) {
             $model->url_path = $model->getUrlPath();
-            $model->save();
         });
 
         static::updating(function (Model $model) {
@@ -71,7 +67,7 @@ abstract class Content extends Model
      */
     public function getUrl(): string
     {
-        return url($this->url_path);
+        return url($this->url_path ?? '');
     }
 
     /**

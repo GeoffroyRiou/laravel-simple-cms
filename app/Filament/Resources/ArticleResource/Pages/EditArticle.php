@@ -23,4 +23,14 @@ class EditArticle extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function getPreviewModalView(): ?string
+    {
+        return $this->record->viewName;
+    }
+
+    protected function getPreviewModalDataRecordKey(): ?string
+    {
+        return 'model';
+    }
 }
