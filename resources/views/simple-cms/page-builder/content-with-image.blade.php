@@ -6,9 +6,6 @@
     'darkMode' => false,
     'title' => '',
     'text' => '',
-    'url' => '',
-    'label' => '',
-    'blank' => '',
     'button' => [],
     'spacer' => '',
 ])

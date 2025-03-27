@@ -63,7 +63,7 @@ class ContentWithImageBlock
 
                 Toggle::make('add_button')
                     ->label('Activer le bouton')
-                    ->default(true)->live(),
+                    ->default(false)->live(),
                 Section::make('')
                     ->label('Bouton')
                     ->schema(LinkSchema::make('button', canChangeColor: true))
