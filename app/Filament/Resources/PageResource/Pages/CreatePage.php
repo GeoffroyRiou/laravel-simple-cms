@@ -2,20 +2,10 @@
 
 namespace App\Filament\Resources\PageResource\Pages;
 
+use App\Filament\Resources\ContentResource\Pages\CreateContent;
 use App\Filament\Resources\PageResource;
-use Filament\Actions;
-use Filament\Resources\Pages\CreateRecord;
 
-class CreatePage extends CreateRecord
+class CreatePage extends CreateContent
 {
-    use CreateRecord\Concerns\Translatable;
-    
     protected static string $resource = PageResource::class;
-    
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\LocaleSwitcher::make(),
-        ];
-    }
 }

@@ -58,7 +58,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 SpatieLaravelTranslatablePlugin::make()
-                    ->defaultLocales(['fr']),
+                    ->defaultLocales(config('app.locales')),
                 FilamentPeekPlugin::make(),
             ])
             ->navigationGroups([
