@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\ContentResource\Pages;
 
 use Filament\Resources\Pages\EditRecord;
-use App\Actions\DuplicateLocalizedContentAction;
+use App\Filament\Actions\DuplicateLocalizedContentAction;
 use Filament\Actions;
 use Filament\Actions\DeleteAction;
 use Pboivin\FilamentPeek\Pages\Actions\PreviewAction;

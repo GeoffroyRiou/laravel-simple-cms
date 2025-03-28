@@ -2,13 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Actions;
+namespace App\Filament\Actions;
 
-use App\Models\Content;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
 
 class DuplicateLocalizedContentAction extends Action
 {

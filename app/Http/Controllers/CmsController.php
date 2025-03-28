@@ -79,7 +79,7 @@ class CmsController extends Controller
             }
 
 
-            $query = $modelClass::published()->where("slug->$currentLocale", $slug);
+            $query = $modelClass::published()->where("slug", $slug);
 
             if ($query->exists()) {
                 return $query->first();

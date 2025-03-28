@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ContentResource\Pages;
 
-use App\Actions\DuplicateLocalizedContentAction;
+use App\Filament\Actions\DuplicateLocalizedContentAction;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Actions;
 

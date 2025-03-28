@@ -15,7 +15,6 @@
 
 <body>
     <x-simple-cms::layout.header />
-
     {{ $slot }}
 
     <x-simple-cms::layout.footer />
