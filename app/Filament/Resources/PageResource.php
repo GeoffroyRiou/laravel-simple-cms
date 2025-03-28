@@ -17,6 +17,8 @@ class PageResource extends ContentResource
 
     protected static ?int $navigationSort = 1;
 
+    public static bool $hasIllustration = false;
+
     public static function getPages(): array
     {
         return [

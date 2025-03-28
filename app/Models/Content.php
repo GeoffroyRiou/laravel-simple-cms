@@ -38,7 +38,6 @@ abstract class Content extends Model
 
     protected $translatable = [
         'title',
-        'slug',
         'url_path',
         'page_blocks',
     ];

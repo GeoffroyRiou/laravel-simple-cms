@@ -90,7 +90,7 @@ abstract class ContentResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
-                    ->visible(fn($record): bool => !$record->is_home),                    
+                    ->visible(fn($record): bool => !$record->is_home),
                 self::getTableViewPageAction(),
             ])
             ->bulkActions([
@@ -120,7 +120,7 @@ abstract class ContentResource extends Resource
             TextInput::make('title')
                 ->label(__('Title'))
                 ->required()
-                ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                ->afterStateUpdated(fn(Set $set, Get $get, ?string $state) => !$get('slug') ? $set('slug', Str::slug($state)) : null)
                 ->live(onBlur: true),
             TextInput::make('slug')
                 ->label(__('Slug'))

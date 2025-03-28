@@ -24,10 +24,10 @@ class DatabaseSeeder extends Seeder
         $homePage = Page::make([
             'is_home' => true,
             'published' => true,
+            'slug' => 'home',
         ]);
         foreach (config('app.locales', []) as $locale) {
             $homePage->setTranslation('title', $locale, __('Home'));
-            $homePage->setTranslation('slug', $locale, 'home');
         }
         $homePage->save();
     }
