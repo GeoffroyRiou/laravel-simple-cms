@@ -17,7 +17,7 @@ class Button extends Component
             return;
         }
 
-        $this->data = $this->menuService->hydrateMenu([$data] , false)[0] ?? [];
+        $this->data = $data ?? [];
     }
 
     public function render(): View{
