@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Models\Content;
 use App\Models\Menu;
 use App\Traits\Menuable;
-use App\Traits\IsCmsModel;
 
 class MenuService
 {

@@ -31,7 +31,7 @@ class Menu extends Component
             return '';
         }
 
-        return view('components.menu.menu', [
+        return view('components.menu', [
             'title' => $this->menu->title,
             'items' => $this->linksService->hydrateLinksFromPageBlocks($this->menu->items)
         ]);

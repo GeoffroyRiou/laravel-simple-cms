@@ -32,8 +32,6 @@ class MenuResource extends Resource
 
     public static function form(Form $form): Form
     {
-        $menuService = app()->make(MenuService::class);
-
         return $form
             ->schema([
                 TextInput::make('title')
@@ -44,6 +42,7 @@ class MenuResource extends Resource
                     ->labelKey('label')
                     ->childrenKey('children')
                     ->form(LinkSchema::make(canChangeColor: false, hasIcon: false))
+                    ->maxDepth(2)
                     ->visible(fn(Get $get): bool => $get('id') !== null)
                     ->columnSpanFull()
             ]);
