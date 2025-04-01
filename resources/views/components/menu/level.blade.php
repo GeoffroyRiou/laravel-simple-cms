@@ -16,7 +16,7 @@
                 @endif
             </a>
             @if (!empty($item['children']))
-                <x-simple-cms::menu.level :children="$item['children']" role="menu" aria-label="{{ $item['label'] }}"
+                <x-menu.level :children="$item['children']" role="menu" aria-label="{{ $item['label'] }}"
                     :level="$level + 1" class="absolute whitespace-nowrap hidden bg-white rounded-md shadow-lg" />
             @endif
         </li>

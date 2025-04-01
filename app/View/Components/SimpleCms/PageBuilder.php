@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\SimpleCms;
+namespace App\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -19,7 +19,7 @@ class PageBuilder extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('simple-cms.page-builder.page-builder', [
+        return view('components.page-builder.page-builder', [
             'blocks' => $this->model->page_blocks ?: []
         ]);
     }

@@ -17,7 +17,7 @@ abstract class Content extends Model
 
     public $table = 'contents';
     public $routeName = 'cms.content';
-    public $viewName = 'simple-cms.pages.default-page';
+    public $viewName = 'components.pages.default-page';
 
     protected $fillable = [
         'title',
