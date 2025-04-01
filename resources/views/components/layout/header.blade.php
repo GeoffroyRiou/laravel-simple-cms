@@ -1,7 +1,7 @@
 <header class="bg-dark">
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between gap-10 h-16" x-data="{ open: false }">
-            <a href="/" class="flex-shrink-0 flex items-center" aria-label="Home">
+            <a href="{{ LaravelLocalization::localizeUrl('/') }}" class="flex-shrink-0 flex items-center" aria-label="Home">
                 <svg id="logo-8" width="140" height="30" viewBox="0 0 140 30" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -52,9 +52,10 @@
                 </svg>
             </button>
 
-            <div :class="open ? 'block' : 'hidden lg:block'"
-                class="flex-1 flex items-center fixed top-16 right-0 w-full bg-slate-900 lg:static lg:bg-transparent">
+            <div :class="open ? 'flex' : 'hidden lg:flex'"
+                class="flex-1 flex flex-col items-center fixed top-16 right-0 w-full bg-slate-900 lg:flex-row lg:justify-end lg:static lg:bg-transparent">
                 <x-menu :menuId="1" id="main-menu" />
+                <x-language-switcher />
             </div>
         </div>
     </div>
