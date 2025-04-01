@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\SimpleCms;
+namespace App\View\Components;
 
 use App\Services\LinksService;
 use Closure;
@@ -14,7 +14,7 @@ class PageBuilder extends Component
      * Create a new component instance.
      */
     public function __construct(LinksService $linksService,private Model $model) {
-        $this->model->page_blocks = $linksService->hydrateLinksFromPageBlocks($this->model->page_blocks);
+        $this->model->page_blocks = $linksService->hydrateLinksFromPageBlocks($this->model->page_blocks ?: []);
     }
 
     /**
@@ -22,7 +22,7 @@ class PageBuilder extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('simple-cms.page-builder.page-builder', [
+        return view('components.page-builder.page-builder', [
             'blocks' => $this->model->page_blocks ?: []
         ]);
     }

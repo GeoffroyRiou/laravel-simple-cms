@@ -14,10 +14,10 @@
 </head>
 
 <body>
-    <x-simple-cms::layout.header />
+    <x-layout.header />
     {{ $slot }}
 
-    <x-simple-cms::layout.footer />
+    <x-layout.footer />
 
 </body>
 

@@ -4,7 +4,7 @@
     <div class="content">
 
         @if (!empty($article->illustration))
-            <x-simple-cms::image :path="$article->illustration" width="400" height="400" crop="true" />
+            <x-image :path="$article->illustration" width="400" height="400" crop="true" />
         @endif
 
         @if (!empty($article->category))

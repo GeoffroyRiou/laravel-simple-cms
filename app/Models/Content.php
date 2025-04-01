@@ -6,6 +6,7 @@ use App\Traits\Menuable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use RalphJSmit\Laravel\SEO\Support\HasSEO;
 use Spatie\Translatable\HasTranslations;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
@@ -17,7 +18,7 @@ abstract class Content extends Model
 
     public $table = 'contents';
     public $routeName = 'cms.content';
-    public $viewName = 'simple-cms.pages.default-page';
+    public $viewName = 'components.pages.default-page';
 
     protected $fillable = [
         'title',
@@ -38,7 +39,6 @@ abstract class Content extends Model
 
     protected $translatable = [
         'title',
-        'url_path',
         'page_blocks',
     ];
 
@@ -66,7 +66,8 @@ abstract class Content extends Model
      */
     public function getUrl(): string
     {
-        return url($this->url_path ?? '');
+        $url = LaravelLocalization::localizeUrl($this->url_path ?? '');
+        return $url;
     }
 
     /**

@@ -14,7 +14,7 @@ class RichContentBlock
 {
     public static function make(): Block
     {
-        return Block::make('simple-cms::page-builder.rich_content')
+        return Block::make('page-builder.rich_content')
             ->label(__('Rich Content'))
             ->label(function (?array $state): string {
                 return !empty($state['content']) ? Str::limit(strip_tags($state['content']), 50) : __('Rich Content');

@@ -14,16 +14,16 @@
 <section class="cms-last-articles {{ $bgColor }} {{ $darkMode ? 'dark' : '' }} {{ $spacer }}">
     <div class="cms-last-articles__content">
         <div class="head">
-            <x-simple-cms::headings.h2 :$title class="text-dark dark:text-light" />
+            <x-headings.h2 :$title class="text-dark dark:text-light" />
         </div>
         <div class="text-dark dark:text-light">
             {!! $text ?? '' !!}
         </div>
-        <x-simple-cms::button :data="$button"/>
+        <x-button :data="$button"/>
     </div>
     <div class="cms-last-articles__articles">
         @foreach ($articles as $article)
-            <x-simple-cms::articles.article-card :$article />
+            <x-articles.article-card :$article />
         @endforeach
     </div>
 </section>

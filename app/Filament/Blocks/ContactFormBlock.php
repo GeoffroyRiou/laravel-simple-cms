@@ -17,7 +17,7 @@ class ContactFormBlock
 {
     public static function make(): Block
     {
-        return Block::make('simple-cms::page-builder.form')
+        return Block::make('page-builder.form')
             ->label(function (?array $state): string {
                 $form = !empty($state['content']) ? ContactForm::find($state['content']) : null;
                 return $form ? $form->name : __('Form');

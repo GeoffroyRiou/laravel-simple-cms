@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\View\Components\SimpleCms;
+namespace App\View\Components;
 
 use App\Services\MenuService;
 use Illuminate\View\Component;
@@ -21,7 +21,7 @@ class Button extends Component
     }
 
     public function render(): View{
-        return view('simple-cms.button', [
+        return view('components.button.button', [
             'data' => $this->data ?? [],
         ]);
     }

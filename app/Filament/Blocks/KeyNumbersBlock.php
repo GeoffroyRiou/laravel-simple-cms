@@ -17,7 +17,7 @@ class KeyNumbersBlock
 {
     public static function make(): Block
     {
-        return Block::make('simple-cms::page-builder.key-numbers')
+        return Block::make('page-builder.key-numbers')
             ->label(__('Key numbers'))
             ->icon('heroicon-o-presentation-chart-line')
             ->schema([

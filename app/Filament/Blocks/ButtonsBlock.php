@@ -15,7 +15,7 @@ class ButtonsBlock
 {
     public static function make(): Block
     {
-        return Block::make('simple-cms::page-builder.buttons')
+        return Block::make('page-builder.buttons')
             ->label(__('Buttons'))
             ->icon('heroicon-o-cursor-arrow-rays')
             ->schema([

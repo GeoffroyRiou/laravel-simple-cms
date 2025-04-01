@@ -40,8 +40,7 @@ class SimpleCmsServiceProvider extends ServiceProvider
          * Views
          */
 
-        Blade::anonymousComponentPath(resource_path('views/simple-cms'), 'simple-cms');
-        Blade::componentNamespace('App\\View\\Components\\SimpleCms', 'simple-cms');
+        //Blade::componentNamespace('App\\View\\Components\\SimpleCms', 'simple-cms');
 
         // Inject settings to all views
         if (!$this->app->runningInConsole()) {

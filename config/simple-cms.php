@@ -62,5 +62,5 @@ return [
         'py-14 md:py-16' => 'XXL',
     ],
 
-    'home_view_name' => 'simple-cms.pages.home'
+    'home_view_name' => 'components.pages.home'
 ];

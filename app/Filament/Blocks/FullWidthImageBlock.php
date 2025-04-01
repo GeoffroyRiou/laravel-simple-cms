@@ -16,7 +16,7 @@ class FullWidthImageBlock
 {
     public static function make(): Block
     {
-        return Block::make('simple-cms::page-builder.full-width-image')
+        return Block::make('page-builder.full-width-image')
             ->label(__('Full width image'))
             ->icon('heroicon-o-photo')
             ->schema(

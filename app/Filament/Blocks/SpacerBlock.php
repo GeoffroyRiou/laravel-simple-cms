@@ -13,7 +13,7 @@ class SpacerBlock
 {
     public static function make(): Block
     {
-        return Block::make('simple-cms::page-builder.spacer')
+        return Block::make('page-builder.spacer')
             ->icon('heroicon-o-arrows-pointing-out')
             ->label(function (?array $state): ?string {
                 $label = !empty($state['text']) ? Str::limit($state['text']) : __('Empty spacer');

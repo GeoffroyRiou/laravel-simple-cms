@@ -18,7 +18,7 @@ class TeamBlock
 {
     public static function make(): Block
     {
-        return Block::make('simple-cms::page-builder.team')
+        return Block::make('page-builder.team')
             ->label(__('Team'))
             ->icon('heroicon-o-user-group')
             ->schema([
