@@ -18,7 +18,7 @@ class LastArticlesBlock
 {
     public static function make(): Block
     {
-        return  Block::make('simple-cms::page-builder.last-articles')
+        return  Block::make('page-builder.last-articles')
             ->label(__('Last articles'))
             ->icon('heroicon-o-newspaper')
             ->schema([

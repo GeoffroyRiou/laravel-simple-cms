@@ -20,7 +20,7 @@ class ContentWithImageBlock
 {
     public static function make(): Block
     {
-        return Block::make('simple-cms::page-builder.content-with-image')
+        return Block::make('page-builder.content-with-image')
 
             ->label(function (?array $state): string {
                 return !empty($state['title']) ? Str::limit(strip_tags($state['title']), 50) : __('Content with image');
