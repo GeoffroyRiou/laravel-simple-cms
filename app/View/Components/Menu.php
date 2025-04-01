@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use Closure;
 use App\Models\Menu as MenuModel;
+use App\Services\LinksService;
 use App\Services\MenuService;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -16,7 +17,7 @@ class Menu extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(private MenuService $menuService, int $menuId)
+    public function __construct(private MenuService $menuService, private LinksService $linksService, int $menuId)
     {
         $this->menu = $this->menuService->getMenuFromId($menuId);
     }
@@ -32,7 +33,7 @@ class Menu extends Component
 
         return view('components.menu.menu', [
             'title' => $this->menu->title,
-            'items' => $this->menuService->hydrateMenu($this->menu->items)
+            'items' => $this->linksService->hydrateLinksFromPageBlocks($this->menu->items)
         ]);
     }
 }
