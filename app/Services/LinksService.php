@@ -15,9 +15,7 @@ class LinksService{
         return $hydratedPageBlocksData;
     }
 
-    private function getPagesIdsByModelFromPageBlockData(array $data){
-
-        $pagesIdsByModel = [];
+    private function getPagesIdsByModelFromPageBlockData(array $data, array $pagesIdsByModel = []){
 
         foreach($data as $item){
 
@@ -30,18 +28,19 @@ class LinksService{
                 $pageModel = $pageDatas[0];
                 $pageId = $pageDatas[1];
 
-                if(empty($pagesIdsByModel[$pageModel]))
+                if(!isset($pagesIdsByModel[$pageModel])){
                     $pagesIdsByModel[$pageModel] = [];
+                }
 
-                if(!in_array($pageId, $pagesIdsByModel[$pageModel]))
+                if(!in_array($pageId, $pagesIdsByModel[$pageModel])){
                     $pagesIdsByModel[$pageModel][] = $pageId;
+                }
 
                 continue;
             }
 
-            $pagesIdsByModel = array_merge($pagesIdsByModel, $this->getPagesIdsByModelFromPageBlockData($item));
+            $pagesIdsByModel = $this->getPagesIdsByModelFromPageBlockData($item, $pagesIdsByModel);
         }
-
         return $pagesIdsByModel;
     }
 
