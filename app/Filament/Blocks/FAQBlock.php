@@ -30,6 +30,7 @@ class FAQBlock
                     ->addActionLabel(__('Add another question')),
                 Section::make(__('Vertical spacing'))
                     ->schema(SpacerSchema::make())
+                    ->columns(2)
                     ->collapsible()
                     ->collapsed()
             ]);

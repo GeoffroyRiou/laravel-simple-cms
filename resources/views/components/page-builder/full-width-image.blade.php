@@ -2,10 +2,11 @@
     'image' => null,
     'bgColor' => '',
     'index' => 0,
-    'spacer' => '',
+    'topSpacer' => '',
+    'bottomSpacer' => '',
 ])
 
-<section class="{{ $bgColor }} {{ $spacer }}">
+<section class="{{ $bgColor }} {{ $topSpacer }} {{ $bottomSpacer }}">
     <div class="{{ $bgColor ? 'mx-auto xl:max-w-10/12' : '' }}">
         <x-picture class="{{ $bgColor ? 'rounded-lg' : '' }}" :path="$image" :sizes="[
             ['breakpoint' => '', 'width' => 760, 'height' => 400, 'crop' => true],

@@ -1,9 +1,10 @@
 @props([
     'bgColor' => '',
     'numbers' => [],
-    'spacer' => '',
+    'topSpacer' => '',
+    'bottomSpacer' => '',
 ])
-<section class="{{ $bgColor }} {{ $spacer }}">
+<section class="{{ $bgColor }} {{ $topSpacer }} {{ $bottomSpacer }}">
     <div class="mx-auto px-5 flex flex-col gap-5 md:flex-row md:justify-center xl:max-w-10/12">
         @foreach ($numbers as $number)
             <div

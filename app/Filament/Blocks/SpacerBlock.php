@@ -23,23 +23,16 @@ class SpacerBlock
 
                 return $label;
             })
-            ->schema(
-                array_merge(
-                    [
-                        TextInput::make('text')
-                            ->label(__('Text'))
-                            ->columnSpanFull(),
-                        Select::make('bgColor')
-                            ->label(__('Background color'))
-                            ->options(config('simple-cms.bgColors')),
-                    ],
-                    SpacerSchema::make(),
-                    [
-                        Toggle::make('darkMode')
-                            ->label(__('Dark mode')),
-                    ]
-                )
-            )
+            ->schema([
+                TextInput::make('text')
+                    ->label(__('Text')),
+                Select::make('bgColor')
+                    ->label(__('Background color'))
+                    ->options(config('simple-cms.bgColors')),
+                ...SpacerSchema::make(),
+                Toggle::make('darkMode')
+                    ->label(__('Dark mode')),
+            ])
             ->columns(2);
     }
 }

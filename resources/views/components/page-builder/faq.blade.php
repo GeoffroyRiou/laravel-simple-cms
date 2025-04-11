@@ -2,12 +2,13 @@
     'questions' => [],
     'title' => '',
     'text' => '',
-    'spacer' => '',
+    'topSpacer' => '',
+    'bottomSpacer' => '',
 ])
 
 
 
-<section class="{{ $spacer }}">
+<section class="{{ $topSpacer }} {{ $bottomSpacer }}">
 
     <div class="mx-auto px-5 flex flex-col gap-5 xl:max-w-10/12">
 

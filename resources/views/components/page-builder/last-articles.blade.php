@@ -4,7 +4,8 @@
     'title' => '',
     'text' => '',
     'button' => [],
-    'spacer' => '',
+    'topSpacer' => '',
+    'bottomSpacer' => '',
 ])
 
 @php
@@ -12,7 +13,7 @@
 @endphp
 
 <section
-    class=" flex flex-col gap-5 px-5 lg:flex-row {{ $bgColor }} {{ $darkMode ? 'dark' : '' }} {{ $spacer }}">
+    class=" flex flex-col gap-5 px-5 lg:flex-row {{ $bgColor }} {{ $darkMode ? 'dark' : '' }} {{ $topSpacer }} {{ $bottomSpacer }}">
     
     <div class="max-w-10/12 mx-auto flex flex-col gap-10 lg:flex-row lg:gap-20">
         <div class="flex flex-col items-center gap-3 lg:items-start lg:min-w-[300px] shrink-0">

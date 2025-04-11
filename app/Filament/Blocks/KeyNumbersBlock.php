@@ -41,6 +41,7 @@ class KeyNumbersBlock
                     ->options(config('simple-cms.bgColors')),
                 Section::make(__('Vertical spacing'))
                     ->schema(SpacerSchema::make())
+                    ->columns(2)
                     ->collapsible()
                     ->collapsed()
             ]);

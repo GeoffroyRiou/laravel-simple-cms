@@ -44,9 +44,12 @@
     "Spacing" : "Espacement",
     "Last articles" : "Derniers articles",
     "Vertical spacing" : "Espacement vertical" ,
+    "Top spacing" : "Espacement haut" ,
+    "Bottom spacing" : "Espacement bas" ,
     "Duplicate language content" : "Dupliquer le contenu d'une langue" ,
     "Source language" : "Langue source" ,
     "Destination language" : "Langue de destination",
     "Excerpt" : "Extrait",
+    "None" : "Aucun",
     "Duplicate the content of the source language to the destination language. All destination content wil be replaced by the source content." : "Dupliquer le contenu de la langue source dans la langue de destination. Tout le contenu de destination sera remplacé par le contenu source."
 }

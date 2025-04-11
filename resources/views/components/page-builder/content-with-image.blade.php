@@ -7,10 +7,11 @@
     'title' => '',
     'text' => '',
     'button' => [],
-    'spacer' => '',
+    'topSpacer' => '',
+    'bottomSpacer' => '',
 ])
 
-<section class="{{ $bgColor }} {{ $darkMode ? 'dark' : '' }} {{ $spacer }}">
+<section class="{{ $bgColor }} {{ $darkMode ? 'dark' : '' }} {{ $topSpacer }} {{ $bottomSpacer }}">
     <div
         class="flex flex-col gap-5 md:grid md:grid-cols-2 md:items-center {{ $image_full ? 'md:gap-0' : 'xl:max-w-10/12 mx-auto md:gap-10 lg:gap-16' }}">
         @if (!empty($image))

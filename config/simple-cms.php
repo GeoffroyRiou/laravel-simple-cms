@@ -54,12 +54,20 @@ return [
      * Key is the css classes that will be applied
      */
     'spacers' => [
-        '' => 'Aucun',
-        'py-2.5' => 'S',
-        'py-2.5 md:py-5' => 'M',
-        'py-5 md:py-8' => 'L',
-        'py-8 md:py-14' => 'XL',
-        'py-14 md:py-16' => 'XXL',
+        'top' => [
+            'pt-2.5' => 'S',
+            'pt-2.5 md:pt-5' => 'M',
+            'pt-5 md:pt-8' => 'L',
+            'pt-8 md:pt-14' => 'XL',
+            'pt-14 md:pt-16' => 'XXL',
+        ],
+        'bottom' => [
+            'pb-2.5' => 'S',
+            'pb-2.5 md:pb-5' => 'M',
+            'pb-5 md:pb-8' => 'L',
+            'pb-8 md:pb-14' => 'XL',
+            'pb-14 md:pb-16' => 'XXL',
+        ]
     ],
 
     'home_view_name' => 'components.pages.home'

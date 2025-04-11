@@ -29,6 +29,7 @@ class FullWidthImageBlock
                             ->columnSpan(1),
                         Section::make(__('Vertical spacing'))
                             ->schema(SpacerSchema::make())
+                            ->columns(2)
                             ->collapsible()
                             ->collapsed()
                     ]

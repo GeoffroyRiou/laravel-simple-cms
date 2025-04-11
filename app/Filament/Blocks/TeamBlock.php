@@ -50,6 +50,7 @@ class TeamBlock
                     ->addActionLabel(__('Add a member')),
                 Section::make(__('Vertical spacing'))
                     ->schema(SpacerSchema::make())
+                    ->columns(2)
                     ->collapsible()
                     ->collapsed()
             ]);
