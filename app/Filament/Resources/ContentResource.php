@@ -13,6 +13,7 @@ use Filament\Forms\Set;
 use Filament\Resources\Concerns\Translatable;
 use Filament\Tables\Actions\Action;
 use App\Filament\Fields\PageBuilder;
+use Filament\Forms\Components\Textarea;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
@@ -29,6 +30,7 @@ abstract class ContentResource extends Resource
 
     protected static bool $shouldRegisterNavigation = false;
     public static bool $hasParent = true;
+    public static bool $hasExcerpt = false;
     public static bool $hasIllustration = true;
 
     public static function form(Form $form): Form
@@ -48,6 +50,18 @@ abstract class ContentResource extends Resource
             ])->columnSpan(1)
                 ->visible(fn($record): bool => !$record || !$record->is_home);
         }
+
+        // Excerpt
+        if (static::$hasExcerpt) {
+            $formSchema[] = Section::make(__('Excerpt'))
+                ->schema([
+                    Textarea::make('excerpt')
+                        ->label('')
+                        ->columnSpanFull()
+                ])
+                ->collapsible();
+        }
+
 
         // Page Builder
         $formSchema[] = self::getPageBuilderSection()

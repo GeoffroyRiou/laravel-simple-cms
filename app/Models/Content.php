@@ -22,6 +22,7 @@ abstract class Content extends Model
 
     protected $fillable = [
         'title',
+        'excerpt',
         'slug',
         'url_path',
         'published',

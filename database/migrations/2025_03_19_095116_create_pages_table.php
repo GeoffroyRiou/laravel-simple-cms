@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('model_path');
             $table->string('title');
+            $table->text('excerpt')->nullable();
             $table->string('slug');
             $table->string('illustration')->nullable();
             $table->string('url_path')->nullable();
