@@ -22,6 +22,7 @@ use RalphJSmit\Filament\SEO\SEO;
 use Filament\Tables;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 abstract class ContentResource extends Resource
 {
@@ -103,6 +104,12 @@ abstract class ContentResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ReplicateAction::make()
+                    ->beforeReplicaSaved(function (Model $replica): void {
+                        $replica->slug = $replica->slug.'-2';
+                        $replica->title = $replica->title . ' - ' . __('Copy');
+                    })
+                    ->visible(fn($record): bool => !$record->is_home),
                 Tables\Actions\DeleteAction::make()
                     ->visible(fn($record): bool => !$record->is_home),
                 self::getTableViewPageAction(),
