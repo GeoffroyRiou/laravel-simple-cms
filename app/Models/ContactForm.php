@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
+/**
+ * @property array $fields
+ */
 class ContactForm extends Model
 {
     use HasTranslations;

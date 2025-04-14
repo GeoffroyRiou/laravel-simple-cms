@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Content;
 use App\Models\Page;
 use App\Services\ReflectionService;
-use Illuminate\View\View;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\View\View;
 
 class CmsController extends Controller
 {
@@ -23,7 +22,7 @@ class CmsController extends Controller
     {
         $model = $this->getModel($this->getSlug($path));
 
-        if (!$model) {
+        if (! $model) {
             abort(404);
         }
 
@@ -33,15 +32,16 @@ class CmsController extends Controller
     public function home(): View
     {
         $model = Page::where('is_home', true)->first();
-        if (!$model) {
+        if (! $model) {
             abort(404);
         }
+
         return $this->render($model, config('simple-cms.home_view_name'));
     }
 
     private function render(Model $model, string $viewName): View
     {
-        return view($viewName ?? null, compact('model'));
+        return view($viewName ?: null, compact('model'));
     }
 
     /**
@@ -50,14 +50,13 @@ class CmsController extends Controller
     private function getSlug(string $path): string
     {
         $parts = explode('/', $path);
+
         return array_pop($parts);
     }
 
     /**
      * Tries to retrieve a model based on the slug.
      * Only for models that implement the IsCmsModel trait
-     * @param string $slug
-     * @return Model|null
      */
     protected function getModel(string $slug): ?Model
     {
@@ -70,7 +69,7 @@ class CmsController extends Controller
         foreach ($modelClasses as $modelClass) {
 
             if (
-                !(
+                ! (
                     $this->reflectionService->isClassInstantiable($modelClass) &&
                     $this->reflectionService->hasParentOfType($modelClass, Content::class)
                 )
@@ -78,8 +77,7 @@ class CmsController extends Controller
                 continue;
             }
 
-
-            $query = $modelClass::published()->where("slug", $slug);
+            $query = $modelClass::published()->where('slug', $slug);
 
             if ($query->exists()) {
                 return $query->first();

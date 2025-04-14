@@ -43,7 +43,7 @@ class ContactForm extends Component
                             break;
                             // On défini la valeur sélectionnée comme étant la première disponible
                         case 'select':
-                            $values = array_keys($block['data']['values']) ?? [];
+                            $values = array_keys($block['data']['values']) ?: [];
                             $this->formData[$block['data']['slug']] = $values[0] ?? '';
                             break;
                         default:
@@ -67,7 +67,7 @@ class ContactForm extends Component
             if ($champ['data']['required']) {
                 $currentRules[] = 'required';
             }
-            if (!empty($champ['data']['mask'])) {
+            if (! empty($champ['data']['mask'])) {
                 $currentRules[] = 'regex:/^'.$champ['data']['mask'].'$/i';
             }
 

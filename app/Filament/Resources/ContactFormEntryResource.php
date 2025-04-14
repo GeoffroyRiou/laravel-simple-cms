@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ContactFormEntryResource\Pages;
-use App\Filament\Resources\ContactFormEntryResource\RelationManagers;
 use App\Models\ContactFormEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Components\ViewEntry;
@@ -27,7 +26,6 @@ class ContactFormEntryResource extends Resource
 
     protected static ?int $navigationSort = 2;
 
-
     public static function table(Table $table): Table
     {
         return $table
@@ -46,7 +44,7 @@ class ContactFormEntryResource extends Resource
 
                     $html = '';
                     foreach ($decodedData->fields as $label => $valeur) {
-                        $html .= '<p><strong>' . $label . '</strong> : ' . (is_array($valeur) ? implode(', ', $valeur) : $valeur) . '</p>';
+                        $html .= '<p><strong>'.$label.'</strong> : '.(is_array($valeur) ? implode(', ', $valeur) : $valeur).'</p>';
                     }
 
                     $data['fields'] = $html;
@@ -70,7 +68,7 @@ class ContactFormEntryResource extends Resource
                 TextEntry::make('subject'),
                 TextEntry::make('recipients'),
                 ViewEntry::make('fields')
-                    ->view('filament.infolists.entries.champs-entree-formulaire')
+                    ->view('components.forms.entries.infolist-fields')
                     ->columnSpanFull(),
             ]);
     }

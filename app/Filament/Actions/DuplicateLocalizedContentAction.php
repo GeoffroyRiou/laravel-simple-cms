@@ -16,7 +16,6 @@ class DuplicateLocalizedContentAction extends Action
 
         $this->label(__('Duplicate language content'));
 
-
         $locales = [];
         foreach (config('app.locales') as $locale) {
             $locales[$locale] = $locale;
@@ -28,7 +27,7 @@ class DuplicateLocalizedContentAction extends Action
                         ->label(__('Source language'))
                         ->options($locales)
                         ->required(),
-                        Radio::make('destination_locale')
+                    Radio::make('destination_locale')
                         ->label(__('Destination language'))
                         ->options($locales)
                         ->required()

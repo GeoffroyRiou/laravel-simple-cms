@@ -26,7 +26,7 @@ class ButtonsBlock
                     ->schema([
                         Repeater::make('buttons')
                             ->label('')
-                            ->itemLabel(fn(array $state): ?string => $state['label'] ?? __('Button'))
+                            ->itemLabel(fn (array $state): string => $state['label'] ?? __('Button'))
                             ->schema(
                                 LinkSchema::make()
                             )
@@ -40,7 +40,7 @@ class ButtonsBlock
                     ->schema(SpacerSchema::make())
                     ->columns(2)
                     ->collapsible()
-                    ->collapsed()
+                    ->collapsed(),
             ]);
     }
 }

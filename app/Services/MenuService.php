@@ -14,7 +14,7 @@ class MenuService
     public function __construct(protected ReflectionService $reflectionService)
     {
         $defaultPaths = config('simple-cms.model_paths', []);
-        $this->modelPaths = array_merge($defaultPaths, [__DIR__ . '/../Models']);
+        $this->modelPaths = array_merge($defaultPaths, [__DIR__.'/../Models']);
     }
 
     /**
@@ -37,7 +37,6 @@ class MenuService
             }
         }
 
-
         return $menuableModels;
     }
 
@@ -48,7 +47,7 @@ class MenuService
     {
         return $modelClasse::all()->map(function ($item) use ($modelClasse) {
             return [
-                'key' => $modelClasse . ':' . $item->id,
+                'key' => $modelClasse.':'.$item->id,
                 'value' => $item->{$modelClasse::getLabelKey()},
             ];
         })->pluck('value', 'key')->toArray();
@@ -56,10 +55,8 @@ class MenuService
 
     /**
      * Get menu from id
-     * @param int $menuId
-     * @return Menu|null
      */
-    public function getMenuFromId(int $menuId): Menu | null
+    public function getMenuFromId(int $menuId): ?Menu
     {
         return Menu::find($menuId);
     }

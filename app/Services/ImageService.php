@@ -11,11 +11,11 @@ class ImageService
 
     /**
      * Retourne l'url d'une image aux dimensions demandées
+     *
      * @param  string  $path  Le chemin de l'image
      * @param  int  $width  La largeur de l'image
      * @param  int  $height  La hauteur de l'image
      * @param  bool  $crop  Indique si l'image doit être recadrée
-     * @return string
      **/
     public function imageUrl(string $path, int $width = 100, int $height = 100, bool $crop = true, string $disk = 'public'): string
     {
@@ -33,14 +33,14 @@ class ImageService
      */
     public function getResizedImage(string $imagePath, int $width, int $height, bool $crop = true, string $disk = 'public'): string
     {
-        if (!$this->isResizable($imagePath)) {
+        if (! $this->isResizable($imagePath)) {
             return $imagePath;
         }
 
         $resizedFilename = $this->generateResizedFilename($imagePath, $width, $height, $crop);
         $resizedPath = $this->getResizedPath($resizedFilename);
 
-        if (!$this->resizedImageExists($resizedPath, $disk)) {
+        if (! $this->resizedImageExists($resizedPath, $disk)) {
             $this->createResizedImage($imagePath, $resizedPath, $width, $height, $crop, $disk);
         }
 
@@ -53,6 +53,7 @@ class ImageService
     private function generateResizedFilename(string $imagePath, int $width, int $height, bool $crop): string
     {
         $filename = basename($imagePath);
+
         return sprintf(
             '%s-%dx%d%s.webp',
             pathinfo($filename, PATHINFO_FILENAME),
@@ -67,7 +68,7 @@ class ImageService
      */
     private function getResizedPath(string $resizedFilename): string
     {
-        return $this->resizedDirectory . '/' . $resizedFilename;
+        return $this->resizedDirectory.'/'.$resizedFilename;
     }
 
     /**
@@ -108,7 +109,7 @@ class ImageService
      */
     private function getPublicPath(string $resizedFilename): string
     {
-        return $this->resizedDirectory . '/' . $resizedFilename;
+        return $this->resizedDirectory.'/'.$resizedFilename;
     }
 
     /**

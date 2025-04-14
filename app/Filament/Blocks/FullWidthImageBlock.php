@@ -6,11 +6,9 @@ namespace App\Filament\Blocks;
 
 use App\Filament\Schemas\ImageSchema as SchemasImageSchema;
 use App\Filament\Schemas\SpacerSchema;
-use App\OCms\Schemas\ImageSchema;
 use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 
 class FullWidthImageBlock
 {
@@ -31,7 +29,7 @@ class FullWidthImageBlock
                             ->schema(SpacerSchema::make())
                             ->columns(2)
                             ->collapsible()
-                            ->collapsed()
+                            ->collapsed(),
                     ]
                 ),
             );

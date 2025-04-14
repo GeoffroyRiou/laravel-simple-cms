@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
-class LinksService{
-
-    public function hydrateLinksFromPageBlocks(array $pageBlocksData): array{
+class LinksService
+{
+    public function hydrateLinksFromPageBlocks(array $pageBlocksData): array
+    {
 
         $pagesIdsByModel = $this->getPagesIdsByModelFromPageBlockData($pageBlocksData);
 
@@ -15,24 +16,25 @@ class LinksService{
         return $hydratedPageBlocksData;
     }
 
-    private function getPagesIdsByModelFromPageBlockData(array $data, array $pagesIdsByModel = []){
+    private function getPagesIdsByModelFromPageBlockData(array $data, array $pagesIdsByModel = [])
+    {
 
-        foreach($data as $item){
+        foreach ($data as $item) {
 
-            if(!is_array($item)){
+            if (! is_array($item)) {
                 continue;
             }
 
-            if(!empty($item['type']) && $item['type'] == 'page'){
+            if (! empty($item['type']) && $item['type'] == 'page') {
                 $pageDatas = explode(':', $item['page']);
                 $pageModel = $pageDatas[0];
                 $pageId = $pageDatas[1];
 
-                if(!isset($pagesIdsByModel[$pageModel])){
+                if (! isset($pagesIdsByModel[$pageModel])) {
                     $pagesIdsByModel[$pageModel] = [];
                 }
 
-                if(!in_array($pageId, $pagesIdsByModel[$pageModel])){
+                if (! in_array($pageId, $pagesIdsByModel[$pageModel])) {
                     $pagesIdsByModel[$pageModel][] = $pageId;
                 }
 
@@ -41,17 +43,22 @@ class LinksService{
 
             $pagesIdsByModel = $this->getPagesIdsByModelFromPageBlockData($item, $pagesIdsByModel);
         }
+
         return $pagesIdsByModel;
     }
 
-    private function getPagesUrlByModelFromIdsByModel(array $pagesIdsByModel): array{
+    /**
+     * @param  array<string,array<int>>  $pagesIdsByModel
+     */
+    private function getPagesUrlByModelFromIdsByModel(array $pagesIdsByModel): array
+    {
 
         $pagesByModel = [];
 
-        foreach($pagesIdsByModel as $model => $ids){
+        foreach ($pagesIdsByModel as $model => $ids) {
             $pages = $model::whereIn('id', $ids)->get();
 
-            foreach($pages as $page){
+            foreach ($pages as $page) {
                 $pagesByModel[$model][$page->id] = $page->getUrl();
             }
         }
@@ -59,27 +66,29 @@ class LinksService{
         return $pagesByModel;
     }
 
-    private function hydrateLinksFromPageBlock(array $data, $pagesUrl): array{
+    private function hydrateLinksFromPageBlock(array $data, $pagesUrl): array
+    {
 
-        foreach($data as $index => $item){
+        foreach ($data as $index => $item) {
 
-            if(!is_array($item)){
+            if (! is_array($item)) {
                 continue;
             }
 
-            if(!empty($item['type']) && $item['type'] == 'page'){
+            if (! empty($item['type']) && $item['type'] == 'page') {
                 $pageDatas = explode(':', $item['page']);
                 $pageModel = $pageDatas[0];
                 $pageId = $pageDatas[1];
 
-                if(!empty($pagesUrl[$pageModel][$pageId]))
+                if (! empty($pagesUrl[$pageModel][$pageId])) {
                     $data[$index]['url'] = $pagesUrl[$pageModel][$pageId];
+                }
 
                 continue;
             }
 
             $data[$index] = $this->hydrateLinksFromPageBlock($item, $pagesUrl);
-            
+
         }
 
         return $data;

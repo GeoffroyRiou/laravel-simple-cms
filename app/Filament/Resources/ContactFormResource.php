@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ContactFormResource\Pages;
-use App\Filament\Resources\ContactFormResource\RelationManagers;
 use App\Models\ContactForm;
 use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Checkbox;
@@ -62,14 +61,14 @@ class ContactFormResource extends Resource
                             ->collapsed()
                             ->blocks([
                                 Builder\Block::make('text')
-                                    ->label(fn(?array $state): ?string => $state['label'] ?? 'Champ de texte')
+                                    ->label(fn (?array $state): string => $state['label'] ?? 'Champ de texte')
                                     ->icon('heroicon-o-document-text')
                                     ->schema([
                                         TextInput::make('label')
                                             ->label('Label')
                                             ->required()
                                             ->live(onBlur: true)
-                                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
                                         TextInput::make('slug')
                                             ->label('Slug')
                                             ->required(),
@@ -81,14 +80,14 @@ class ContactFormResource extends Resource
                                         Toggle::make('fullWidth')->label('Pleine largeur')->default(false),
                                     ]),
                                 Builder\Block::make('textarea')
-                                    ->label(fn(?array $state): ?string => $state['label'] ?? 'Zone de texte')
+                                    ->label(fn (?array $state): string => $state['label'] ?? 'Zone de texte')
                                     ->icon('heroicon-o-bars-3-bottom-left')
                                     ->schema([
                                         TextInput::make('label')
                                             ->label('Label')
                                             ->required()
                                             ->live(onBlur: true)
-                                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
                                         TextInput::make('slug')
                                             ->label('Slug')
                                             ->required(),
@@ -96,16 +95,16 @@ class ContactFormResource extends Resource
                                         Toggle::make('fullWidth')->label('Pleine largeur')->default(false),
                                     ])
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
                                 Builder\Block::make('choices')
-                                    ->label(fn(?array $state): ?string => $state['label'] ?? 'Choix multiples')
+                                    ->label(fn (?array $state): string => $state['label'] ?? 'Choix multiples')
                                     ->icon('heroicon-o-list-bullet')
                                     ->schema([
                                         TextInput::make('label')
                                             ->label('Label')
                                             ->required()
                                             ->live(onBlur: true)
-                                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
                                         TextInput::make('slug')
                                             ->label('Slug')
                                             ->required(),
@@ -115,14 +114,14 @@ class ContactFormResource extends Resource
                                         Toggle::make('fullWidth')->label('Pleine largeur')->default(false),
                                     ]),
                                 Builder\Block::make('file')
-                                    ->label(fn(?array $state): ?string => $state['label'] ?? 'Fichier')
+                                    ->label(fn (?array $state): string => $state['label'] ?? 'Fichier')
                                     ->icon('heroicon-o-arrow-up-on-square')
                                     ->schema([
                                         TextInput::make('label')
                                             ->label('Label')
                                             ->required()
                                             ->live(onBlur: true)
-                                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
                                         TextInput::make('slug')
                                             ->label('Slug')
                                             ->required(),
@@ -133,7 +132,7 @@ class ContactFormResource extends Resource
                                         Toggle::make('fullWidth')->label('Pleine largeur')->default(false),
                                     ]),
                                 Builder\Block::make('optin')
-                                    ->label(fn(?array $state): ?string => $state['label'] ?? 'Consentement')
+                                    ->label(fn (?array $state): string => $state['label'] ?? 'Consentement')
                                     ->icon('heroicon-o-check-badge')
                                     ->schema([
                                         TextInput::make('slug')

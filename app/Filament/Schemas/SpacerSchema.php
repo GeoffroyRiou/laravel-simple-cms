@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Filament\Schemas;
 
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Toggle;
 
 class SpacerSchema
 {
@@ -14,12 +13,12 @@ class SpacerSchema
 
         $topOptions = [
             '' => __('None'),
-            ...config('simple-cms.spacers.top')
+            ...config('simple-cms.spacers.top'),
         ];
 
         $bottomOptions = [
             '' => __('None'),
-            ...config('simple-cms.spacers.bottom')
+            ...config('simple-cms.spacers.bottom'),
         ];
 
         return [
@@ -32,7 +31,7 @@ class SpacerSchema
                 ->label(__('Bottom spacing'))
                 ->options($bottomOptions)
                 ->default('')
-                ->selectablePlaceholder(false)
+                ->selectablePlaceholder(false),
         ];
     }
 }

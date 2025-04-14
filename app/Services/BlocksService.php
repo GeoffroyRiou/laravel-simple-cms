@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\File;
 
 class BlocksService
 {
-
     /**
      * Load blocks from namespaces.
      */
@@ -27,9 +26,6 @@ class BlocksService
 
     /**
      * Get all files in the specified namespace directory.
-     *
-     * @param string $namespace
-     * @return array
      */
     public function getFilesByNamespace(string $namespace): array
     {
@@ -37,7 +33,7 @@ class BlocksService
         $path = app_path(str_replace(['\\', 'App'], ['/', ''], $namespace));
 
         // Check if the directory exists
-        if (!File::exists($path)) {
+        if (! File::exists($path)) {
             return [];
         }
 
@@ -47,17 +43,15 @@ class BlocksService
 
     /**
      * Load blocks from an array of files.
-     * @param array $files
-     * @param string $namespace
-     * @return array
      */
     protected function loadBlocksFromFiles(array $files, string $namespace): array
     {
         $blocks = [];
         foreach ($files as $file) {
-            $className = $namespace . '\\' . basename($file->getFilename(), '.php');
+            $className = $namespace.'\\'.basename($file->getFilename(), '.php');
             $blocks[] = $className::make();
         }
+
         return $blocks;
     }
 }

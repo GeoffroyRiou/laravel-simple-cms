@@ -7,7 +7,6 @@ use Spatie\Translatable\HasTranslations;
 
 class Menu extends Model
 {
-
     use HasTranslations;
 
     protected $fillable = [

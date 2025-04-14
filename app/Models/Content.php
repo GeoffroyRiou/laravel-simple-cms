@@ -11,14 +11,38 @@ use RalphJSmit\Laravel\SEO\Support\HasSEO;
 use Spatie\Translatable\HasTranslations;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
 
+/**
+ * @property int $id
+ * @property string $title Translatable
+ * @property string $excerpt
+ * @property string $slug
+ * @property string $url_path
+ * @property bool $published
+ * @property array $page_blocks Translatable
+ * @property string $model_path
+ * @property int|null $parent_id
+ * @property int|null $category_id
+ * @property string|null $categoryModel
+ * @property string|null $illustration
+ * @property bool $is_home
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Content[] $children
+ * @property-read \App\Models\Content|null $parent
+ * @property-read mixed $category
+ * @property-read \Illuminate\Support\Collection $ancestors
+ */
 abstract class Content extends Model
 {
-    use Menuable, HasSEO, HasTranslations, HasRecursiveRelationships;
-
+    use HasRecursiveRelationships, HasSEO, HasTranslations, Menuable;
 
     public $table = 'contents';
-    public $routeName = 'cms.content';
-    public $viewName = 'components.pages.default-page';
+
+    public string $routeName = 'cms.content';
+
+    public string $viewName = 'components.pages.default-page';
+
+    public ?string $categoryModel = null;
 
     protected $fillable = [
         'title',
@@ -51,12 +75,12 @@ abstract class Content extends Model
             $builder->where('model_path', static::class);
         });
 
-        static::creating(function (Model $model) {
+        static::creating(function (Content $model) {
             $model->model_path = static::class;
             $model->url_path = $model->getUrlPath();
         });
 
-        static::updating(function (Model $model) {
+        static::updating(function (Content $model) {
             $model->model_path = static::class;
             $model->url_path = $model->getUrlPath();
         });
@@ -68,6 +92,7 @@ abstract class Content extends Model
     public function getUrl(): string
     {
         $url = LaravelLocalization::localizeUrl($this->url_path ?? '');
+
         return $url;
     }
 
@@ -81,15 +106,16 @@ abstract class Content extends Model
             return '/';
         }
 
-        if (!empty($this->parent_id)) {
+        if (! empty($this->parent_id)) {
             $method = $includeSelf ? 'ancestorsAndSelf' : 'ancestors';
+
             return $this->$method()->pluck('slug')->reverse()->implode('/');
         }
 
-        if (!empty($this->category_id)) {
+        if (! empty($this->category_id)) {
             $ancestorsPath = $this->ancestors()->pluck('slug')->reverse()->implode('/');
 
-            return $ancestorsPath . '/' . $this->slug;
+            return $ancestorsPath.'/'.$this->slug;
         }
 
         return $this->slug;
@@ -108,6 +134,7 @@ abstract class Content extends Model
         if ($this->categoryModel) {
             return $this->belongsTo($this->categoryModel)->with('ancestorsAndSelf');
         }
+
         return null;
     }
 

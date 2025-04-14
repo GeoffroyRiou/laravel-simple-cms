@@ -2,8 +2,8 @@
 
 namespace App\Filament\Fields;
 
-use Filament\Forms\Components\Builder;
 use App\Services\BlocksService;
+use Filament\Forms\Components\Builder;
 
 class PageBuilder extends Builder
 {
@@ -14,8 +14,6 @@ class PageBuilder extends Builder
      * tels que des champs de texte, des champs de sélection, un éditeur enrichi, des
      * interrupteurs de basculement et des répétiteurs. Le schéma est défini en utilisant
      * la classe Builder\Block et ses composants de schéma correspondants.
-     *
-     * @return void
      */
     protected function setUp(): void
     {
@@ -34,7 +32,8 @@ class PageBuilder extends Builder
 
     protected function loadBlocksSchema(): array
     {
-        $blocksService = new BlocksService();
+        $blocksService = new BlocksService;
+
         return $blocksService->getAllBlocks();
     }
 }

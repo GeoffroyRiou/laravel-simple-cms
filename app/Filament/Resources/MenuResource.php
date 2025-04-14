@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms\Components\TextInput;
 use App\Filament\Resources\MenuResource\Pages;
-
+use App\Filament\Schemas\LinkSchema;
+use App\Models\Menu;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\Concerns\Translatable;
@@ -12,14 +13,10 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use App\Filament\Schemas\LinkSchema;
-use App\Models\Menu;
-use App\Services\MenuService;
 use Saade\FilamentAdjacencyList\Forms\Components\AdjacencyList;
 
 class MenuResource extends Resource
 {
-
     use Translatable;
 
     protected static ?string $model = Menu::class;
@@ -43,8 +40,8 @@ class MenuResource extends Resource
                     ->childrenKey('children')
                     ->form(LinkSchema::make(canChangeColor: false, hasIcon: false))
                     ->maxDepth(2)
-                    ->visible(fn(Get $get): bool => $get('id') !== null)
-                    ->columnSpanFull()
+                    ->visible(fn (Get $get): bool => $get('id') !== null)
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -53,7 +50,7 @@ class MenuResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('title')
-                    ->label(__('Title'))
+                    ->label(__('Title')),
             ])
             ->filters([
                 //

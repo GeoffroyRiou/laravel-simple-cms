@@ -2,10 +2,10 @@
 
 namespace App\View\Components;
 
+use App\Models\Content;
 use App\Services\LinksService;
 use Closure;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\View\Component;
 
 class PageBuilder extends Component
@@ -13,7 +13,8 @@ class PageBuilder extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(LinksService $linksService,private Model $model) {
+    public function __construct(LinksService $linksService, private Content $model)
+    {
         $this->model->page_blocks = $linksService->hydrateLinksFromPageBlocks($this->model->page_blocks ?: []);
     }
 
@@ -23,7 +24,7 @@ class PageBuilder extends Component
     public function render(): View|Closure|string
     {
         return view('components.page-builder.page-builder', [
-            'blocks' => $this->model->page_blocks ?: []
+            'blocks' => $this->model->page_blocks ?: [],
         ]);
     }
 }

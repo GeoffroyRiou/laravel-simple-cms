@@ -18,8 +18,8 @@ class ArticleCategoryResource extends ContentResource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static bool $shouldRegisterNavigation = true;
-    public static bool $hasIllustration = false;
 
+    public static bool $hasIllustration = false;
 
     public static function getPages(): array
     {

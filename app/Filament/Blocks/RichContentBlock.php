@@ -3,8 +3,8 @@
 namespace App\Filament\Blocks;
 
 use App\Filament\Schemas\SpacerSchema;
-use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Builder\Block;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
@@ -17,7 +17,7 @@ class RichContentBlock
         return Block::make('page-builder.rich_content')
             ->label(__('Rich Content'))
             ->label(function (?array $state): string {
-                return !empty($state['content']) ? Str::limit(strip_tags($state['content']), 50) : __('Rich Content');
+                return ! empty($state['content']) ? Str::limit(strip_tags($state['content']), 50) : __('Rich Content');
             })
             ->icon('heroicon-o-newspaper')
             ->schema([
@@ -44,7 +44,7 @@ class RichContentBlock
                     ->schema(SpacerSchema::make())
                     ->columns(2)
                     ->collapsible()
-                    ->collapsed()
+                    ->collapsed(),
             ])->columns(2);
     }
 }

@@ -5,9 +5,9 @@ namespace App\Filament\Blocks;
 use App\Filament\Schemas\SpacerSchema;
 use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
 
 class FAQBlock
 {
@@ -19,7 +19,7 @@ class FAQBlock
             ->schema([
                 Repeater::make('questions')
                     ->label('')
-                    ->itemLabel(fn(array $state): ?string => $state['title'] ?? 'Question')
+                    ->itemLabel(fn (array $state): string => $state['title'] ?? 'Question')
                     ->schema([
                         TextInput::make('title')->label(__('Title'))->required(),
                         RichEditor::make('text')->label(__('Text'))->required(),
@@ -32,7 +32,7 @@ class FAQBlock
                     ->schema(SpacerSchema::make())
                     ->columns(2)
                     ->collapsible()
-                    ->collapsed()
+                    ->collapsed(),
             ]);
     }
 }

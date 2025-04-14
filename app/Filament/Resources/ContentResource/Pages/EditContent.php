@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ContentResource\Pages;
 
-use Filament\Resources\Pages\EditRecord;
 use App\Filament\Actions\DuplicateLocalizedContentAction;
 use Filament\Actions;
 use Filament\Actions\DeleteAction;
+use Filament\Resources\Pages\EditRecord;
 use Pboivin\FilamentPeek\Pages\Actions\PreviewAction;
 use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
 
+/**
+ * @property \App\Models\Content $record
+ */
 class EditContent extends EditRecord
 {
     use EditRecord\Concerns\Translatable;
@@ -23,7 +26,7 @@ class EditContent extends EditRecord
         ];
         $availableLocales = config('app.locales');
 
-        if($availableLocales && count(config('app.locales')) > 1) {
+        if ($availableLocales && count(config('app.locales')) > 1) {
             $actions[] = Actions\LocaleSwitcher::make();
             $actions[] = DuplicateLocalizedContentAction::make();
         }

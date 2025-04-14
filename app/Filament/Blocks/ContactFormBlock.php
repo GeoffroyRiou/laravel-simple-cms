@@ -11,7 +11,6 @@ use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Get;
 
 class ContactFormBlock
 {
@@ -19,7 +18,8 @@ class ContactFormBlock
     {
         return Block::make('page-builder.form')
             ->label(function (?array $state): string {
-                $form = !empty($state['content']) ? ContactForm::find($state['content']) : null;
+                $form = ! empty($state['content']) ? ContactForm::find($state['content']) : null;
+
                 return $form ? $form->name : __('Form');
             })
             ->icon('heroicon-o-envelope')
@@ -42,7 +42,7 @@ class ContactFormBlock
                     ->schema(SpacerSchema::make())
                     ->columns(2)
                     ->collapsible()
-                    ->collapsed()
+                    ->collapsed(),
             ])
             ->columns(2);
     }

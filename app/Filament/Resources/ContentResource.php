@@ -2,36 +2,38 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Fields\PageBuilder;
+use App\Models\Content;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Concerns\Translatable;
-use Filament\Tables\Actions\Action;
-use App\Filament\Fields\PageBuilder;
-use Filament\Forms\Components\Textarea;
 use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use RalphJSmit\Filament\SEO\SEO;
-use Filament\Tables;
-use Filament\Tables\Columns\ToggleColumn;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Model;
 
 abstract class ContentResource extends Resource
 {
-
     use Translatable;
 
     protected static bool $shouldRegisterNavigation = false;
+
     public static bool $hasParent = true;
+
     public static bool $hasExcerpt = false;
+
     public static bool $hasIllustration = true;
 
     public static function form(Form $form): Form
@@ -41,15 +43,14 @@ abstract class ContentResource extends Resource
         // Base Fields
         $formSchema[] = self::getCmsSection()
             ->columnSpan(2)
-            ->visible(fn($record): bool => !$record || !$record->is_home);
-
+            ->visible(fn ($record): bool => ! $record || ! $record->is_home);
 
         // Illustration
         if (static::$hasIllustration) {
             $formSchema[] = Section::make()->schema([
-                self::getIllustrationField()
+                self::getIllustrationField(),
             ])->columnSpan(1)
-                ->visible(fn($record): bool => !$record || !$record->is_home);
+                ->visible(fn ($record): bool => ! $record || ! $record->is_home);
         }
 
         // Excerpt
@@ -58,11 +59,10 @@ abstract class ContentResource extends Resource
                 ->schema([
                     Textarea::make('excerpt')
                         ->label('')
-                        ->columnSpanFull()
+                        ->columnSpanFull(),
                 ])
                 ->collapsible();
         }
-
 
         // Page Builder
         $formSchema[] = self::getPageBuilderSection()
@@ -70,7 +70,7 @@ abstract class ContentResource extends Resource
 
         // SEO
         $formSchema[] = Section::make('Metas')->schema([
-            SEO::make()->columnSpanFull()
+            SEO::make()->columnSpanFull(),
         ])
             ->collapsible()
             ->collapsed();
@@ -105,13 +105,13 @@ abstract class ContentResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\ReplicateAction::make()
-                    ->beforeReplicaSaved(function (Model $replica): void {
+                    ->beforeReplicaSaved(function (Content $replica): void {
                         $replica->slug = $replica->slug.'-2';
-                        $replica->title = $replica->title . ' - ' . __('Copy');
+                        $replica->title = $replica->title.' - '.__('Copy');
                     })
-                    ->visible(fn($record): bool => !$record->is_home),
+                    ->visible(fn ($record): bool => ! $record->is_home),
                 Tables\Actions\DeleteAction::make()
-                    ->visible(fn($record): bool => !$record->is_home),
+                    ->visible(fn ($record): bool => ! $record->is_home),
                 self::getTableViewPageAction(),
             ])
             ->bulkActions([
@@ -122,12 +122,11 @@ abstract class ContentResource extends Resource
             ->defaultSort('created_at', 'desc');
     }
 
-
     public static function getPageBuilderSection(): Section
     {
         return Section::make(__('Page Builder'))->schema([
             PageBuilder::make('page_blocks')
-                ->columnSpanFull()
+                ->columnSpanFull(),
         ]);
     }
 
@@ -141,7 +140,7 @@ abstract class ContentResource extends Resource
             TextInput::make('title')
                 ->label(__('Title'))
                 ->required()
-                ->afterStateUpdated(fn(Set $set, Get $get, ?string $state) => !$get('slug') ? $set('slug', Str::slug($state)) : null)
+                ->afterStateUpdated(fn (Set $set, Get $get, ?string $state) => ! $get('slug') ? $set('slug', Str::slug($state)) : null)
                 ->live(onBlur: true),
             TextInput::make('slug')
                 ->label(__('Slug'))
@@ -153,8 +152,6 @@ abstract class ContentResource extends Resource
         $categoryClass = (new (static::$model))->categoryModel ?? null;
 
         if (static::$hasParent || $categoryClass) {
-
-
 
             if (static::$hasParent) {
                 $sectionSchema[] = self::getParentSelectionField(static::$model, static::$model)->columnSpan(1);
@@ -206,7 +203,7 @@ abstract class ContentResource extends Resource
         return Action::make('go')
             ->label(__('View page'))
             ->icon('heroicon-o-eye')
-            ->url(fn($record) => $record->getUrl())
+            ->url(fn ($record) => $record->getUrl())
             ->openUrlInNewTab();
     }
 }

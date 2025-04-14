@@ -14,10 +14,10 @@ class ImageSchema
     ): array {
         return [
             FileUpload::make($fieldName)
-            ->label($label)
-            ->image()
-            ->maxSize(5120)
-            ->columnSpanFull()
+                ->label($label)
+                ->image()
+                ->maxSize(5120)
+                ->columnSpanFull(),
         ];
     }
 }

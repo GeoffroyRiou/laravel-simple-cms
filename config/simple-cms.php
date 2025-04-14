@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 return [
     /**
-     * Namespace of the custom page builder blocks 
+     * Namespace of the custom page builder blocks
      * ex: "App\\Filament\\Blocks"
      */
     'blocks' => [
@@ -46,7 +46,6 @@ return [
         'icon-pinmap' => 'Marqueur',
     ],
 
-
     /**
      * Spacer sizes
      * Used for the page builder blocks
@@ -67,8 +66,8 @@ return [
             'pb-5 md:pb-8' => 'L',
             'pb-8 md:pb-14' => 'XL',
             'pb-14 md:pb-16' => 'XXL',
-        ]
+        ],
     ],
 
-    'home_view_name' => 'components.pages.home'
+    'home_view_name' => 'components.pages.home',
 ];

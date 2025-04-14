@@ -20,4 +20,3 @@ class ContactFormEntry extends Model
         ];
     }
 }
-

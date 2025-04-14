@@ -8,11 +8,10 @@ use App\Filament\Schemas\ImageSchema;
 use App\Filament\Schemas\SpacerSchema;
 use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\TextInput;
 
 class TeamBlock
 {
@@ -28,7 +27,7 @@ class TeamBlock
                     ->columnSpan(1),
                 Repeater::make('members')
                     ->label('')
-                    ->itemLabel(fn(array $state): ?string => $state['firstname'] ?? 'Membre')
+                    ->itemLabel(fn (array $state): string => $state['firstname'] ?? 'Membre')
                     ->schema([
                         Section::make('')
                             ->schema(
@@ -52,7 +51,7 @@ class TeamBlock
                     ->schema(SpacerSchema::make())
                     ->columns(2)
                     ->collapsible()
-                    ->collapsed()
+                    ->collapsed(),
             ]);
     }
 }

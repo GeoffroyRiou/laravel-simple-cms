@@ -2,12 +2,12 @@
 
 namespace App\Filament\Schemas;
 
+use App\Services\MenuService;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Get;
-use App\Services\MenuService;
 
 class LinkSchema
 {
@@ -15,10 +15,10 @@ class LinkSchema
     {
         $menuService = app()->make(MenuService::class);
 
-        $prefix  = $fieldname ? $fieldname . '.' : '';
+        $prefix = $fieldname ? $fieldname.'.' : '';
 
         $fields = [
-            ToggleButtons::make($prefix . 'type')
+            ToggleButtons::make($prefix.'type')
                 ->label(__('Type'))
                 ->options([
                     'page' => __('Page'),
@@ -28,27 +28,27 @@ class LinkSchema
                 ->inline()
                 ->columnSpanFull()
                 ->required(),
-            TextInput::make($prefix . 'label')
+            TextInput::make($prefix.'label')
                 ->label(__('Label'))
-                ->visible(fn(Get $get): bool => $get($prefix . 'type') !== null)
+                ->visible(fn (Get $get): bool => $get($prefix.'type') !== null)
                 ->required(),
-            TextInput::make($prefix . 'url')
+            TextInput::make($prefix.'url')
                 ->label(__('Url'))
                 ->required()
-                ->visible(fn(Get $get): bool => $get($prefix . 'type') == 'external_link'),
-            Select::make($prefix . 'page')
+                ->visible(fn (Get $get): bool => $get($prefix.'type') == 'external_link'),
+            Select::make($prefix.'page')
                 ->label(__('Content'))
                 ->options($menuService->getMenuableModels())
                 ->required()
                 ->searchable()
-                ->visible(fn(Get $get): bool => $get($prefix . 'type') == 'page'),
-            Toggle::make($prefix . 'blank')
+                ->visible(fn (Get $get): bool => $get($prefix.'type') == 'page'),
+            Toggle::make($prefix.'blank')
                 ->label(__('Open in a new tab'))
                 ->columnSpanFull(),
         ];
 
         if ($canChangeColor) {
-            $fields[] = Select::make($prefix . 'variant')
+            $fields[] = Select::make($prefix.'variant')
                 ->label(__('Appearance'))
                 ->options([
                     'buttondark' => 'Foncée',
@@ -57,10 +57,10 @@ class LinkSchema
         }
 
         if ($hasIcon) {
-            $fields[] = Select::make($prefix . 'icon')
+            $fields[] = Select::make($prefix.'icon')
                 ->label(__('Icon'))
                 ->options(config('simple-cms.icons'));
-            $fields[] = Toggle::make($prefix . 'iconReverse')
+            $fields[] = Toggle::make($prefix.'iconReverse')
                 ->label(__('Icon before label'));
         }
 

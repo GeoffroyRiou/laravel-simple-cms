@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Filament\Blocks;
 
 use App\Filament\Schemas\SpacerSchema;
-use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Builder\Block;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
@@ -23,7 +22,7 @@ class KeyNumbersBlock
             ->schema([
                 Repeater::make('numbers')
                     ->label('')
-                    ->itemLabel(fn(array $state): ?string => 'Chiffre clé ' . ($state['number'] ?? ''))
+                    ->itemLabel(fn (array $state): string => 'Chiffre clé '.($state['number'] ?? ''))
                     ->schema([
                         FileUpload::make('picto')
                             ->label('Pictogramme')
@@ -43,7 +42,7 @@ class KeyNumbersBlock
                     ->schema(SpacerSchema::make())
                     ->columns(2)
                     ->collapsible()
-                    ->collapsed()
+                    ->collapsed(),
             ]);
     }
 }

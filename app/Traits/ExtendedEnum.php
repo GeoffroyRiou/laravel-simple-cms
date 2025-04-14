@@ -9,7 +9,6 @@ trait ExtendedEnum
     /**
      * Retourne les valeurs d'un enum d'un tableau
      *
-     * @param  array<int,BackedEnum>  $enumValues  Le résultat de la méthode cases() appelée sur un enum
      * @param  bool  $valuesAsKeys  La valeur sera utilisée en tant que clé du tableau plutôt qu'un index
      * @return array<int,string>
      */

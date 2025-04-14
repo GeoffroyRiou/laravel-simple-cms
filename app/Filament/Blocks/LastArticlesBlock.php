@@ -18,7 +18,7 @@ class LastArticlesBlock
 {
     public static function make(): Block
     {
-        return  Block::make('page-builder.last-articles')
+        return Block::make('page-builder.last-articles')
             ->label(__('Last articles'))
             ->icon('heroicon-o-newspaper')
             ->schema([
@@ -38,12 +38,12 @@ class LastArticlesBlock
                     ->label('Bouton')
                     ->schema(LinkSchema::make('button', canChangeColor: true))
                     ->columns(2)
-                    ->visible(fn(Get $get): bool => $get('add_button')),
+                    ->visible(fn (Get $get): bool => $get('add_button')),
                 Section::make(__('Vertical spacing'))
                     ->schema(SpacerSchema::make())
                     ->columns(2)
                     ->collapsible()
-                    ->collapsed()
+                    ->collapsed(),
             ]);
     }
 }

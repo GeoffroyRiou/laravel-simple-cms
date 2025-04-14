@@ -14,12 +14,11 @@ use Illuminate\Support\ServiceProvider;
 
 class SimpleCmsServiceProvider extends ServiceProvider
 {
-
     public function register(): void
     {
         // Bind the ReflectionService
         $this->app->singleton(ReflectionService::class, function ($app) {
-            return new ReflectionService();
+            return new ReflectionService;
         });
 
         // Bind the MenuService
@@ -29,7 +28,7 @@ class SimpleCmsServiceProvider extends ServiceProvider
 
         // Bind the ImageService
         $this->app->bind('imageHelper', function ($app) {
-            return new ImageService();
+            return new ImageService;
         });
     }
 
@@ -40,17 +39,17 @@ class SimpleCmsServiceProvider extends ServiceProvider
          * Views
          */
 
-        //Blade::componentNamespace('App\\View\\Components\\SimpleCms', 'simple-cms');
+        // Blade::componentNamespace('App\\View\\Components\\SimpleCms', 'simple-cms');
 
         // Inject settings to all views
-        if (!$this->app->runningInConsole()) {
+        if (! $this->app->runningInConsole()) {
 
             $settings = Setting::all()->flatMap(function ($setting) {
                 return [
                     $setting->slug => $setting->toArray(),
                 ];
             });
-            
+
             View::share('settings', $settings);
         }
     }

@@ -29,7 +29,7 @@ class ContactFormMail extends Mailable
     {
         return new Envelope(
             from: new Address(config('mail.from.address'), config('mail.from.name')),
-            subject: $this->subject ?? 'Demande de contact',
+            subject: $this->subject ?: 'Demande de contact',
         );
     }
 

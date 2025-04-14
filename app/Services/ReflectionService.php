@@ -35,6 +35,7 @@ class ReflectionService
             }
             $currentClass = get_parent_class($currentClass);
         }
+
         return false;
     }
 
@@ -60,7 +61,7 @@ class ReflectionService
     /**
      * Check if the class is instantiable
      */
-    function isClassInstantiable($className)
+    public function isClassInstantiable($className)
     {
         // Create a reflection class for the given class name
         $reflection = new ReflectionClass($className);
@@ -82,7 +83,7 @@ class ReflectionService
 
         foreach ($modelsPaths as $modelsPath) {
 
-            foreach (glob($modelsPath . '/*.php') as $file) {
+            foreach (glob($modelsPath.'/*.php') as $file) {
                 $className = $this->getClassNameFromFile($file);
 
                 if (class_exists($className)) {
@@ -99,6 +100,6 @@ class ReflectionService
      */
     public function getClassNameFromFile(string $filePath): string
     {
-        return $this->extractNamespace($filePath) . '\\' . basename($filePath, '.php');
+        return $this->extractNamespace($filePath).'\\'.basename($filePath, '.php');
     }
 }

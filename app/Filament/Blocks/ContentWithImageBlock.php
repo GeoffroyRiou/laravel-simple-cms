@@ -8,11 +8,11 @@ use App\Filament\Schemas\ImageSchema;
 use App\Filament\Schemas\LinkSchema;
 use App\Filament\Schemas\SpacerSchema;
 use Filament\Forms\Components\Builder\Block;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Get;
 use Illuminate\Support\Str;
 
@@ -23,7 +23,7 @@ class ContentWithImageBlock
         return Block::make('page-builder.content-with-image')
 
             ->label(function (?array $state): string {
-                return !empty($state['title']) ? Str::limit(strip_tags($state['title']), 50) : __('Content with image');
+                return ! empty($state['title']) ? Str::limit(strip_tags($state['title']), 50) : __('Content with image');
             })
             ->icon('heroicon-o-rectangle-group')
             ->schema([
@@ -68,12 +68,12 @@ class ContentWithImageBlock
                     ->label('Bouton')
                     ->schema(LinkSchema::make('button', canChangeColor: true))
                     ->columns(2)
-                    ->visible(fn(Get $get): bool => $get('add_button')),
+                    ->visible(fn (Get $get): bool => $get('add_button')),
                 Section::make(__('Vertical spacing'))
                     ->schema(SpacerSchema::make())
                     ->columns(2)
                     ->collapsible()
-                    ->collapsed()
+                    ->collapsed(),
             ]);
     }
 }
