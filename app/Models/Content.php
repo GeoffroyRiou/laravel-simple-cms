@@ -71,16 +71,16 @@ abstract class Content extends Model
     {
         parent::boot();
 
-        static::addGlobalScope('model_path', function (Builder $builder) {
+        static::addGlobalScope('model_path', function (Builder $builder): void {
             $builder->where('model_path', static::class);
         });
 
-        static::creating(function (Content $model) {
+        static::creating(function (Content $model): void {
             $model->model_path = static::class;
             $model->url_path = $model->getUrlPath();
         });
 
-        static::updating(function (Content $model) {
+        static::updating(function (Content $model): void {
             $model->model_path = static::class;
             $model->url_path = $model->getUrlPath();
         });

@@ -106,7 +106,7 @@ abstract class ContentResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\ReplicateAction::make()
                     ->beforeReplicaSaved(function (Content $replica): void {
-                        $replica->slug = $replica->slug.'-2';
+                        $replica->slug .= '-2';
                         $replica->title = $replica->title.' - '.__('Copy');
                     })
                     ->visible(fn ($record): bool => ! $record->is_home),

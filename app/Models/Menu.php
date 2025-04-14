@@ -24,7 +24,7 @@ class Menu extends Model
 
     protected static function booted()
     {
-        static::creating(function (Menu $menu) {
+        static::creating(function (Menu $menu): void {
 
             /**
              * When creating a menu, the plugin used to do it dosn't set all languages
