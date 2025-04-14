@@ -18,9 +18,7 @@ return RectorConfig::configure()
     ])
     // uncomment to reach your current PHP version
     // ->withPhpSets()
-    ->withTypeCoverageLevel(1)
-    ->withDeadCodeLevel(0)
-    ->withCodeQualityLevel(0)
+    ->withPreparedSets(typeDeclarations: true)
     ->withSets([
         LaravelSetList::LARAVEL_CODE_QUALITY,
         LaravelSetList::LARAVEL_COLLECTION,

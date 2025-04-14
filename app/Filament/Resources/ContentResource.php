@@ -140,7 +140,7 @@ abstract class ContentResource extends Resource
             TextInput::make('title')
                 ->label(__('Title'))
                 ->required()
-                ->afterStateUpdated(fn (Set $set, Get $get, ?string $state) => ! $get('slug') ? $set('slug', Str::slug($state)) : null)
+                ->afterStateUpdated(fn (Set $set, Get $get, ?string $state): mixed => ! $get('slug') ? $set('slug', Str::slug($state)) : null)
                 ->live(onBlur: true),
             TextInput::make('slug')
                 ->label(__('Slug'))

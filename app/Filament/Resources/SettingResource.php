@@ -33,7 +33,7 @@ class SettingResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('label')
                     ->label(__('Title'))
-                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                    ->afterStateUpdated(fn (Set $set, ?string $state): mixed => $set('slug', Str::slug($state)))
                     ->live(onBlur: true)
                     ->required(),
                 Forms\Components\TextInput::make('slug')

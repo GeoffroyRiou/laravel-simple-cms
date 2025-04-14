@@ -61,7 +61,7 @@ class ReflectionService
     /**
      * Check if the class is instantiable
      */
-    public function isClassInstantiable($className)
+    public function isClassInstantiable($className): bool
     {
         // Create a reflection class for the given class name
         $reflection = new ReflectionClass($className);

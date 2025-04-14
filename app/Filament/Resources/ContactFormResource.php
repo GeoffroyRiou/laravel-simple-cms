@@ -68,7 +68,7 @@ class ContactFormResource extends Resource
                                             ->label('Label')
                                             ->required()
                                             ->live(onBlur: true)
-                                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                            ->afterStateUpdated(fn (Set $set, ?string $state): mixed => $set('slug', Str::slug($state))),
                                         TextInput::make('slug')
                                             ->label('Slug')
                                             ->required(),
@@ -87,7 +87,7 @@ class ContactFormResource extends Resource
                                             ->label('Label')
                                             ->required()
                                             ->live(onBlur: true)
-                                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                            ->afterStateUpdated(fn (Set $set, ?string $state): mixed => $set('slug', Str::slug($state))),
                                         TextInput::make('slug')
                                             ->label('Slug')
                                             ->required(),
@@ -95,7 +95,7 @@ class ContactFormResource extends Resource
                                         Toggle::make('fullWidth')->label('Pleine largeur')->default(false),
                                     ])
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                    ->afterStateUpdated(fn (Set $set, ?string $state): mixed => $set('slug', Str::slug($state))),
                                 Builder\Block::make('choices')
                                     ->label(fn (?array $state): string => $state['label'] ?? 'Choix multiples')
                                     ->icon('heroicon-o-list-bullet')
@@ -104,7 +104,7 @@ class ContactFormResource extends Resource
                                             ->label('Label')
                                             ->required()
                                             ->live(onBlur: true)
-                                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                            ->afterStateUpdated(fn (Set $set, ?string $state): mixed => $set('slug', Str::slug($state))),
                                         TextInput::make('slug')
                                             ->label('Slug')
                                             ->required(),
@@ -121,7 +121,7 @@ class ContactFormResource extends Resource
                                             ->label('Label')
                                             ->required()
                                             ->live(onBlur: true)
-                                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                            ->afterStateUpdated(fn (Set $set, ?string $state): mixed => $set('slug', Str::slug($state))),
                                         TextInput::make('slug')
                                             ->label('Slug')
                                             ->required(),

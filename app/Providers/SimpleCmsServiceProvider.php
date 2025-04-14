@@ -17,17 +17,17 @@ class SimpleCmsServiceProvider extends ServiceProvider
     public function register(): void
     {
         // Bind the ReflectionService
-        $this->app->singleton(ReflectionService::class, function ($app) {
+        $this->app->singleton(ReflectionService::class, function ($app): \App\Services\ReflectionService {
             return new ReflectionService;
         });
 
         // Bind the MenuService
-        $this->app->singleton(MenuService::class, function ($app) {
+        $this->app->singleton(MenuService::class, function ($app): \App\Services\MenuService {
             return new MenuService($app->make(ReflectionService::class));
         });
 
         // Bind the ImageService
-        $this->app->bind('imageHelper', function ($app) {
+        $this->app->bind('imageHelper', function ($app): \App\Services\ImageService {
             return new ImageService;
         });
     }

@@ -45,7 +45,7 @@ class MenuService
      */
     protected function getMenuableItems(string $modelClasse): array
     {
-        return $modelClasse::all()->map(function ($item) use ($modelClasse) {
+        return $modelClasse::all()->map(function ($item) use ($modelClasse): array {
             return [
                 'key' => $modelClasse.':'.$item->id,
                 'value' => $item->{$modelClasse::getLabelKey()},

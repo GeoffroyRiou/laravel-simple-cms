@@ -12,7 +12,7 @@ class ContactFormSelect extends \Filament\Forms\Components\Select
     {
         parent::setUp();
 
-        $this->options(function () {
+        $this->options(function (): array {
             $options = [];
             foreach (ContactForm::all() as $form) {
                 $options[$form->id] = $form->name;

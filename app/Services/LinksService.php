@@ -66,7 +66,7 @@ class LinksService
         return $pagesByModel;
     }
 
-    private function hydrateLinksFromPageBlock(array $data, $pagesUrl): array
+    private function hydrateLinksFromPageBlock(array $data, array $pagesUrl): array
     {
 
         foreach ($data as $index => $item) {
