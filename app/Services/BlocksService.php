@@ -48,7 +48,7 @@ class BlocksService
     {
         $blocks = [];
         foreach ($files as $file) {
-            $className = $namespace.'\\'.basename($file->getFilename(), '.php');
+            $className = $namespace.'\\'.basename((string) $file->getFilename(), '.php');
             $blocks[] = $className::make();
         }
 

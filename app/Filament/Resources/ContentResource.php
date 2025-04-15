@@ -90,9 +90,7 @@ abstract class ContentResource extends Resource
                     ->searchable(),
                 TextColumn::make('slug')
                     ->label(__('Path'))
-                    ->formatStateUsing(function ($record): string {
-                        return $record->url_path ?? '';
-                    })
+                    ->formatStateUsing(fn($record): string => $record->url_path ?? '')
                     ->size(TextColumn\TextColumnSize::ExtraSmall)
                     ->color('gray'),
                 ToggleColumn::make('published')
@@ -186,15 +184,10 @@ abstract class ContentResource extends Resource
     {
         return Select::make($parentKey)
             ->label(__($sectionLabel))
-            ->options(function (Get $get) use ($modelClass, $parentModelClass, $labelKey) {
-
-                return $parentModelClass::query()
-                    ->when($modelClass === $parentModelClass, function (Builder $query) use ($get) {
-                        return $query->where('id', '!=', $get('id'));
-                    })
-                    ->get()
-                    ->pluck($labelKey, 'id');
-            })
+            ->options(fn(Get $get) => $parentModelClass::query()
+                ->when($modelClass === $parentModelClass, fn(Builder $query) => $query->where('id', '!=', $get('id')))
+                ->get()
+                ->pluck($labelKey, 'id'))
             ->searchable();
     }
 

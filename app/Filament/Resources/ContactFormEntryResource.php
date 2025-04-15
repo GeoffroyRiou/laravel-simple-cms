@@ -40,7 +40,7 @@ class ContactFormEntryResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()->mutateRecordDataUsing(function (array $data): array {
-                    $decodedData = json_decode($data['fields']);
+                    $decodedData = json_decode((string) $data['fields']);
 
                     $html = '';
                     foreach ($decodedData->fields as $label => $valeur) {

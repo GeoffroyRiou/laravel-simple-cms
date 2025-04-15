@@ -17,19 +17,13 @@ class SimpleCmsServiceProvider extends ServiceProvider
     public function register(): void
     {
         // Bind the ReflectionService
-        $this->app->singleton(ReflectionService::class, function ($app): \App\Services\ReflectionService {
-            return new ReflectionService;
-        });
+        $this->app->singleton(ReflectionService::class, fn($app): \App\Services\ReflectionService => new ReflectionService);
 
         // Bind the MenuService
-        $this->app->singleton(MenuService::class, function ($app): \App\Services\MenuService {
-            return new MenuService($app->make(ReflectionService::class));
-        });
+        $this->app->singleton(MenuService::class, fn($app): \App\Services\MenuService => new MenuService($app->make(ReflectionService::class)));
 
         // Bind the ImageService
-        $this->app->bind('imageHelper', function ($app): \App\Services\ImageService {
-            return new ImageService;
-        });
+        $this->app->bind('imageHelper', fn($app): \App\Services\ImageService => new ImageService);
     }
 
     public function boot(): void
@@ -44,11 +38,9 @@ class SimpleCmsServiceProvider extends ServiceProvider
         // Inject settings to all views
         if (! $this->app->runningInConsole()) {
 
-            $settings = Setting::all()->flatMap(function ($setting) {
-                return [
-                    $setting->slug => $setting->toArray(),
-                ];
-            });
+            $settings = Setting::all()->flatMap(fn($setting) => [
+                $setting->slug => $setting->toArray(),
+            ]);
 
             View::share('settings', $settings);
         }

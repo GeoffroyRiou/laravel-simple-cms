@@ -58,9 +58,7 @@ class SettingResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('type')
                     ->searchable()
-                    ->formatStateUsing(function ($record): string {
-                        return __($record->type);
-                    }),
+                    ->formatStateUsing(fn($record): string => __($record->type)),
                 Tables\Columns\TextColumn::make('slug')
                     ->label(__('Slug'))
                     ->badge()

@@ -12,7 +12,7 @@ class CmsController extends Controller
 {
     protected array $modelPaths;
 
-    public function __construct(private ReflectionService $reflectionService)
+    public function __construct(private readonly ReflectionService $reflectionService)
     {
         $defaultPaths = config('simple-cms.model_paths', []);
         $this->modelPaths = array_merge($defaultPaths, [app_path('Models')]);

@@ -17,9 +17,12 @@ return RectorConfig::configure()
         __DIR__ . '/tests',
     ])
     // uncomment to reach your current PHP version
-    // ->withPhpSets()
-    ->withPreparedSets(typeDeclarations: true)
-    ->withSets([
-        LaravelSetList::LARAVEL_CODE_QUALITY,
-        LaravelSetList::LARAVEL_COLLECTION,
-    ]);
+    ->withPhpSets()
+    ->withPreparedSets(
+        deadCode: true,
+        typeDeclarations: true,
+        codeQuality: true,
+        privatization: true,
+        earlyReturn: true,
+        strictBooleans: true,
+    );

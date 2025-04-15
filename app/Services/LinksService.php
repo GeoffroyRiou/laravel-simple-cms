@@ -26,7 +26,7 @@ class LinksService
             }
 
             if (! empty($item['type']) && $item['type'] == 'page') {
-                $pageDatas = explode(':', $item['page']);
+                $pageDatas = explode(':', (string) $item['page']);
                 $pageModel = $pageDatas[0];
                 $pageId = $pageDatas[1];
 
@@ -76,7 +76,7 @@ class LinksService
             }
 
             if (! empty($item['type']) && $item['type'] == 'page') {
-                $pageDatas = explode(':', $item['page']);
+                $pageDatas = explode(':', (string) $item['page']);
                 $pageModel = $pageDatas[0];
                 $pageId = $pageDatas[1];
 

@@ -11,12 +11,12 @@ use Illuminate\View\Component;
 
 class Menu extends Component
 {
-    private ?MenuModel $menu;
+    private readonly ?MenuModel $menu;
 
     /**
      * Create a new component instance.
      */
-    public function __construct(private MenuService $menuService, private LinksService $linksService, int $menuId)
+    public function __construct(private readonly MenuService $menuService, private readonly LinksService $linksService, int $menuId)
     {
         $this->menu = $this->menuService->getMenuFromId($menuId);
     }

@@ -13,7 +13,7 @@ class PageBuilder extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(LinksService $linksService, private Content $model)
+    public function __construct(LinksService $linksService, private readonly Content $model)
     {
         $this->model->page_blocks = $linksService->hydrateLinksFromPageBlocks($this->model->page_blocks ?: []);
     }
