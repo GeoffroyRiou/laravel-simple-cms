@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 <x-layout :$model>
 
     @if (!empty($model->illustration))
@@ -10,3 +15,4 @@
     <x-page-header :title="$model->title" />
     <x-page-builder :model="$model" />
 </x-layout>
+<?php 

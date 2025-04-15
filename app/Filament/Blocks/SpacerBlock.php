@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Blocks;
 
 use App\Filament\Schemas\SpacerSchema;
@@ -20,7 +22,7 @@ class SpacerBlock
 
                 $label .= empty($state['size']) ? '' : ' - '.config('simple-cms.spacers')[$state['size']];
 
-                return $label . empty($state['bgColor']) !== '' ? '' : ', '.config('simple-cms.bgColors')[$state['bgColor']];
+                return $label.empty($state['bgColor']) !== '' ? '' : ', '.config('simple-cms.bgColors')[$state['bgColor']];
             })
             ->schema([
                 TextInput::make('text')

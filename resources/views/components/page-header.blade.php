@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @props(['title'])
 
 <div class="flex flex-1 items-center justify-center bg-indigo-100">
@@ -7,3 +12,4 @@
         </h1>
     </div>
 </div>
+<?php 

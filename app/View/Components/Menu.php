@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\View\Components;
 
 use App\Models\Menu as MenuModel;
@@ -26,7 +28,7 @@ class Menu extends Component
      */
     public function render(): View|Closure|string
     {
-        if (!$this->menu instanceof \App\Models\Menu) {
+        if (! $this->menu instanceof \App\Models\Menu) {
             return '';
         }
 

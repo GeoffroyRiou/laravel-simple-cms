@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @props(['setting'])
 
 <div {{ $attributes->merge(['class' => 'flex items-center gap-2 group']) }}>
@@ -20,3 +25,4 @@
         @break
     @endswitch
 </div>
+<?php 

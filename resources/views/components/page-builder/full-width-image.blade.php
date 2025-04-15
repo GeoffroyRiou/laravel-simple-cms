@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @props([
     'image' => null,
     'bgColor' => '',
@@ -14,3 +19,4 @@
         ]" :$index/>
     </div>
 </section>
+<?php 

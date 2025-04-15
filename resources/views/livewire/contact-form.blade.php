@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 <form wire:submit="send" class="flex flex-col gap-5 dark:text-light">
 
     @if ($sendingError || $formSent)
@@ -92,3 +97,4 @@
 
 
 </form>
+<?php 

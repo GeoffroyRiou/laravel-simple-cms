@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @props([
     'image' => null,
     'image_full' => false,
@@ -33,3 +38,4 @@
         </div>
     </div>
 </section>
+<?php 

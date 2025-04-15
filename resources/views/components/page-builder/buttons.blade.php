@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @props([
     'bgColor' => '',
     'topSpacer' => '',
@@ -11,4 +16,4 @@
             <x-button :data="$button" class="w-full md:w-fit"/>
         @endforeach
     </div>
-</section>
+</section><?php 

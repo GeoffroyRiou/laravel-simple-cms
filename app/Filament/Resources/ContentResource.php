@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
 use App\Filament\Fields\PageBuilder;
@@ -90,7 +92,7 @@ abstract class ContentResource extends Resource
                     ->searchable(),
                 TextColumn::make('slug')
                     ->label(__('Path'))
-                    ->formatStateUsing(fn($record): string => $record->url_path ?? '')
+                    ->formatStateUsing(fn ($record): string => $record->url_path ?? '')
                     ->size(TextColumn\TextColumnSize::ExtraSmall)
                     ->color('gray'),
                 ToggleColumn::make('published')
@@ -184,8 +186,8 @@ abstract class ContentResource extends Resource
     {
         return Select::make($parentKey)
             ->label(__($sectionLabel))
-            ->options(fn(Get $get) => $parentModelClass::query()
-                ->when($modelClass === $parentModelClass, fn(Builder $query) => $query->where('id', '!=', $get('id')))
+            ->options(fn (Get $get) => $parentModelClass::query()
+                ->when($modelClass === $parentModelClass, fn (Builder $query) => $query->where('id', '!=', $get('id')))
                 ->get()
                 ->pluck($labelKey, 'id'))
             ->searchable();

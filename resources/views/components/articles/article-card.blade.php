@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @props(['article'])
 
 <article class="border border-dark/20 p-5 bg-light">
@@ -22,3 +27,4 @@
     </div>
 
 </article>
+<?php 

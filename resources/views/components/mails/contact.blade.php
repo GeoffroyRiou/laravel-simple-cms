@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @foreach ($data['fields'] as $label => $value)
     <p>
         <strong>{{$label}} : </strong>
@@ -8,3 +13,4 @@
         @endif
     </p>
 @endforeach
+<?php 

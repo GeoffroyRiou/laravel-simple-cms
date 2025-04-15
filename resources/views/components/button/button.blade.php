@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @use('Illuminate\View\ComponentAttributeBag')
 
 @if (!empty($data['url']))
@@ -28,3 +33,4 @@
         @endif
     </a>
 @endif
+<?php 

@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @props(['data' => []])
 
 <div {{ $attributes->merge(['class' => 'group bg-white border border-indigo-200 rounded-lg p-5 text-center']) }}>
@@ -20,3 +25,4 @@
         @endif
     </div>
 </div>
+<?php 

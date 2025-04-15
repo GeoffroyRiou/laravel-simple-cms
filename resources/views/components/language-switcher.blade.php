@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @php($languagesAvailable = config('app.locales'))
 @php($currentLocale = LaravelLocalization::getCurrentLocale())
 @if (count($languagesAvailable) > 1)
@@ -13,3 +18,4 @@
         @endforeach
     </ul>
 @endif
+<?php 

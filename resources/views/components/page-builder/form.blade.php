@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @props([
     'content' => '',
     'bgColor' => '',
@@ -11,4 +16,4 @@
     <div class="simple-cms-content xl:max-w-6/12 mx-auto {{ $bgColorInner }} {{ $bgColorInner ? 'p-8 rounded-lg' : '' }}">
         @livewire('contact-form', ['formId' => $content])
     </div>
-</section>
+</section><?php 

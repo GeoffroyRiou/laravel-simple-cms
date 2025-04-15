@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @props([
     'bgColor' => '',
     'numbers' => [],
@@ -23,3 +28,4 @@
         @endforeach
     </div>
 </section>
+<?php 

@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
     <ul {{ $attributes->merge(['class' => 'flex flex-col gap-3 items-center lg:flex-row']) }} role="menubar">
         @foreach ($items as $item)
             @php
@@ -36,3 +41,4 @@
             </li>
         @endforeach
     </ul>
+<?php 

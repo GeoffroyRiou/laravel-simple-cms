@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Content;
@@ -22,7 +24,7 @@ class CmsController extends Controller
     {
         $model = $this->getModel($this->getSlug($path));
 
-        if (!$model instanceof \Illuminate\Database\Eloquent\Model) {
+        if (! $model instanceof \Illuminate\Database\Eloquent\Model) {
             abort(404);
         }
 

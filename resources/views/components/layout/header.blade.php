@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 <header class="bg-dark">
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between gap-10 h-16" x-data="{ open: false }">
@@ -60,3 +65,4 @@
         </div>
     </div>
 </header>
+<?php 

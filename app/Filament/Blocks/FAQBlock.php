@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Blocks;
 
 use App\Filament\Schemas\SpacerSchema;

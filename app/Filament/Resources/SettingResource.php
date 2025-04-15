@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
 use App\Enums\SettingTypes;
@@ -58,7 +60,7 @@ class SettingResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('type')
                     ->searchable()
-                    ->formatStateUsing(fn($record): string => __($record->type)),
+                    ->formatStateUsing(fn ($record): string => __($record->type)),
                 Tables\Columns\TextColumn::make('slug')
                     ->label(__('Slug'))
                     ->badge()

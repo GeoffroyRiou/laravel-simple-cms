@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @props(['path', 'sizes' => [], 'index' => 0])
 @use('App\Facades\SimpleCmsImage')
 
@@ -15,3 +20,4 @@
             height={{ $defaultSize['height'] }} alt=""/>
     </picture>
 @endif
+<?php 

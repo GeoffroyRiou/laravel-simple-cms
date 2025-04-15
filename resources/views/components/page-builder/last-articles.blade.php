@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @props([
     'bgColor' => '',
     'darkMode' => false,
@@ -32,3 +37,4 @@
         </div>
     </div>
 </section>
+<?php 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use Illuminate\Support\Facades\Storage;
@@ -101,7 +103,7 @@ class ImageService
             $image->resize($width);
         }
 
-        Storage::disk($disk)->put($resizedPath, $image->toWebp(80));
+        Storage::disk($disk)->put($resizedPath, $image->toWebp(80)->toString());
     }
 
     /**

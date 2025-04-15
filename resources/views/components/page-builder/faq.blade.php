@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @props([
     'questions' => [],
     'title' => '',
@@ -43,3 +48,4 @@
         </div>
     </div>
 </section>
+<?php 
