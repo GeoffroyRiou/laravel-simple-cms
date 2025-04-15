@@ -18,7 +18,7 @@ class ContactFormBlock
     {
         return Block::make('page-builder.form')
             ->label(function (?array $state): string {
-                $form = ! empty($state['content']) ? ContactForm::find($state['content']) : null;
+                $form = empty($state['content']) ? null : ContactForm::find($state['content']);
 
                 return $form ? $form->name : __('Form');
             })

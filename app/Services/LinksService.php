@@ -11,9 +11,7 @@ class LinksService
 
         $pagesByModel = $this->getPagesUrlByModelFromIdsByModel($pagesIdsByModel);
 
-        $hydratedPageBlocksData = $this->hydrateLinksFromPageBlock($pageBlocksData, $pagesByModel);
-
-        return $hydratedPageBlocksData;
+        return $this->hydrateLinksFromPageBlock($pageBlocksData, $pagesByModel);
     }
 
     private function getPagesIdsByModelFromPageBlockData(array $data, array $pagesIdsByModel = [])

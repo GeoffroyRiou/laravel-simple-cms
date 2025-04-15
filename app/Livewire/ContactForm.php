@@ -43,7 +43,7 @@ class ContactForm extends Component
                             break;
                             // On défini la valeur sélectionnée comme étant la première disponible
                         case 'select':
-                            $values = array_keys($block['data']['values']) ?: [];
+                            $values = array_keys($block['data']['values']);
                             $this->formData[$block['data']['slug']] = $values[0] ?? '';
                             break;
                         default:
@@ -71,13 +71,11 @@ class ContactForm extends Component
                 $currentRules[] = 'regex:/^'.$champ['data']['mask'].'$/i';
             }
 
-            switch ($champ['type']) {
-                case 'file':
-                    $format = $champ['data']['format'] ?: null;
-                    if (! empty($format)) {
-                        $currentRules[] = "extensions:{$format}";
-                    }
-                    break;
+            if ($champ['type'] === 'file') {
+                $format = $champ['data']['format'] ?: null;
+                if (! empty($format)) {
+                    $currentRules[] = "extensions:{$format}";
+                }
             }
             $rules['formData.'.$champ['data']['slug']] = $currentRules;
         }
@@ -135,7 +133,7 @@ class ContactForm extends Component
         foreach ($validatedData as $key => $value) {
             $champInformations = $this->form->getFieldInformations($key);
 
-            if ($champInformations) {
+            if ($champInformations !== null && $champInformations !== []) {
 
                 if ($champInformations['type'] === 'file' && $value) {
                     $mailData['files'][] = $value->getRealPath();

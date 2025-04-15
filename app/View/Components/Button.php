@@ -14,7 +14,7 @@ class Button extends Component
     public function __construct(?array $data)
     {
 
-        if (! $data) {
+        if ($data === null || $data === []) {
             return;
         }
 

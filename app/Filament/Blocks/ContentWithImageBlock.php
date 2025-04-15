@@ -22,7 +22,7 @@ class ContentWithImageBlock
     {
         return Block::make('page-builder.content-with-image')
 
-            ->label(fn(?array $state): string => ! empty($state['title']) ? Str::limit(strip_tags((string) $state['title']), 50) : __('Content with image'))
+            ->label(fn(?array $state): string => empty($state['title']) ? __('Content with image') : Str::limit(strip_tags((string) $state['title']), 50))
             ->icon('heroicon-o-rectangle-group')
             ->schema([
 

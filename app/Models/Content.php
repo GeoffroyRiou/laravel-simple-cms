@@ -91,9 +91,7 @@ abstract class Content extends Model
      */
     public function getUrl(): string
     {
-        $url = LaravelLocalization::localizeUrl($this->url_path ?? '');
-
-        return $url;
+        return LaravelLocalization::localizeUrl($this->url_path ?? '');
     }
 
     /**

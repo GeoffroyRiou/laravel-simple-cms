@@ -16,7 +16,7 @@ class RichContentBlock
     {
         return Block::make('page-builder.rich_content')
             ->label(__('Rich Content'))
-            ->label(fn(?array $state): string => ! empty($state['content']) ? Str::limit(strip_tags((string) $state['content']), 50) : __('Rich Content'))
+            ->label(fn(?array $state): string => empty($state['content']) ? __('Rich Content') : Str::limit(strip_tags((string) $state['content']), 50))
             ->icon('heroicon-o-newspaper')
             ->schema([
                 RichEditor::make('content')->label('')

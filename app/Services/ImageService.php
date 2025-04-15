@@ -21,7 +21,7 @@ class ImageService
     {
         $storageUrl = Storage::disk($disk)->url($this->getResizedImage($path, $width, $height, $crop, $disk));
 
-        if ($disk == 'private') {
+        if ($disk === 'private') {
             return str_replace('storage', 'espace-parents', $storageUrl);
         }
 

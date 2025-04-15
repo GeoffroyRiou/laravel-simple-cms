@@ -22,7 +22,7 @@ class CmsController extends Controller
     {
         $model = $this->getModel($this->getSlug($path));
 
-        if (! $model) {
+        if (!$model instanceof \Illuminate\Database\Eloquent\Model) {
             abort(404);
         }
 
@@ -41,7 +41,7 @@ class CmsController extends Controller
 
     private function render(Model $model, string $viewName): View
     {
-        return view($viewName ?: null, compact('model'));
+        return view($viewName !== '' && $viewName !== '0' ? $viewName : null, ['model' => $model]);
     }
 
     /**
@@ -60,7 +60,7 @@ class CmsController extends Controller
      */
     protected function getModel(string $slug): ?Model
     {
-        $currentLocale = app()->currentLocale();
+        app()->currentLocale();
 
         $modelClasses = $this->reflectionService->getModelClassesFromPaths(
             $this->modelPaths,

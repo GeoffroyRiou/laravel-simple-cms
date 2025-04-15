@@ -26,7 +26,7 @@ class Menu extends Component
      */
     public function render(): View|Closure|string
     {
-        if (! $this->menu) {
+        if (!$this->menu instanceof \App\Models\Menu) {
             return '';
         }
 

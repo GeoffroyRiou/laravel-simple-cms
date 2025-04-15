@@ -51,11 +51,7 @@ class ReflectionService
 
         // Check if the parent class uses the trait
         $parentClass = get_parent_class($className);
-        if ($parentClass && in_array($traitName, class_uses($parentClass))) {
-            return true;
-        }
-
-        return false;
+        return $parentClass && in_array($traitName, class_uses($parentClass));
     }
 
     /**
@@ -65,13 +61,8 @@ class ReflectionService
     {
         // Create a reflection class for the given class name
         $reflection = new ReflectionClass($className);
-
         // Check if the class is instantiable
-        if ($reflection->isInstantiable()) {
-            return true;
-        }
-
-        return false;
+        return $reflection->isInstantiable();
     }
 
     /**
