@@ -7,6 +7,7 @@ namespace App\Providers;
 use App\Models\Setting;
 use App\Services\ImageService;
 use App\Services\MenuService;
+use App\Services\PreloadResourcesService;
 use App\Services\ReflectionService;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
@@ -21,6 +22,9 @@ class SimpleCmsServiceProvider extends ServiceProvider
 
         // Bind the MenuService
         $this->app->singleton(MenuService::class, fn ($app): \App\Services\MenuService => new MenuService($app->make(ReflectionService::class)));
+
+        // Bind the PreloadService
+        $this->app->singleton(PreloadResourcesService::class, fn ($app): \App\Services\PreloadResourcesService => new PreloadResourcesService);
 
         // Bind the ImageService
         $this->app->bind('imageHelper', fn ($app): \App\Services\ImageService => new ImageService);

@@ -1,7 +1,5 @@
 <?php
-
 declare(strict_types=1);
-
 ?>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -11,6 +9,10 @@ declare(strict_types=1);
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {!! seo($model ?? null) !!}
+
+    @foreach (preloadResourceService()->getResourcesToPreload() as $resourceData)
+        <link rel="preload" as="{{ $resourceData['type'] }}" href="{{ $resourceData['url'] }}" />
+    @endforeach
 
     <!-- Styles / Scripts -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
