@@ -100,7 +100,7 @@ class ImageService
         if ($crop) {
             $image->cover($width, $height, position: 'center');
         } else {
-            $image->resize($width);
+            $image->scale($width);
         }
 
         Storage::disk($disk)->put($resizedPath, $image->toWebp(80)->toString());
