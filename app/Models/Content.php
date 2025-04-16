@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Services\TranslatableJsonFieldCleaner;
 use App\Traits\Menuable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -86,6 +88,15 @@ abstract class Content extends Model
             $model->model_path = static::class;
             $model->url_path = $model->getUrlPath();
         });
+    }
+
+    public function pageBlocks() : Attribute{
+        $cleaner = new TranslatableJsonFieldCleaner();
+        return Attribute::make(
+            get: function(mixed $value) use($cleaner){
+                return is_array($value) ? $cleaner->clean($value) : $value;
+            },
+        );
     }
 
     /**
