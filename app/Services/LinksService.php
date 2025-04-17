@@ -39,8 +39,10 @@ class LinksService
                 }
             }
 
-            if (! empty($item['children'])) {
-                $pagesIdsByModel = $this->getPagesIdsByModelFromPageBlockData($item['children'], $pagesIdsByModel);
+            foreach( $item as $key => $value) {
+                if (is_array($value)) {
+                    $pagesIdsByModel = $this->getPagesIdsByModelFromPageBlockData($value, $pagesIdsByModel);
+                }
             }
         }
 
@@ -85,8 +87,10 @@ class LinksService
                 }
             }
 
-            if (! empty($item['children'])) {
-                $data[$index]['children'] = $this->hydrateLinksFromPageBlock($item['children'], $pagesUrl);
+            foreach( $item as $key => $value) {
+                if (is_array($value)) {
+                    $data[$index][$key] = $this->hydrateLinksFromPageBlock($value, $pagesUrl);
+                }
             }
 
         }
