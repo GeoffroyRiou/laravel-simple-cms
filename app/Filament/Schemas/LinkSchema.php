@@ -10,6 +10,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Get;
+use Filament\Forms\Set;
 
 class LinkSchema
 {
@@ -19,6 +20,7 @@ class LinkSchema
 
         $prefix = $fieldname !== '' && $fieldname !== '0' ? $fieldname.'.' : '';
 
+        $pagesOptions = $menuService->getMenuableModels();
         $fields = [
             ToggleButtons::make($prefix.'type')
                 ->label(__('Type'))
@@ -30,20 +32,22 @@ class LinkSchema
                 ->inline()
                 ->columnSpanFull()
                 ->required(),
-            TextInput::make($prefix.'label')
-                ->label(__('Label'))
-                ->visible(fn (Get $get): bool => $get($prefix.'type') !== null)
-                ->required(),
+            Select::make($prefix.'page')
+                ->label(__('Content'))
+                ->options($pagesOptions)
+                ->required()
+                ->searchable()
+                ->visible(fn (Get $get): bool => $get($prefix.'type') == 'page')
+                ->afterStateUpdated(fn(Set $set, Get $get, ?string $state): mixed => $get($prefix.'label') ? null : $set($prefix.'label', $pagesOptions[$state] ?? null))
+                ->live(onBlur: true),
             TextInput::make($prefix.'url')
                 ->label(__('Url'))
                 ->required()
                 ->visible(fn (Get $get): bool => $get($prefix.'type') == 'external_link'),
-            Select::make($prefix.'page')
-                ->label(__('Content'))
-                ->options($menuService->getMenuableModels())
-                ->required()
-                ->searchable()
-                ->visible(fn (Get $get): bool => $get($prefix.'type') == 'page'),
+            TextInput::make($prefix.'label')
+                ->label(__('Label'))
+                ->visible(fn (Get $get): bool => $get($prefix.'type') !== null)
+                ->required(),
             Toggle::make($prefix.'blank')
                 ->label(__('Open in a new tab'))
                 ->columnSpanFull(),
