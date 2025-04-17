@@ -39,7 +39,7 @@ class LinksService
                 }
             }
 
-            if(! empty($item['children'])) {
+            if (! empty($item['children'])) {
                 $pagesIdsByModel = $this->getPagesIdsByModelFromPageBlockData($item['children'], $pagesIdsByModel);
             }
         }

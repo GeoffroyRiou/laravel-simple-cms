@@ -15,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Livewire\Component as Livewire;
 use Saade\FilamentAdjacencyList\Forms\Components\AdjacencyList;
 
 class MenuResource extends Resource
@@ -40,7 +41,9 @@ class MenuResource extends Resource
                 AdjacencyList::make('items')
                     ->labelKey('label')
                     ->childrenKey('children')
-                    ->form(LinkSchema::make(canChangeColor: false, hasIcon: false))
+                    ->form(function (Livewire $livewire): array {
+                        return LinkSchema::make('0', canChangeColor: false, hasIcon: false, locale: $livewire->activeLocale ?? null);
+                    })
                     ->maxDepth(2)
                     ->visible(fn (Get $get): bool => $get('id') !== null)
                     ->columnSpanFull(),

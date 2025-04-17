@@ -14,13 +14,14 @@ use Filament\Forms\Set;
 
 class LinkSchema
 {
-    public static function make(string $fieldname = '', bool $canChangeColor = true, bool $hasIcon = true): array
+    public static function make(string $fieldname = '', bool $canChangeColor = true, bool $hasIcon = true, ?string $locale = null): array
     {
+
         $menuService = app()->make(MenuService::class);
 
         $prefix = $fieldname !== '' && $fieldname !== '0' ? $fieldname.'.' : '';
 
-        $pagesOptions = $menuService->getMenuableModels();
+        $pagesOptions = $menuService->getMenuablesSelectOptionsData(locale: $locale);
         $fields = [
             ToggleButtons::make($prefix.'type')
                 ->label(__('Type'))
@@ -38,7 +39,7 @@ class LinkSchema
                 ->required()
                 ->searchable()
                 ->visible(fn (Get $get): bool => $get($prefix.'type') == 'page')
-                ->afterStateUpdated(fn(Set $set, Get $get, ?string $state): mixed => $set($prefix.'label', $pagesOptions[$state] ?? null))
+                ->afterStateUpdated(fn (Set $set, Get $get, ?string $state): mixed => $set($prefix.'label', $pagesOptions[$state] ?? null))
                 ->live(onBlur: true),
             TextInput::make($prefix.'url')
                 ->label(__('Url'))
