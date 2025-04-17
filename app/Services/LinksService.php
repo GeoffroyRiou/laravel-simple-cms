@@ -37,11 +37,11 @@ class LinksService
                 if (! in_array($pageId, $pagesIdsByModel[$pageModel])) {
                     $pagesIdsByModel[$pageModel][] = $pageId;
                 }
-
-                continue;
             }
 
-            $pagesIdsByModel = $this->getPagesIdsByModelFromPageBlockData($item, $pagesIdsByModel);
+            if(! empty($item['children'])) {
+                $pagesIdsByModel = $this->getPagesIdsByModelFromPageBlockData($item['children'], $pagesIdsByModel);
+            }
         }
 
         return $pagesIdsByModel;
@@ -83,11 +83,11 @@ class LinksService
                 if (! empty($pagesUrl[$pageModel][$pageId])) {
                     $data[$index]['url'] = $pagesUrl[$pageModel][$pageId];
                 }
-
-                continue;
             }
 
-            $data[$index] = $this->hydrateLinksFromPageBlock($item, $pagesUrl);
+            if (! empty($item['children'])) {
+                $data[$index]['children'] = $this->hydrateLinksFromPageBlock($item['children'], $pagesUrl);
+            }
 
         }
 

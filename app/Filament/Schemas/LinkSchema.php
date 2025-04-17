@@ -38,7 +38,7 @@ class LinkSchema
                 ->required()
                 ->searchable()
                 ->visible(fn (Get $get): bool => $get($prefix.'type') == 'page')
-                ->afterStateUpdated(fn(Set $set, Get $get, ?string $state): mixed => $get($prefix.'label') ? null : $set($prefix.'label', $pagesOptions[$state] ?? null))
+                ->afterStateUpdated(fn(Set $set, Get $get, ?string $state): mixed => $set($prefix.'label', $pagesOptions[$state] ?? null))
                 ->live(onBlur: true),
             TextInput::make($prefix.'url')
                 ->label(__('Url'))
