@@ -1,0 +1,21 @@
+@import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant buttondark (&:where(.buttondark, .buttondark *));
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source "../**/*.blade.php";
+@source "../**/*.js";
+@source "../**/*.vue";
+@source "../**/*.css";
+
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-title: 'Quicksand', ui-sans-serif, system-ui, sans-serif;
+
+    --color-primary: #6366f1;
+    --color-light: #fff;
+    --color-dark: #1c1917;
+}
+
+@import "./fonts.css";
