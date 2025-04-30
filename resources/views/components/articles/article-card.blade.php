@@ -24,6 +24,7 @@ declare(strict_types=1);
             <p class="text-sm">{{ $article->excerpt }}</p>
         @endif
 
+        <p>By : {{ $article->field('author') }}</p>
     </div>
 
 </article>
