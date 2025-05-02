@@ -41,7 +41,7 @@ class ContactFormMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'simple-cms.mails.contact',
+            view: 'mails.contact',
         );
     }
 
