@@ -6,6 +6,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ArticleResource\Pages;
 use App\Models\Article;
+use Filament\Forms\Components\TextInput;
 
 class ArticleResource extends ContentResource
 {
@@ -22,6 +23,17 @@ class ArticleResource extends ContentResource
     public static bool $hasParent = false;
 
     public static bool $hasExcerpt = true;
+
+    protected static function getCustomFields(): array
+    {
+        return [
+            TextInput::make('custom_fields.author')
+                ->label('Author')
+                ->required()
+                ->maxLength(255)
+                ->placeholder('Enter the author\'s name'),
+        ];
+    }
 
     public static function getPages(): array
     {

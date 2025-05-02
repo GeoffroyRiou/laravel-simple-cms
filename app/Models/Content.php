@@ -55,6 +55,7 @@ abstract class Content extends Model
         'url_path',
         'published',
         'page_blocks',
+        'custom_fields',
         'model_path',
         'parent_id',
         'category_id',
@@ -64,11 +65,13 @@ abstract class Content extends Model
 
     protected $casts = [
         'page_blocks' => 'array',
+        'custom_fields' => 'array',
     ];
 
     protected $translatable = [
         'title',
         'page_blocks',
+        'custom_fields',
     ];
 
     protected static function boot()
@@ -97,6 +100,18 @@ abstract class Content extends Model
                 return is_array($value) ? $cleaner->clean($value) : $value;
             },
         );
+    }
+
+    /**
+     * Get the custom field value if exists
+     */
+    public function field(string $key): mixed{
+        $fields = $this->custom_fields ?? [];
+        if (array_key_exists($key, $fields)) {
+            return $this->custom_fields[$key];
+        }
+
+        return null;
     }
 
     /**

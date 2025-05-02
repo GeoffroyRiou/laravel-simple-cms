@@ -8,7 +8,6 @@ class LinksService
 {
     public function hydrateLinksFromPageBlocks(array $pageBlocksData): array
     {
-
         $pagesIdsByModel = $this->getPagesIdsByModelFromPageBlockData($pageBlocksData);
 
         $pagesByModel = $this->getPagesUrlByModelFromIdsByModel($pagesIdsByModel);
@@ -16,33 +15,30 @@ class LinksService
         return $this->hydrateLinksFromPageBlock($pageBlocksData, $pagesByModel);
     }
 
-    private function getPagesIdsByModelFromPageBlockData(array $data, array $pagesIdsByModel = [])
+    private function getPagesIdsByModelFromPageBlockData(array $item, array $pagesIdsByModel = [])
     {
+        if (! is_array($item)) {
+            return $pagesIdsByModel;
+        }
 
-        foreach ($data as $item) {
+        if (! empty($item['type']) && $item['type'] == 'page') {
+            $pageDatas = explode(':', (string) $item['page']);
+            $pageModel = $pageDatas[0];
+            $pageId = $pageDatas[1];
 
-            if (! is_array($item)) {
-                continue;
+            if (! isset($pagesIdsByModel[$pageModel])) {
+                $pagesIdsByModel[$pageModel] = [];
             }
 
-            if (! empty($item['type']) && $item['type'] == 'page') {
-                $pageDatas = explode(':', (string) $item['page']);
-                $pageModel = $pageDatas[0];
-                $pageId = $pageDatas[1];
-
-                if (! isset($pagesIdsByModel[$pageModel])) {
-                    $pagesIdsByModel[$pageModel] = [];
-                }
-
-                if (! in_array($pageId, $pagesIdsByModel[$pageModel])) {
-                    $pagesIdsByModel[$pageModel][] = $pageId;
-                }
+            if (! in_array($pageId, $pagesIdsByModel[$pageModel])) {
+                $pagesIdsByModel[$pageModel][] = $pageId;
             }
+        }
 
-            foreach( $item as $key => $value) {
-                if (is_array($value)) {
-                    $pagesIdsByModel = $this->getPagesIdsByModelFromPageBlockData($value, $pagesIdsByModel);
-                }
+        foreach( $item as $key => $value) {
+
+            if (is_array($value)) {
+                $pagesIdsByModel = $this->getPagesIdsByModelFromPageBlockData($value, $pagesIdsByModel);
             }
         }
 
@@ -68,33 +64,29 @@ class LinksService
         return $pagesByModel;
     }
 
-    private function hydrateLinksFromPageBlock(array $data, array $pagesUrl): array
+    private function hydrateLinksFromPageBlock(array $item, array $pagesUrl): array
     {
 
-        foreach ($data as $index => $item) {
-
-            if (! is_array($item)) {
-                continue;
-            }
-
-            if (! empty($item['type']) && $item['type'] == 'page') {
-                $pageDatas = explode(':', (string) $item['page']);
-                $pageModel = $pageDatas[0];
-                $pageId = $pageDatas[1];
-
-                if (! empty($pagesUrl[$pageModel][$pageId])) {
-                    $data[$index]['url'] = $pagesUrl[$pageModel][$pageId];
-                }
-            }
-
-            foreach( $item as $key => $value) {
-                if (is_array($value)) {
-                    $data[$index][$key] = $this->hydrateLinksFromPageBlock($value, $pagesUrl);
-                }
-            }
-
+        if (! is_array($item)) {
+            return $item;
         }
 
-        return $data;
+        if (! empty($item['type']) && $item['type'] == 'page') {
+            $pageDatas = explode(':', (string) $item['page']);
+            $pageModel = $pageDatas[0];
+            $pageId = $pageDatas[1];
+
+            if (! empty($pagesUrl[$pageModel][$pageId])) {
+                $item['url'] = $pagesUrl[$pageModel][$pageId];
+            }
+        }
+
+        foreach( $item as $key => $value) {
+            if (is_array($value)) {
+                $item[$key] = $this->hydrateLinksFromPageBlock($value, $pagesUrl);
+            }
+        }
+
+        return $item;
     }
 }

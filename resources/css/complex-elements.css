@@ -1,0 +1,496 @@
+
+.g-header{
+    @apply
+    fixed
+    z-40
+    top-0
+    left-0
+    right-0;
+
+    &.is-sticky{
+
+        @apply
+        xl:border-b
+        xl:border-primary/10
+        xl:bg-white;
+
+        > .inner > .firstrow{
+            @apply
+            hidden;
+        }
+    }
+}
+
+.g-header__row{
+    @apply
+    text-white;
+
+    &.is-firstrow{
+        @apply
+        hidden;
+
+        @apply
+        xl:block;
+
+        &.is-sticky{
+            @apply
+            xl:hidden;
+        }
+
+        > .inner{
+            @apply
+            xl:py-3;
+        }
+    }
+
+    &.is-secondrow{
+        @apply
+        bg-gradient-to-r
+        from-pink-950
+        to-indigo-950;
+    }
+
+    > .inner{
+        @apply
+        mx-auto
+        flex
+        items-center
+        justify-between;
+
+        @apply
+        xl:max-w-10/12;
+    }
+}
+
+.g-header__logo{
+    @apply
+    flex
+    items-center
+    flex-1
+    p-2
+    pl-5
+    h-16;
+
+    @apply
+    xl:px-0
+    xl:h-auto
+    xl:flex-none;
+
+    &.is-sticky{
+        > .logo{
+            @apply
+            xl:w-[280px]
+            xl:h-[80px];
+        }
+    }
+
+    > .logo{
+        @apply
+        h-full;
+
+        @apply
+        xl:w-[410px]
+        xl:h-[110px];
+    }
+}
+
+.g-header__actions{
+    @apply
+    flex
+    items-center;
+
+    &.-mobile{
+        @apply
+        xl:hidden;        
+    }
+
+    &.-desktop{
+        @apply
+        hidden;   
+        
+        @apply
+        xl:gap-3
+        xl:flex;
+    }
+}
+
+.g-header__actions__action{
+    @apply
+    flex
+    flex-col
+    gap-1
+    items-center
+    justify-center
+    p-5
+    h-16;
+
+    &.-secondary{
+        @apply
+        bg-dark
+        text-primary;
+    }
+
+    &.-primary{
+        @apply
+        bg-primary
+        text-white;
+    }
+
+    > .text{
+        @apply
+        uppercase
+        font-extrabold
+        text-[.56rem]
+        leading-[.56rem];
+    }
+
+    > .icon{
+        @apply
+        w-6
+        h-6;
+
+        &.-burger{
+            @apply
+            h-3;
+        }
+    }
+}
+
+.g-header__top-bar-menu{
+    @apply
+    flex
+    items-center
+    gap-3;
+
+    > li{
+        @apply
+        uppercase
+        font-medium
+        hover:underline;
+
+        &:last-child{
+            @apply
+            bg-primary
+            font-title
+            text-white
+            rounded
+            px-5
+            pt-2
+            pb-1
+            hover:no-underline
+            hover:bg-primary;
+        }
+    }
+}
+
+.header-menu{
+    @apply
+    fixed
+    inset-0
+    flex
+    flex-col
+    bg-primary
+    opacity-0
+    pointer-events-none
+    transition-opacity
+    duration-1000;
+
+    @apply
+    md:right-0
+    md:left-auto;
+
+    @apply
+    xl:transition-none
+    xl:bg-transparent
+    xl:static
+    xl:opacity-100
+    xl:pointer-events-auto;
+
+    &.is-active{
+        @apply
+        opacity-100
+        pointer-events-auto;
+    }
+}
+
+.header-menu__topbar{
+    @apply
+    flex
+    justify-between;
+
+    @apply
+    xl:hidden;
+
+    > .text{
+        @apply
+        flex-1
+        flex
+        items-center
+        px-5
+        h-16
+        font-title
+        bg-white
+        text-4xl
+        text-primary;
+    }
+
+    > .close{
+        @apply
+        w-16
+        flex
+        items-center
+        justify-center
+        bg-dark
+        text-primary;
+
+        > .icon{
+            @apply
+            h-5
+            w-5;
+        }
+    }
+}
+
+.g-header__actions__linkedin{
+    @apply
+    hover:text-primary 
+    transition-colors;
+}
+
+.header-menu__body{
+    @apply
+    flex-1
+    p-8
+    bg-primary
+    overflow-auto
+    flex
+    flex-col
+    gap-5
+    max-w-[500px]
+    mx-auto;
+
+    @apply
+    xl:p-0
+    xl:max-w-none
+    xl:overflow-visible
+    xl:bg-transparent;
+}
+
+.header-menu__body__menu{
+
+    &, li, ul{
+        @apply
+        flex
+        flex-col
+        gap-2;
+    
+        @apply
+        xl:flex-row
+        xl:gap-5;
+    }
+
+    li{
+        @apply
+        relative;
+
+        &:last-child span{
+            @apply
+            xl:pr-0;
+        }
+
+        > span{
+            @apply
+            flex
+            gap-1
+            justify-between
+            p-4
+            rounded-lg
+            bg-white
+            cursor-pointer
+            transition-colors
+            uppercase;
+
+            @apply
+            xl:font-medium
+            xl:text-sm
+            xl:bg-transparent
+            xl:px-4
+            xl:py-1;
+
+            &:hover, &.is-opened{
+                @apply
+                bg-dark
+                text-white;
+
+                @apply
+                xl:bg-transparent
+                xl:text-light
+                xl:underline
+                xl:underline-offset-4;
+            }
+        }
+
+        ul{
+            @apply
+            ml-5;
+
+            @apply
+            xl:absolute
+            xl:top-full
+            xl:left-3
+            xl:flex-col
+            xl:gap-3
+            xl:ml-0
+            xl:bg-white
+            xl:text-dark
+            xl:border
+            xl:border-primary/10
+            xl:p-5
+            xl:whitespace-nowrap
+            xl:rounded-lg
+            xl:text-sm;
+
+            span{
+                @apply
+                xl:p-0;
+            }
+        }
+
+        button{
+            @apply
+            cursor-pointer
+            p-2;
+        }
+
+        .arrow{
+            @apply
+            w-4
+            h-4;
+        }
+    }
+
+    a{
+        @apply
+        flex
+        gap-2
+        flex-1
+        items-center;
+    }
+}
+
+.header-menu__body__footer{
+    @apply
+    flex
+    flex-col
+    gap-5;
+
+    @apply
+    xl:hidden;
+
+    > .section{
+        @apply
+        flex
+        flex-col
+        gap-2;
+    }
+}
+
+.header-menu__body__footer__buttons{
+    @apply
+    flex
+    flex-col
+    gap-3;
+
+    > li{
+        @apply
+        uppercase
+        font-medium
+        rounded-lg
+        px-5
+        pt-3
+        pb-2
+        text-center
+        transition-colors
+        hover:underline;
+
+        &:not(:last-child){
+            @apply
+            bg-white;
+        }
+
+        &:last-child{
+            @apply
+            bg-dark
+            font-title
+            text-white
+            hover:no-underline
+            hover:bg-primary;
+        }
+    }
+}
+
+.language-switcher{
+    @apply
+    flex
+    gap-3
+    uppercase;
+
+    &.is-light{
+        @apply
+        text-white;
+    }
+
+    > .item > .link{
+        &.is-active, &:hover{
+            @apply
+            text-dark;
+        }
+    }
+}
+
+.contact-stripe{
+    @apply
+    inline-flex 
+    justify-center 
+    gap-5 
+    not-italic;
+
+    &.is-inline{
+        br{
+            @apply
+            hidden;
+        }
+    }
+}
+
+.footer-menu{
+    @apply
+    flex
+    flex-col
+    items-center
+    gap-2;
+
+    @apply
+    lg:h-full
+    lg:pl-5
+    lg:items-start
+    lg:border-l
+    lg:border-white/50;
+
+    &.is-hidden-mobile{
+        @apply
+        hidden;
+
+        @apply
+        lg:flex;
+    }
+
+    a{
+        @apply
+        text-sm
+        underline
+        underline-offset-8
+        transition-colors
+        hover:text-dark;
+    }
+}
