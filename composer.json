@@ -19,7 +19,6 @@
         "laravel/tinker": "^2.10.1",
         "mcamara/laravel-localization": "^2.3",
         "pboivin/filament-peek": "^2.0",
-        "ralphjsmit/laravel-filament-seo": "^1.5",
         "saade/filament-adjacency-list": "^3.2",
         "staudenmeir/laravel-adjacency-list": "^1.0"
     },

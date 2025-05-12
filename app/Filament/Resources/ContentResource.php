@@ -25,7 +25,6 @@ use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
-use RalphJSmit\Filament\SEO\SEO;
 
 abstract class ContentResource extends Resource
 {
@@ -78,9 +77,7 @@ abstract class ContentResource extends Resource
         }
 
         // SEO
-        $formSchema[] = Section::make('Metas')->schema([
-            SEO::make()->columnSpanFull(),
-        ])
+        $formSchema[] = self::getSeoSection()
             ->collapsible()
             ->collapsed();
 
@@ -177,6 +174,19 @@ abstract class ContentResource extends Resource
         return Section::make('')
             ->schema($sectionSchema)
             ->columns(2);
+    }
+
+    public static function getSeoSection(): Section
+    {
+        $sectionSchema = [
+            TextInput::make('seo_title')
+                ->label(__('Title')),
+            TextArea::make('seo_description')
+                ->label(__('Description')),
+        ];
+
+        return Section::make(__('Metas'))
+            ->schema($sectionSchema);
     }
 
     public static function getIllustrationField(): FileUpload

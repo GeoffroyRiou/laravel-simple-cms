@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Services\TranslatableJsonFieldCleaner;
+use App\Traits\HasSeo;
 use App\Traits\Menuable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use RalphJSmit\Laravel\SEO\Support\HasSEO;
 use Spatie\Translatable\HasTranslations;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
 
@@ -38,7 +38,7 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
  */
 abstract class Content extends Model
 {
-    use HasRecursiveRelationships, HasSEO, HasTranslations, Menuable;
+    use HasRecursiveRelationships, HasSeo, HasTranslations, Menuable;
 
     public $table = 'contents';
 

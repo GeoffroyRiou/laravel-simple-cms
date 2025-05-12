@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {!! seo($model ?? null) !!}
+    <x-seo.metas :model="$model ?? null" />
 
     @foreach (preloadResourceService()->getResourcesToPreload() as $resourceData)
         <link rel="preload" as="{{ $resourceData['type'] }}" href="{{ $resourceData['url'] }}" />
