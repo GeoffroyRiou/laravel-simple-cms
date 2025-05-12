@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\ContactFormResource\Pages;
 
+use App\Filament\Actions\DuplicateLocalizedContentAction;
 use App\Filament\Resources\ContactFormResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
@@ -21,6 +22,7 @@ class EditContactForm extends EditRecord
 
         if ($availableLocales && count(config('app.locales')) > 1) {
             $actions[] = Actions\LocaleSwitcher::make();
+            $actions[] = DuplicateLocalizedContentAction::make();
         }
 
         return $actions;

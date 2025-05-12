@@ -80,7 +80,8 @@ class ContactFormResource extends Resource
                                             ->helperText('Si besoin, renseigner le format à vérifier lors de la validation du champ'),
                                         Checkbox::make('required')->label('Champ requis'),
                                         Toggle::make('fullWidth')->label('Pleine largeur')->default(false),
-                                    ]),
+                                    ])
+                                    ->columns(2),
                                 Builder\Block::make('textarea')
                                     ->label(fn (?array $state): string => $state['label'] ?? 'Zone de texte')
                                     ->icon('heroicon-o-bars-3-bottom-left')
