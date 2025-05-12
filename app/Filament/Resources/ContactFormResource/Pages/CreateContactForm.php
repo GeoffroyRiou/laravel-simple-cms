@@ -16,8 +16,13 @@ class CreateContactForm extends CreateRecord
 
     protected function getHeaderActions(): array
     {
-        return [
-            Actions\LocaleSwitcher::make(),
-        ];
+        $actions = [];
+        $availableLocales = config('app.locales');
+
+        if ($availableLocales && count(config('app.locales')) > 1) {
+            $actions[] = Actions\LocaleSwitcher::make();
+        }
+
+        return $actions;
     }
 }

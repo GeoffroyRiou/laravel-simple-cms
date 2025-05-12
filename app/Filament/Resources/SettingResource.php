@@ -14,9 +14,12 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use Filament\Resources\Concerns\Translatable;
 
 class SettingResource extends Resource
 {
+    use Translatable;
+
     protected static ?string $model = Setting::class;
 
     protected static ?string $modelLabel = 'Paramètre';
@@ -85,6 +88,8 @@ class SettingResource extends Resource
     {
         return [
             'index' => Pages\ManageSettings::route('/'),
+            'create' => Pages\CreateSetting::route('/create'),
+            'edit' => Pages\EditSetting::route('/{record}/edit'),
         ];
     }
 }

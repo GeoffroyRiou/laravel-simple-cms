@@ -13,7 +13,7 @@ declare(strict_types=1);
 
             <div class="g-header__actions -desktop">
                 <x-menu :menuId="1" class="g-header__top-bar-menu" />
-                <a href="{{$settings['linkedin']['value'] ?? ''}}" class="g-header__actions__linkedin" target="_blank">
+                <a href="{{$settings['linkedin']->value ?? ''}}" class="g-header__actions__linkedin" target="_blank">
                     <x-icon-linkedin-circle />
                 </a>
                 <x-language-switcher class="is-dark"/>
@@ -32,7 +32,7 @@ declare(strict_types=1);
             </div>
 
             <div class="g-header__actions -mobile">
-                <a href="tel:{{$settings['telephone']['value'] ?? ''}}" class="g-header__actions__action -primary" aria-label="Numéro de téléphone">
+                <a href="tel:{{$settings['telephone']->value ?? ''}}" class="g-header__actions__action -primary" aria-label="Numéro de téléphone">
                     <x-icon-phone class="icon" />
                 </a>
                 <button type="button" aria-label="Ouvrir le menu" class="g-header__actions__action -secondary" x-on:click="showMenu = true">

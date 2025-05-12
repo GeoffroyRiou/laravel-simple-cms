@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\ContactFormResource\Pages;
+namespace App\Filament\Resources\SettingResource\Pages;
 
-use App\Filament\Resources\ContactFormResource;
+use App\Filament\Resources\SettingResource;
+use Filament\Resources\Pages\CreateRecord;
 use Filament\Actions;
-use Filament\Resources\Pages\EditRecord;
 
-class EditContactForm extends EditRecord
+class CreateSetting extends CreateRecord
 {
-    use EditRecord\Concerns\Translatable;
-
-    protected static string $resource = ContactFormResource::class;
+    use CreateRecord\Concerns\Translatable;
+    
+    protected static string $resource = SettingResource::class;
 
     protected function getHeaderActions(): array
     {

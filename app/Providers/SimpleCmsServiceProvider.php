@@ -43,7 +43,7 @@ class SimpleCmsServiceProvider extends ServiceProvider
         if (! $this->app->runningInConsole()) {
 
             $settings = Setting::all()->flatMap(fn ($setting) => [
-                $setting->slug => $setting->toArray(),
+                $setting->slug => $setting,
             ]);
 
             View::share('settings', $settings);
