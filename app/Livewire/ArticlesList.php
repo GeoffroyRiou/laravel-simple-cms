@@ -12,16 +12,17 @@ use Livewire\WithPagination;
 
 class ArticlesList extends Component
 {
-    use WithPagination, WithoutUrlPagination;
+    use WithoutUrlPagination, WithPagination;
 
     public ?string $categoryId = '0';
 
     public int $perPage = 0;
 
-    public function mount(?int $perPage = 6): void{
+    public function mount(?int $perPage = 6): void
+    {
         $this->perPage = $perPage;
     }
-    
+
     public function render()
     {
         $articles = Article::when($this->categoryId, function ($query) {
@@ -30,7 +31,7 @@ class ArticlesList extends Component
 
         return view('livewire.articles-list', [
             'articles' => $articles,
-            'categories' => ArticleCategory::all()
+            'categories' => ArticleCategory::all(),
         ]);
     }
 }

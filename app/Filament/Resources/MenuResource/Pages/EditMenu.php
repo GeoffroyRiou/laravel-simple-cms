@@ -17,11 +17,10 @@ class EditMenu extends EditRecord
 
     protected static string $resource = MenuResource::class;
 
-
     protected function getHeaderActions(): array
     {
         $actions = [];
-        
+
         $availableLocales = config('app.locales');
 
         if ($availableLocales && count(config('app.locales')) > 1) {

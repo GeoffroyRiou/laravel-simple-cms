@@ -15,7 +15,7 @@ class ArticlesListBlock
             ->label('Liste d\'articles')
             ->icon('heroicon-o-queue-list')
             ->schema([
-                ...SpacerSchema::make()
+                ...SpacerSchema::make(),
             ])
             ->columns(2);
     }

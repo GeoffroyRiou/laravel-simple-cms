@@ -14,8 +14,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Hash;
 
-use function App\Helpers\getAllEnumValues;
-
 class UserResource extends Resource
 {
     protected static ?string $modelLabel = 'Utilisateur';
@@ -43,12 +41,12 @@ class UserResource extends Resource
                     ->afterStateHydrated(function (TextInput $component) {
                         $component->state('');
                     })
-                    ->dehydrateStateUsing(fn($state) => Hash::make($state))
-                    ->dehydrated(fn($state) => filled($state))
-                    ->required(fn(string $context): bool => $context === 'create')
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->required(fn (string $context): bool => $context === 'create')
                     ->autocomplete('new-password') // "new-XXX" force chrome à ne pas autocompléter le champ
                     ->revealable(),
-                Select::make('role')->label('Rôle')->options(fn() => UserRoles::getAllEnumValues()),
+                Select::make('role')->label('Rôle')->options(fn () => UserRoles::getAllEnumValues()),
             ]);
     }
 

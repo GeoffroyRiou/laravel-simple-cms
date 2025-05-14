@@ -10,11 +10,11 @@ use App\Models\Setting;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
+use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
-use Filament\Resources\Concerns\Translatable;
 
 class SettingResource extends Resource
 {

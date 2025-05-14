@@ -35,7 +35,7 @@ class LinksService
             }
         }
 
-        foreach( $item as $key => $value) {
+        foreach ($item as $key => $value) {
 
             if (is_array($value)) {
                 $pagesIdsByModel = $this->getPagesIdsByModelFromPageBlockData($value, $pagesIdsByModel);
@@ -81,7 +81,7 @@ class LinksService
             }
         }
 
-        foreach( $item as $key => $value) {
+        foreach ($item as $key => $value) {
             if (is_array($value)) {
                 $item[$key] = $this->hydrateLinksFromPageBlock($value, $pagesUrl);
             }

@@ -6,7 +6,6 @@ namespace App\Traits;
 
 trait HasSeo
 {
-
     /**
      * This method is called upon instantiation of the Eloquent Model.
      * It adds seo fields to the "$fillable" array of the model.
@@ -20,5 +19,4 @@ trait HasSeo
         $this->translatable[] = 'seo_title';
         $this->translatable[] = 'seo_description';
     }
-
 }

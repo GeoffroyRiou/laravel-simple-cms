@@ -93,10 +93,12 @@ abstract class Content extends Model
         });
     }
 
-    public function pageBlocks() : Attribute{
-        $cleaner = new TranslatableJsonFieldCleaner();
+    public function pageBlocks(): Attribute
+    {
+        $cleaner = new TranslatableJsonFieldCleaner;
+
         return Attribute::make(
-            get: function(mixed $value) use($cleaner){
+            get: function (mixed $value) use ($cleaner) {
                 return is_array($value) ? $cleaner->clean($value) : $value;
             },
         );
@@ -105,7 +107,8 @@ abstract class Content extends Model
     /**
      * Get the custom field value if exists
      */
-    public function field(string $key): mixed{
+    public function field(string $key): mixed
+    {
         $fields = $this->custom_fields ?? [];
         if (array_key_exists($key, $fields)) {
             return $this->custom_fields[$key];

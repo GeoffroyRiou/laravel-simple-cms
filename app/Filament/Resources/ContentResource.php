@@ -7,7 +7,6 @@ namespace App\Filament\Resources;
 use App\Filament\Fields\PageBuilder;
 use App\Models\Content;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -69,11 +68,11 @@ abstract class ContentResource extends Resource
         // Page Builder
         $formSchema[] = self::getPageBuilderSection()
             ->collapsible();
-        
+
         // Custom Fields
-        if($customFields = static::getCustomFields()) {
+        if ($customFields = static::getCustomFields()) {
             $formSchema[] = Section::make(__('Custom fields'))
-            ->schema($customFields);
+                ->schema($customFields);
         }
 
         // SEO
