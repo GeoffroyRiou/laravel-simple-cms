@@ -9,6 +9,7 @@ use App\Services\ImageService;
 use App\Services\MenuService;
 use App\Services\PreloadResourcesService;
 use App\Services\ReflectionService;
+use App\Services\SitemapService;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -28,6 +29,9 @@ class SimpleCmsServiceProvider extends ServiceProvider
 
         // Bind the ImageService
         $this->app->bind('imageHelper', fn ($app): \App\Services\ImageService => new ImageService);
+
+        // Bind the SitemapService
+        $this->app->bind('sitemap', fn ($app): \App\Services\SitemapService => new SitemapService($app->make(MenuService::class)));
     }
 
     public function boot(): void
