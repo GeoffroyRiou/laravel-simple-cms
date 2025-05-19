@@ -10,12 +10,14 @@ use App\Services\MenuService;
 use App\Services\PreloadResourcesService;
 use App\Services\ReflectionService;
 use App\Services\SitemapService;
-use Illuminate\Support\Facades\Blade;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class SimpleCmsServiceProvider extends ServiceProvider
 {
+    use \Mcamara\LaravelLocalization\Traits\LoadsTranslatedCachedRoutes;
+
     public function register(): void
     {
         // Bind the ReflectionService
@@ -36,12 +38,14 @@ class SimpleCmsServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        /**
+         * Routes
+         */
+        RouteServiceProvider::loadCachedRoutesUsing(fn() => $this->loadCachedRoutes());
 
         /**
          * Views
          */
-
-        // Blade::componentNamespace('App\\View\\Components\\SimpleCms', 'simple-cms');
 
         // Inject settings to all views
         if (! $this->app->runningInConsole()) {
