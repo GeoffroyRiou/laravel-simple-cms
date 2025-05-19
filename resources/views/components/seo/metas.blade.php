@@ -4,8 +4,8 @@
 ])
 
 @php
-    $seoTitle = $model->seo_title ?? $settings['seo_title']->value ?? config('app.name') ?? '';
-    $seodescription = $model->seo_description ?? $settings['seo_description']->value ?? '';
+    $seoTitle = $model->seo_title ?: $settings['seo_title']->value ?? config('app.name') ?? '';
+    $seodescription = $model->seo_description ?: $settings['seo_description']->value ?? '';
     $seoIllustation = $model->illustration ? SimpleCmsImage::imageUrl($model->illustration, 1200,628, true) : asset('images/default-illustration-meta.svg');
 @endphp
 
