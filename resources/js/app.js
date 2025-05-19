@@ -1,6 +1,9 @@
-import './accessible-menu';
 import Alpine from 'alpinejs'
- 
-window.Alpine = Alpine
- 
-Alpine.start();
+import { initRGPD } from './rgpd';
+
+window.Alpine = Alpine;
+
+window.addEventListener('DOMContentLoaded', () => {
+    initRGPD();
+    Alpine.start();
+});

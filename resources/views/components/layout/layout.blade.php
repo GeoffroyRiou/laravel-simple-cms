@@ -19,10 +19,11 @@
 
 <body>
     <x-layout.header />
-    {{ $slot }}
+    
+        {{ $slot }}
 
     <x-layout.footer />
-
+    <x-rgpd />
 </body>
 
 </html>
