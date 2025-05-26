@@ -46,6 +46,8 @@ class MediaResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nom du fichier')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('type')
+                    ->label('Type'),
                 Tables\Columns\TextColumn::make('media')
                     ->label('Lien')
                     //->copyableState(fn (string $state): string => $mediaService->getMediaUrl($state))

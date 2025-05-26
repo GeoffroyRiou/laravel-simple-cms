@@ -1,16 +1,17 @@
-<x-dynamic-component  wire:key="uniqId()" :component="$getFieldWrapperView()" :field="$field">
-    <div x-data="{
-        state: $wire.$entangle('{{ $getStatePath() }}'),
-    }">
-        <input x-model="state" />
-    </div>
-    <livewire:media-gallery :selectedPaths="$field->getState($getStatePath()) ?? []" />
-</x-dynamic-component>
+<x-dynamic-component :component="$getFieldWrapperView()" :field="$field" x-data="{
+    state: $wire.$entangle('{{ $getStatePath() }}'),
+}">
+    <div>
+        <div x-show="state">
+            @if ($medias = $getMediaFiles())
+                @foreach($medias as $media)
+                    <x-admin-file-preview :path="$media" />
+                @endforeach
+            @endif
+        </div>
+        <div class="pt-2">
+            {{ $getAction('picker') }}  ou {{ $getAction('upload') }}
+        </div>
 
-@script
-    <script>
-        $wire.$on('pathSelected', function(data) {
-            $wire.$set('{{ $getStatePath() }}', data.paths);
-        })
-    </script>
-@endscript
+    </div>
+</x-dynamic-component>

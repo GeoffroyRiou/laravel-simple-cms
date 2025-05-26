@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Schemas;
 
-use App\Forms\Components\MediaField;
+use App\Filament\Fields\MediaField;
 use Filament\Forms\Components\FileUpload;
 
 class ImageSchema
@@ -17,7 +17,9 @@ class ImageSchema
         return [
             MediaField::make($fieldName)
                 ->label($label)
-                ->required($isRequired),
+                ->required($isRequired)
+                ->imagesOnly(true)
+                ->columnSpanFull(),
         ];
     }
 }
