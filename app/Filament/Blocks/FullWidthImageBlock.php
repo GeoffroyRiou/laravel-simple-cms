@@ -17,7 +17,7 @@ class FullWidthImageBlock
         return Block::make('page-builder.full-width-image')
             ->label(__('Full width image'))
             ->icon('heroicon-o-photo')
-            ->schema(
+            ->schema([
                 ...SchemasImageSchema::make(),
                 Select::make('bgColor')
                     ->label('Couleur de fond')
@@ -28,6 +28,6 @@ class FullWidthImageBlock
                     ->columns(2)
                     ->collapsible()
                     ->collapsed(),
-            );
+            ]);
     }
 }
