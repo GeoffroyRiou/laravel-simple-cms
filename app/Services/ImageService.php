@@ -122,7 +122,7 @@ class ImageService
     /**
      * Vérifie si le format de l'image permet le redimensionnement
      */
-    private function isResizable(string $filename): bool
+    public function isResizable(string $filename): bool
     {
         $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'avif'];

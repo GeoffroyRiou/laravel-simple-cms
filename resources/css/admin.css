@@ -1,0 +1,52 @@
+.media-gallery{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+}
+
+.media-preview{
+    position: relative;
+    width: 90px;
+    height: 90px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    border: transparent 2px solid;
+}
+
+.media-preview.-selected{
+    border: #20be50 2px solid;
+}
+
+.media-preview:hover{
+    background-color: #e0e0e0;
+}
+
+.media-preview:hover .overlay{
+    opacity: 1;
+}
+
+.media-preview .overlay{
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.media-preview .overlay .icon{
+    color: #fff;
+    width: 24px;
+    height: 24px;
+}
+
+.media-selected{
+    border: 2px solid #007bff;
+}
