@@ -1,8 +1,17 @@
 .media-gallery{
+    padding: 10px;
+    height: 50vh;
+    overflow-y: auto;
+}
+
+.media-gallery.-line{
+    height: auto;
+}
+
+.media-gallery .list{
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    padding: 10px;
 }
 
 .media-preview{
@@ -45,6 +54,7 @@
     color: #fff;
     width: 24px;
     height: 24px;
+    pointer-events: none;
 }
 
 .media-preview .name{

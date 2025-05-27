@@ -7,6 +7,7 @@
                 <div class="media-preview" wire:click.prevent="handleMediaClick('{{ $media['path'] }}')">
                     <x-filament::avatar src="{{ $media['isResizable'] ? $media['url'] : '' }}" :circular="false"
                         alt="" size="w-20 h-20" />
+                    <p class="name">{{ $media['name'] ?? '' }}</p>
                     <div class="overlay">
                         <x-icon name="heroicon-o-trash" class="icon" />
                     </div>

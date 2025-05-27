@@ -53,5 +53,7 @@
     "Destination language": "Langue de destination",
     "Excerpt": "Extrait",
     "None": "Aucun",
+    "Select a media file": "Sélectionner un média",
+    "Upload a media file": "Téléverser un média",
     "Duplicate the content of the source language to the destination language. All destination content wil be replaced by the source content.": "Dupliquer le contenu de la langue source dans la langue de destination. Tout le contenu de destination sera remplacé par le contenu source."
 }

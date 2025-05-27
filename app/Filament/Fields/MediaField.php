@@ -19,6 +19,8 @@ class MediaField extends Field
 
     public bool $filesOnly = false;
 
+    public bool $multiple = false;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -29,27 +31,41 @@ class MediaField extends Field
         ]);
     }
 
-    public function imagesOnly(bool $imagesOnly = false): static
+    public function imagesOnly(bool $imagesOnly = true): static
     {
         $this->imagesOnly = $imagesOnly;
 
         return $this;
     }
 
-    public function filesOnly(bool $filesOnly = false): static
+    public function multiple(bool $multiple = true): static
+    {
+        $this->multiple = $multiple;
+
+        return $this;
+    }
+
+    public function filesOnly(bool $filesOnly = true): static
     {
         $this->filesOnly = $filesOnly;
 
         return $this;
     }
 
+    public function isMultiple(): bool
+    {
+        return $this->multiple;
+    }
+
     public function getPickerAction(): Action
     {
         return Action::make('picker')
-            ->label(__('Select a Media File'))
+            ->label(__('Select a media file'))
             ->icon('heroicon-o-photo')
             ->form([
                 MediaFilePickerField::make('media')
+                    ->label('')
+                    ->multiple($this->multiple)
                     ->imagesOnly($this->imagesOnly)
                     ->filesOnly($this->filesOnly),
             ])
@@ -67,7 +83,7 @@ class MediaField extends Field
     public function getUploadAction(): Action
     {
         return Action::make('upload')
-            ->label('Téléverser un fichier')
+            ->label(__('Upload a media file'))
             ->icon('heroicon-o-photo')
             ->form([
                 FileUpload::make('path')
@@ -84,14 +100,13 @@ class MediaField extends Field
             ])
             ->action(function (array $data, Set $set, Component $component) {
 
-                $newMedia = Media::create([
-                    'name' => $data['name'],
-                    'path' => $data['path'],
-                ]);
+                $newMedia = Media::create($data);
+
+                $newState = $this->multiple ? [...$this->getState(),$newMedia->path] : $newMedia->path;
 
                 $set(
                     $component->getStatePath(false),
-                    $newMedia->path
+                    $newState
                 );
             });
     }
@@ -100,10 +115,20 @@ class MediaField extends Field
     {
         $state = $this->getState();
         if (is_array($state)) {
-            return array_values($state);
+            $state = array_values($state);
         }elseif (is_string($state)) {
-            return [$state];
+            $state = [$state];
         }
-        return [];
+
+        // TODO : Extract this query in an action
+        $medias = Media::all();
+
+        $state = array_map(function(string $item) use ($medias){
+            $media = $medias->where('path',$item)->first();
+            
+            return $media;
+        },$state);
+
+        return $state ?? [];
     }
 }

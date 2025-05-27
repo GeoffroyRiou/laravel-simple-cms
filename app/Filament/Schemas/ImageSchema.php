@@ -18,7 +18,7 @@ class ImageSchema
             MediaField::make($fieldName)
                 ->label($label)
                 ->required($isRequired)
-                ->imagesOnly(true)
+                ->imagesOnly()
                 ->columnSpanFull(),
         ];
     }
