@@ -23,19 +23,19 @@ class SimpleCmsServiceProvider extends ServiceProvider
     public function register(): void
     {
         // Bind the ReflectionService
-        $this->app->singleton(ReflectionService::class, fn($app): \App\Services\ReflectionService => new ReflectionService);
+        $this->app->singleton(ReflectionService::class, fn ($app): \App\Services\ReflectionService => new ReflectionService);
 
         // Bind the MenuService
-        $this->app->singleton(MenuService::class, fn($app): \App\Services\MenuService => new MenuService($app->make(ReflectionService::class)));
+        $this->app->singleton(MenuService::class, fn ($app): \App\Services\MenuService => new MenuService($app->make(ReflectionService::class)));
 
         // Bind the PreloadService
-        $this->app->singleton(PreloadResourcesService::class, fn($app): \App\Services\PreloadResourcesService => new PreloadResourcesService);
+        $this->app->singleton(PreloadResourcesService::class, fn ($app): \App\Services\PreloadResourcesService => new PreloadResourcesService);
 
         // Bind the ImageService
-        $this->app->bind('imageHelper', fn($app): \App\Services\ImageService => new ImageService);
+        $this->app->bind('imageHelper', fn ($app): \App\Services\ImageService => new ImageService);
 
         // Bind the SitemapService
-        $this->app->bind('sitemap', fn($app): \App\Services\SitemapService => new SitemapService($app->make(MenuService::class)));
+        $this->app->bind('sitemap', fn ($app): \App\Services\SitemapService => new SitemapService($app->make(MenuService::class)));
     }
 
     public function boot(): void
@@ -44,13 +44,13 @@ class SimpleCmsServiceProvider extends ServiceProvider
          * Assets
          */
         FilamentAsset::register([
-            Css::make('admin-style', __DIR__ . '/../../resources/css/admin.css'),
+            Css::make('admin-style', __DIR__.'/../../resources/css/admin.css'),
         ]);
 
         /**
          * Routes
          */
-        RouteServiceProvider::loadCachedRoutesUsing(fn() => $this->loadCachedRoutes());
+        RouteServiceProvider::loadCachedRoutesUsing(fn () => $this->loadCachedRoutes());
 
         /**
          * Views
@@ -59,7 +59,7 @@ class SimpleCmsServiceProvider extends ServiceProvider
         // Inject settings to all views
         if (! $this->app->runningInConsole()) {
 
-            $settings = Setting::all()->flatMap(fn($setting) => [
+            $settings = Setting::all()->flatMap(fn ($setting) => [
                 $setting->slug => $setting,
             ]);
 

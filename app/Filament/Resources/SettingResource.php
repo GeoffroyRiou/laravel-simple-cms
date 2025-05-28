@@ -47,7 +47,7 @@ class SettingResource extends Resource
                     ->columnSpanFull()
                     ->required(),
                 Forms\Components\Select::make('type')
-                    ->options(SettingTypes::getAllEnumValues())
+                    ->options(SettingTypes::getSelectOptions())
                     ->required(),
                 Forms\Components\Select::make('icon')
                     ->label(__('Icon'))

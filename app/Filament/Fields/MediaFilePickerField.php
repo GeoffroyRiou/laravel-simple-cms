@@ -5,8 +5,6 @@ namespace App\Filament\Fields;
 use App\Models\Media;
 use Filament\Forms\Components\Field;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Livewire\Attributes\On;
 
 class MediaFilePickerField extends Field
 {
@@ -48,15 +46,15 @@ class MediaFilePickerField extends Field
     {
         $state = $this->getState();
 
-        if (!$this->multiple) {
-            $this->setState([$path]);
+        if (! $this->multiple) {
+            $this->state([$path]);
         } else {
             if (in_array($path, $state)) {
-                $this->setState(array_diff($state, [$path]));
+                $this->state(array_diff($state, [$path]));
             } else {
-                $this->setState([
+                $this->state([
                     ...$state,
-                    $path
+                    $path,
                 ]);
             }
         }

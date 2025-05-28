@@ -73,6 +73,6 @@ return [
 
     'images' => [
         'quality' => 90,
-        'sharpen' => 5
-    ]
+        'sharpen' => 5,
+    ],
 ];

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Filament\Schemas;
 
 use App\Filament\Fields\MediaField;
-use Filament\Forms\Components\FileUpload;
 
 class ImageSchema
 {

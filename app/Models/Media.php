@@ -32,6 +32,6 @@ class Media extends Model
 
     public function getUrl(): string
     {
-        return asset('storage/' . $this->path);
+        return asset('storage/'.$this->path);
     }
 }

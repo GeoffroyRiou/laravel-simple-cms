@@ -19,18 +19,20 @@ class ImageService
      * @param  int  $height  La hauteur de l'image
      * @param  bool  $crop  Indique si l'image doit être recadrée
      **/
-    public function imageUrl(string|array $path, int $width = 100, int $height = 100, bool $crop = true, string $disk = 'public'): string
+    public function imageUrl(string|array $path, int $width = 100, int $height = 100, bool $crop = true, string $disk = 'public'): ?string
     {
 
         if (is_array($path)) {
             $path = count($path) ? array_values($path)[0] : '';
         }
 
-        $storageUrl = Storage::disk($disk)->url($this->getResizedImage($path, $width, $height, $crop, $disk));
+        $storage = Storage::disk($disk);
 
-        if ($disk === 'private') {
-            return str_replace('storage', 'espace-parents', $storageUrl);
+        if (! $storage->exists($path)) {
+            return null;
         }
+
+        $storageUrl = $storage->url($this->getResizedImage($path, $width, $height, $crop, $disk));
 
         return $storageUrl;
     }

@@ -9,7 +9,6 @@ use Filament\Forms\Components\Field;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Set;
-use Livewire\Attributes\On;
 
 class MediaField extends Field
 {
@@ -102,7 +101,7 @@ class MediaField extends Field
 
                 $newMedia = Media::create($data);
 
-                $newState = $this->multiple ? [...$this->getState(),$newMedia->path] : $newMedia->path;
+                $newState = $this->multiple ? [...$this->getState(), $newMedia->path] : $newMedia->path;
 
                 $set(
                     $component->getStatePath(false),
@@ -116,19 +115,19 @@ class MediaField extends Field
         $state = $this->getState();
         if (is_array($state)) {
             $state = array_values($state);
-        }elseif (is_string($state)) {
+        } elseif (is_string($state)) {
             $state = [$state];
         }
 
         // TODO : Extract this query in an action
         $medias = Media::all();
 
-        $state = array_map(function(string $item) use ($medias){
-            $media = $medias->where('path',$item)->first();
-            
-            return $media;
-        },$state);
+        $state = array_map(function (string $item) use ($medias) {
+            $media = $medias->where('path', $item)->first();
 
-        return $state ?? [];
+            return $media;
+        }, $state);
+
+        return $state ?: [];
     }
 }

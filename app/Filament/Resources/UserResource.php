@@ -20,9 +20,11 @@ class UserResource extends Resource
 
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationLabel = 'Liste';
+    protected static ?string $navigationLabel = 'Utilisateurs';
 
     protected static ?string $navigationGroup = 'Utilisateurs';
+
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
     protected static ?int $navigationSort = 20;
 
@@ -46,7 +48,7 @@ class UserResource extends Resource
                     ->required(fn (string $context): bool => $context === 'create')
                     ->autocomplete('new-password') // "new-XXX" force chrome à ne pas autocompléter le champ
                     ->revealable(),
-                Select::make('role')->label('Rôle')->options(fn () => UserRoles::getAllEnumValues()),
+                Select::make('role')->label('Rôle')->options(UserRoles::getSelectOptions()),
             ]);
     }
 

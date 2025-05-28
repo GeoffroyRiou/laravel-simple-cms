@@ -23,6 +23,7 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
  * @property string $url_path
  * @property bool $published
  * @property array $page_blocks Translatable
+ * @property array $custom_fields Translatable
  * @property string $model_path
  * @property int|null $parent_id
  * @property int|null $category_id

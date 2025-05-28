@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MediaResource\Pages;
-use App\Filament\Resources\MediaResource\RelationManagers;
 use App\Models\Media;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
@@ -12,14 +11,14 @@ use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class MediaResource extends Resource
 {
     protected static ?string $model = Media::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document';
+
+    protected static ?string $navigationLabel = 'Medias';
 
     public static function form(Form $form): Form
     {
@@ -48,9 +47,9 @@ class MediaResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('type')
                     ->label('Type'),
-                Tables\Columns\TextColumn::make('media')
+                Tables\Columns\TextColumn::make('path')
                     ->label('Lien')
-                    //->copyableState(fn (string $state): string => $mediaService->getMediaUrl($state))
+                    ->copyableState(fn (Media $record): string => $record->getUrl())
                     ->formatStateUsing(fn () => __('Copy file link'))
                     ->badge()
                     ->copyable(),

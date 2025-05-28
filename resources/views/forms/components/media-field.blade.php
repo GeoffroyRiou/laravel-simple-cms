@@ -2,8 +2,9 @@
     state: $wire.$entangle('{{ $getStatePath() }}'),
     multiple: {{ $isMultiple() ? 1 : 0 }},
     remove: function(media, el) {
+        this.state = Array.isArray(this.state) ? this.state : [this.state];
         this.state = this.state.filter(x => x !== media);
-            el.parentElement.remove();
+        el.parentElement.remove();
     },
 }">
     <div>
@@ -12,14 +13,16 @@
                 <div class="media-gallery -line">
                     <div class="list">
                         @foreach ($medias as $media)
-                            <div class="media-preview">
-                                <x-admin-file-preview :path="$media->path"/>
-                                <p class="name">{{ $media->name }}</p>
-                                <div class="overlay"
-                                    x-on:click="(e) => remove('{{ $media->path }}',e.target)" >
-                                    <x-icon name="heroicon-o-trash" class="icon" />
+                            @if(!empty($media))
+                                <div class="media-preview">
+                                    <x-admin-file-preview :path="$media->path"/>
+                                    <p class="name">{{ $media->name }}</p>
+                                    <div class="overlay"
+                                        x-on:click="(e) => remove('{{ $media->path }}',e.target)" >
+                                        <x-icon name="heroicon-o-trash" class="icon" />
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         @endforeach
                     </div>
                 </div>

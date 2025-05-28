@@ -9,8 +9,6 @@ namespace App\Enums;
  */
 enum UserRoles: string
 {
-    use \App\Traits\ExtendedEnum;
-
     case Standard = 'standard';
     case Admin = 'admin';
 
@@ -20,5 +18,16 @@ enum UserRoles: string
             self::Standard => 'Standard',
             self::Admin => 'Admin',
         };
+    }
+
+    public static function getSelectOptions(): array
+    {
+        $options = [];
+
+        foreach (self::cases() as $case) {
+            $options[$case->value] = $case->label();
+        }
+
+        return $options;
     }
 }

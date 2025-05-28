@@ -17,9 +17,6 @@ class LinksService
 
     private function getPagesIdsByModelFromPageBlockData(array $item, array $pagesIdsByModel = [])
     {
-        if (! is_array($item)) {
-            return $pagesIdsByModel;
-        }
 
         if (! empty($item['type']) && $item['type'] == 'page') {
             $pageDatas = explode(':', (string) $item['page']);
@@ -66,11 +63,6 @@ class LinksService
 
     private function hydrateLinksFromPageBlock(array $item, array $pagesUrl): array
     {
-
-        if (! is_array($item)) {
-            return $item;
-        }
-
         if (! empty($item['type']) && $item['type'] == 'page') {
             $pageDatas = explode(':', (string) $item['page']);
             $pageModel = $pageDatas[0];

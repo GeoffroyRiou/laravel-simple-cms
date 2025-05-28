@@ -12,7 +12,7 @@ class SitemapService
     /**
      * Create a new class instance.
      */
-    public function __construct(private MenuService $menuService)
+    public function __construct(MenuService $menuService)
     {
         $this->modelsToUse = $menuService->getMenuablesModels();
     }
