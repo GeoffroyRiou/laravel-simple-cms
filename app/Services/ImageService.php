@@ -108,7 +108,7 @@ class ImageService
             $image->scale($width);
         }
 
-        Storage::disk($disk)->put($resizedPath, $image->toWebp(80)->toString());
+        Storage::disk($disk)->put($resizedPath, $image->sharpen(config('simple-cms.images.sharpen', 10))->toWebp(config('simple-cms.images.quality', 10))->toString());
     }
 
     /**

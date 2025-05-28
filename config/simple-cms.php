@@ -70,4 +70,9 @@ return [
     ],
 
     'home_view_name' => 'components.pages.home',
+
+    'images' => [
+        'quality' => 90,
+        'sharpen' => 5
+    ]
 ];
