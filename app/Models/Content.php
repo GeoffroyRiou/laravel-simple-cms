@@ -26,6 +26,7 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
  * @property array $custom_fields Translatable
  * @property string $model_path
  * @property int|null $parent_id
+ * @property int $order
  * @property int|null $category_id
  * @property string|null $categoryModel
  * @property string|null $illustration
@@ -62,6 +63,7 @@ abstract class Content extends Model
         'category_id',
         'illustration',
         'is_home',
+        'order',
     ];
 
     protected $casts = [

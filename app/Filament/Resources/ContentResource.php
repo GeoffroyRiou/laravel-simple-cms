@@ -37,6 +37,8 @@ abstract class ContentResource extends Resource
 
     public static bool $hasIllustration = true;
 
+    public static bool $hasSort = false;
+
     public static function form(Form $form): Form
     {
         $formSchema = [];
@@ -44,14 +46,14 @@ abstract class ContentResource extends Resource
         // Base Fields
         $formSchema[] = self::getCmsSection()
             ->columnSpan(2)
-            ->visible(fn ($record): bool => ! $record || ! $record->is_home);
+            ->visible(fn($record): bool => ! $record || ! $record->is_home);
 
         // Illustration
         if (static::$hasIllustration) {
             $formSchema[] = Section::make()->schema([
                 self::getIllustrationField(),
             ])->columnSpan(1)
-                ->visible(fn ($record): bool => ! $record || ! $record->is_home);
+                ->visible(fn($record): bool => ! $record || ! $record->is_home);
         }
 
         // Excerpt
@@ -87,21 +89,37 @@ abstract class ContentResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                TextColumn::make('title')
-                    ->label(__('Title'))
-                    ->sortable()
-                    ->searchable(),
-                TextColumn::make('slug')
-                    ->label(__('Path'))
-                    ->formatStateUsing(fn ($record): string => $record->url_path ?? '')
-                    ->size(TextColumn\TextColumnSize::ExtraSmall)
-                    ->color('gray'),
-                ToggleColumn::make('published')
-                    ->label(__('Published'))
-                    ->sortable(),
-            ])
+
+        $columns = [
+            TextColumn::make('title')
+                ->label(__('Title'))
+                ->sortable()
+                ->searchable(),
+            TextColumn::make('slug')
+                ->label(__('Path'))
+                ->formatStateUsing(fn($record): string => $record->url_path ?? '')
+                ->size(TextColumn\TextColumnSize::ExtraSmall)
+                ->color('gray'),
+            ToggleColumn::make('published')
+                ->label(__('Published'))
+                ->sortable(),
+        ];
+
+        if (static::$hasSort) {
+            $columns[] = TextColumn::make('order')
+                ->label('Ordre')
+                ->sortable();
+
+            $table
+                ->defaultSort('order', 'asc')
+                ->reorderable('order');
+        } else {
+            $table
+                ->defaultSort('created_at', 'desc');
+        }
+
+        $table
+            ->columns($columns)
             ->filters([
                 //
             ])
@@ -110,19 +128,22 @@ abstract class ContentResource extends Resource
                 Tables\Actions\ReplicateAction::make()
                     ->beforeReplicaSaved(function (Content $replica): void {
                         $replica->slug .= '-2';
-                        $replica->title = $replica->title.' - '.__('Copy');
+                        $replica->title = $replica->title . ' - ' . __('Copy');
                     })
-                    ->visible(fn ($record): bool => ! $record->is_home),
+                    ->visible(fn($record): bool => ! $record->is_home),
                 Tables\Actions\DeleteAction::make()
-                    ->visible(fn ($record): bool => ! $record->is_home),
+                    ->visible(fn($record): bool => ! $record->is_home),
                 self::getTableViewPageAction(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ])
-            ->defaultSort('created_at', 'desc');
+            ]);
+
+
+
+        return $table;
     }
 
     protected static function getCustomFields(): array
@@ -148,7 +169,7 @@ abstract class ContentResource extends Resource
             TextInput::make('title')
                 ->label(__('Title'))
                 ->required()
-                ->afterStateUpdated(fn (Set $set, Get $get, ?string $state): mixed => $get('slug') ? null : $set('slug', Str::slug($state)))
+                ->afterStateUpdated(fn(Set $set, Get $get, ?string $state): mixed => $get('slug') ? null : $set('slug', Str::slug($state)))
                 ->live(onBlur: true),
             TextInput::make('slug')
                 ->label(__('Slug'))
@@ -207,8 +228,8 @@ abstract class ContentResource extends Resource
     {
         return Select::make($parentKey)
             ->label(__($sectionLabel))
-            ->options(fn (Get $get) => $parentModelClass::query()
-                ->when($modelClass === $parentModelClass, fn (Builder $query) => $query->where('id', '!=', $get('id')))
+            ->options(fn(Get $get) => $parentModelClass::query()
+                ->when($modelClass === $parentModelClass, fn(Builder $query) => $query->where('id', '!=', $get('id')))
                 ->get()
                 ->pluck($labelKey, 'id'))
             ->searchable();
@@ -219,7 +240,7 @@ abstract class ContentResource extends Resource
         return Action::make('go')
             ->label(__('View page'))
             ->icon('heroicon-o-eye')
-            ->url(fn ($record) => $record->getUrl())
+            ->url(fn($record) => $record->getUrl())
             ->openUrlInNewTab();
     }
 }
