@@ -19,7 +19,7 @@
         <div class="list">
             @foreach ($getMediaFiles() as $media)
                 <label for="media_{{ $media->id }}" wire:key="media_{{ $media->id }}" class="media-preview"
-                    :class="{ '-selected': isChecked('{{ $media->path }}') }">
+                    :class="{ '-selected': isChecked('{{ $media->path }}') }" title="{{ $media->name }}">
                     <input type="{{ $isMultiple() ? 'checkbox' : 'radio' }}" id="media_{{ $media->id }}" name="media"
                         :checked="isChecked('{{ $media->path }}')" x-on:change="select('{{ $media->path }}')"
                         class="hidden">

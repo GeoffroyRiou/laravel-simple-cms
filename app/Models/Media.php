@@ -22,11 +22,11 @@ class Media extends Model
         parent::boot();
         $imageService = app(ImageService::class);
         static::creating(function (Media $model) use ($imageService): void {
-            $model->type = $imageService->isResizable($model->path) ? 'image' : 'file';
+            $model->type = $imageService->isResizable($model->path) || $imageService->isSVG($model->path) ? 'image' : 'file';
         });
 
         static::updating(function (Media $model) use ($imageService): void {
-            $model->type = $imageService->isResizable($model->path) ? 'image' : 'file';
+            $model->type = $imageService->isResizable($model->path) || $imageService->isSVG($model->path) ? 'image' : 'file';
         });
     }
 

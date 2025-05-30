@@ -89,6 +89,14 @@ class ImageService
     }
 
     /**
+     * Retourne l'url' de l'image originale
+     */
+    public function getOriginalUrl(string $imagePath, string $disk = 'public'): string
+    {
+        return Storage::disk($disk)->url($imagePath);
+    }
+
+    /**
      * Vérifie si l'image redimensionnée existe déjà
      */
     private function resizedImageExists(string $resizedPath, string $disk): bool
@@ -128,6 +136,17 @@ class ImageService
     {
         $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'avif'];
+
+        return in_array($extension, $allowedExtensions);
+    }
+
+    /**
+     * Vérifie si le format de l'image est un SVG
+     */
+    public function isSVG(string $filename): bool
+    {
+        $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+        $allowedExtensions = ['svg'];
 
         return in_array($extension, $allowedExtensions);
     }

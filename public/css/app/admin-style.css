@@ -70,3 +70,18 @@
 .media-selected{
     border: 2px solid #007bff;
 }
+
+.media-preview-file{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    width: 92px;
+    min-height: 92px;
+}
+
+.media-preview-file .icon{
+    width: 50px;
+   height: 50px;
+}
