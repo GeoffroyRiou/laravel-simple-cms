@@ -9,6 +9,8 @@ use Filament\Forms\Components\Field;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Set;
+use Filament\Support\Enums\ActionSize;
+use Livewire\Attributes\On;
 
 class MediaField extends Field
 {
@@ -20,33 +22,42 @@ class MediaField extends Field
 
     public bool $multiple = false;
 
+    public int $max = 0;
+
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->registerActions([
-            fn (self $component): Action => $component->getPickerAction(),
-            fn (self $component): Action => $component->getUploadAction(),
+            fn(self $component): Action => $component->getPickerAction(),
+            fn(self $component): Action => $component->getUploadAction(),
         ]);
     }
 
-    public function imagesOnly(bool $imagesOnly = true): static
+    public function imagesOnly(bool $imagesOnly = true): self
     {
         $this->imagesOnly = $imagesOnly;
 
         return $this;
     }
 
-    public function multiple(bool $multiple = true): static
+    public function multiple(bool $multiple = true): self
     {
         $this->multiple = $multiple;
 
         return $this;
     }
 
-    public function filesOnly(bool $filesOnly = true): static
+    public function filesOnly(bool $filesOnly = true): self
     {
         $this->filesOnly = $filesOnly;
+
+        return $this;
+    }
+
+    public function max(int $max = 0): self
+    {
+        $this->max = $max;
 
         return $this;
     }
@@ -54,6 +65,11 @@ class MediaField extends Field
     public function isMultiple(): bool
     {
         return $this->multiple;
+    }
+
+    public function getMax(): int
+    {
+        return $this->max;
     }
 
     public function getPickerAction(): Action
@@ -65,10 +81,11 @@ class MediaField extends Field
                 MediaFilePickerField::make('media')
                     ->label('')
                     ->multiple($this->multiple)
+                    ->max($this->max)
                     ->imagesOnly($this->imagesOnly)
                     ->filesOnly($this->filesOnly),
             ])
-            ->fillForm(fn (Component $component): array => [
+            ->fillForm(fn(Component $component): array => [
                 'media' => $component->getState(),
             ])
             ->action(function (array $data, Set $set, Component $component) {
@@ -76,21 +93,22 @@ class MediaField extends Field
                     $component->getStatePath(false),
                     $data['media']
                 );
-            });
+            })
+            ->size(ActionSize::Small);
     }
 
     public function getUploadAction(): Action
     {
         return Action::make('upload')
             ->label(__('Upload a media file'))
-            ->icon('heroicon-o-photo')
+            ->icon('heroicon-o-arrow-up-on-square')
             ->form([
                 FileUpload::make('path')
                     ->label('Media')
                     ->maxSize(5120)
                     ->columnSpanFull()
                     ->panelLayout(null)
-                    ->afterStateUpdated(fn (Set $set, $state): mixed => $set('name', $state->getClientOriginalName()))
+                    ->afterStateUpdated(fn(Set $set, $state): mixed => $set('name', $state->getClientOriginalName()))
                     ->required()
                     ->panelLayout(null),
                 TextInput::make('name')
@@ -101,18 +119,21 @@ class MediaField extends Field
 
                 $newMedia = Media::create($data);
 
-                $newState = $this->multiple ? [...$this->getState(), $newMedia->path] : $newMedia->path;
+                $state = $this->getState() ?? [];
+                $newState = $this->multiple ? [...$state, $newMedia->path] : $newMedia->path;
 
                 $set(
                     $component->getStatePath(false),
                     $newState
                 );
-            });
+            })
+            ->size(ActionSize::Small);
     }
 
     public function getMediaFiles(): array
     {
-        $state = $this->getState();
+        $state = $this->getState() ?? [];
+
         if (is_array($state)) {
             $state = array_values($state);
         } elseif (is_string($state)) {
@@ -123,11 +144,9 @@ class MediaField extends Field
         $medias = Media::all();
 
         $state = array_map(function (string $item) use ($medias) {
-            $media = $medias->where('path', $item)->first();
-
-            return $media;
+            return $medias->filter(fn($media) => false !== stripos($media->path, $item))->first();
         }, $state);
 
-        return $state ?: [];
+        return $state ?? [];
     }
 }

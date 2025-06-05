@@ -1,7 +1,16 @@
 <x-dynamic-component :component="$getFieldWrapperView()" :field="$field" x-data="{
     state: $wire.$entangle('{{ $getStatePath() }}'),
     multiple: {{ $isMultiple() ? 1 : 0 }},
+    max: {{ $getMax() ?? 0 }},
     select: function(media) {
+
+        if(!this.state){
+            this.state = [];
+        }
+            
+        if(this.max && this.state.length >= this.max && !this.isChecked(media))
+            return;
+
         if (!this.multiple) {
             this.state = [media];
         } else if (this.state.find(x => x === media)) {

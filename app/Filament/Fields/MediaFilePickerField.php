@@ -16,6 +16,8 @@ class MediaFilePickerField extends Field
 
     public bool $multiple = false;
 
+    public int $max = 0;
+
     public function imagesOnly(bool $imagesOnly = true): static
     {
         $this->imagesOnly = $imagesOnly;
@@ -37,9 +39,21 @@ class MediaFilePickerField extends Field
         return $this;
     }
 
+    public function max(int $max = 0): self
+    {
+        $this->max = $max;
+
+        return $this;
+    }
+
     public function isMultiple(): bool
     {
         return $this->multiple;
+    }
+
+    public function getMax(): int
+    {
+        return $this->max;
     }
 
     public function select(string $path): void

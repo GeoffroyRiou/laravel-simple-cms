@@ -11,13 +11,20 @@ class ImageSchema
     public static function make(
         string $fieldName = 'image',
         string $label = 'Image',
-        bool $isRequired = false
+        bool $multiple = false,
+        bool $imagesOnly = false,
+        bool $filesOnly = false,
+        bool $required = false,
+        int $max = 0,
     ): array {
         return [
-            MediaField::make($fieldName)
+           MediaField::make($fieldName)
                 ->label($label)
-                ->required($isRequired)
-                ->imagesOnly()
+                ->required($required)
+                ->imagesOnly($imagesOnly)
+                ->filesOnly($filesOnly)
+                ->multiple($multiple)
+                ->max($max)
                 ->columnSpanFull(),
         ];
     }
