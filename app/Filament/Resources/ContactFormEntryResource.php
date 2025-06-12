@@ -32,10 +32,22 @@ class ContactFormEntryResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('created_at')->dateTime('d/m/Y H:i')->label('Date'),
-                TextColumn::make('form'),
-                TextColumn::make('subject'),
-                TextColumn::make('recipients'),
+                TextColumn::make('created_at')
+                    ->dateTime('d/m/Y H:i')
+                    ->label(__('Date'))
+                    ->sortable(),
+                TextColumn::make('form')
+                    ->label(__('Form'))
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('subject')
+                    ->label(__('Subject'))
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('recipients')
+                    ->label(__('Recipients'))
+                    ->searchable()
+                    ->sortable(),
             ])
             ->filters([
                 //
@@ -58,7 +70,8 @@ class ContactFormEntryResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('created_at','desc');
     }
 
     public static function infolist(Infolist $infolist): Infolist
