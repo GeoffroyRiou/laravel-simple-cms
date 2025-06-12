@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Models\Setting;
+use App\Services\ContactFormService;
 use App\Services\ImageService;
 use App\Services\MenuService;
 use App\Services\PreloadResourcesService;
@@ -12,8 +13,10 @@ use App\Services\ReflectionService;
 use App\Services\SitemapService;
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 
 class SimpleCmsServiceProvider extends ServiceProvider
@@ -65,5 +68,8 @@ class SimpleCmsServiceProvider extends ServiceProvider
 
             View::share('settings', $settings);
         }
+
+        Model::automaticallyEagerLoadRelationships();
+        Vite::useAggressivePrefetching();
     }
 }
