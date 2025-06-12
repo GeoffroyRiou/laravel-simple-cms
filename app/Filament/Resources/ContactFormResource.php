@@ -164,10 +164,16 @@ class ContactFormResource extends Resource
                                             if ($field['type'] == 'file') continue;
                                             $tags[] = "[[" . $field['data']['slug'] . "]]";
                                         }
-
                                         return count($tags) ? __('Available tags : ') . implode(', ', $tags) : '';
                                     })
                                     ->label('')
+                                    ->toolbarButtons([
+                                        'bold',
+                                        'bulletList',
+                                        'orderedList',
+                                        'italic',
+                                        'link',
+                                    ])
                             ]),
                     ])
                     ->columnSpanFull()
