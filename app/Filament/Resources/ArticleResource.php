@@ -22,6 +22,8 @@ class ArticleResource extends ContentResource
 
     public static bool $hasParent = true;
 
+    public static bool $hasSort = false;
+
     public static bool $hasCategories = true;
 
     public static bool $hasExcerpt = true;

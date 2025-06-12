@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources;
 
 use App\Filament\Fields\PageBuilder;
+use App\Filament\Resources\ContentResource\Pages\ListContents;
 use App\Models\Content;
 use CodeWithDennis\FilamentSelectTree\SelectTree;
 use Filament\Forms\Components\FileUpload;
@@ -96,7 +97,10 @@ abstract class ContentResource extends Resource
         $columns = [
             TextColumn::make('title')
                 ->label(__('Title'))
-                ->sortable()
+                ->getStateUsing(function(Content $record) {
+                    return ListContents::getNestedPrefix($record->id, get_class($record)) . ($record->parent_id ? '--&nbsp;' : '') . $record->title;
+                })
+                ->html()
                 ->searchable(),
             TextColumn::make('slug')
                 ->label(__('Path'))
@@ -104,8 +108,7 @@ abstract class ContentResource extends Resource
                 ->size(TextColumn\TextColumnSize::ExtraSmall)
                 ->color('gray'),
             ToggleColumn::make('published')
-                ->label(__('Published'))
-                ->sortable(),
+                ->label(__('Published')),
         ];
 
         if (static::$hasSort) {
