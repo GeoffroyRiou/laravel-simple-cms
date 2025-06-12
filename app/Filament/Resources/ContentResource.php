@@ -6,6 +6,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Fields\PageBuilder;
 use App\Models\Content;
+use CodeWithDennis\FilamentSelectTree\SelectTree;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -32,6 +33,8 @@ abstract class ContentResource extends Resource
     protected static bool $shouldRegisterNavigation = false;
 
     public static bool $hasParent = true;
+
+    public static bool $hasCategories = false;
 
     public static bool $hasExcerpt = false;
 
@@ -178,17 +181,19 @@ abstract class ContentResource extends Resource
 
         // Hierarchical
 
-        $categoryClass = (new (static::$model))->categoryModel ?? null;
+        if (static::$hasCategories) {
+            $sectionSchema[] = SelectTree::make('categories')
+                ->label(__('Categories'))
+                ->placeholder(__('Choose'))
+                ->emptyLabel(__('No results'))
+                ->relationship('categories', 'title', 'parent_id')
+                ->enableBranchNode()
+                ->defaultOpenLevel(2)
+                ->columnSpan(2);
+        }
 
-        if (static::$hasParent || $categoryClass) {
-
-            if (static::$hasParent) {
-                $sectionSchema[] = self::getParentSelectionField(static::$model, static::$model)->columnSpan(1);
-            }
-
-            if ($categoryClass) {
-                $sectionSchema[] = self::getParentSelectionField(static::$model, $categoryClass, 'category_id', sectionLabel: 'Category')->columnSpan(1);
-            }
+        if (static::$hasParent) {
+            $sectionSchema[] = self::getParentSelectionField(static::$model, static::$model)->columnSpan(1);
         }
 
         return Section::make('')

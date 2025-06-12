@@ -24,10 +24,8 @@ return new class extends Migration
             $table->boolean('is_home')->default(0);
             $table->integer('order')->default(0);
             $table->unsignedBigInteger('parent_id')->nullable();
-            $table->unsignedBigInteger('category_id')->nullable();
 
             $table->foreign('parent_id')->references('id')->on('contents')->onDelete('set null');
-            $table->foreign('category_id')->references('id')->on('contents')->onDelete('set null');
 
             $table->timestamps();
         });

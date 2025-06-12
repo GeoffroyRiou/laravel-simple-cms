@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Spatie\Translatable\HasTranslations;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
@@ -27,7 +28,6 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
  * @property string $model_path
  * @property int|null $parent_id
  * @property int $order
- * @property int|null $category_id
  * @property string|null $categoryModel
  * @property string|null $illustration
  * @property bool $is_home
@@ -89,11 +89,14 @@ abstract class Content extends Model
 
         static::creating(function (Content $model): void {
             $model->model_path = static::class;
+        });
+        
+        static::created(function (Content $model): void {
             $model->url_path = $model->getUrlPath();
+            $model->save();
         });
 
         static::updating(function (Content $model): void {
-            $model->model_path = static::class;
             $model->url_path = $model->getUrlPath();
         });
     }
@@ -146,12 +149,6 @@ abstract class Content extends Model
             return $this->$method()->pluck('slug')->reverse()->implode('/');
         }
 
-        if (! empty($this->category_id)) {
-            $ancestorsPath = $this->ancestors()->pluck('slug')->reverse()->implode('/');
-
-            return $ancestorsPath.'/'.$this->slug;
-        }
-
         return $this->slug;
     }
 
@@ -161,19 +158,5 @@ abstract class Content extends Model
     public function scopePublished(Builder $query): void
     {
         $query->where('published', true);
-    }
-
-    public function category(): ?BelongsTo
-    {
-        if ($this->categoryModel) {
-            return $this->belongsTo($this->categoryModel)->with('ancestorsAndSelf');
-        }
-
-        return null;
-    }
-
-    public function ancestors()
-    {
-        return $this->category->ancestorsAndSelf ?? collect();
     }
 }

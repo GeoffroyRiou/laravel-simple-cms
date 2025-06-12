@@ -20,7 +20,9 @@ class ArticleResource extends ContentResource
 
     protected static bool $shouldRegisterNavigation = true;
 
-    public static bool $hasParent = false;
+    public static bool $hasParent = true;
+
+    public static bool $hasCategories = true;
 
     public static bool $hasExcerpt = true;
 
