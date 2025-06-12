@@ -50,6 +50,8 @@ abstract class Content extends Model
 
     public ?string $categoryModel = null;
 
+    public bool $excludeFromSitemap = false;
+
     protected $fillable = [
         'title',
         'excerpt',

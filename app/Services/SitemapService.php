@@ -26,9 +26,13 @@ class SitemapService
 
         foreach ($this->modelsToUse as $modelClass) {
 
+            $model = new $modelClass;
+
+            if($model->excludeFromSitemap) continue;
+
             $query = $modelClass::query();
 
-            if (method_exists($modelClass, 'published')) {
+            if (is_callable([$model, 'published'])) {
                 $query->published();
             }
 
