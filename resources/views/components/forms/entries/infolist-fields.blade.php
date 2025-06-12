@@ -7,13 +7,13 @@
 
     <div>
         @php($fieldsData = json_decode($getRecord()->fields))
-        @foreach ($fieldsData->fields as $label => $value)
+        @foreach ($fieldsData->fields as $fieldData)
             <p>
-                <strong>{{ $label }} : </strong>
-                @if (is_array($value))
-                    {{ implode(', ', $value) }}
+                <strong>{{ $fieldData->label }} : </strong>
+                @if (is_array($fieldData->value))
+                    {{ implode(', ', $fieldData->value) }}
                 @else
-                    {{ $value }}
+                    {{ $fieldData->value }}
                 @endif
             </p>
         @endforeach

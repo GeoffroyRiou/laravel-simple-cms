@@ -11,6 +11,7 @@ use Filament\Infolists\Components\ViewEntry;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -57,21 +58,22 @@ class ContactFormEntryResource extends Resource
                     $decodedData = json_decode((string) $data['fields']);
 
                     $html = '';
-                    foreach ($decodedData->fields as $label => $valeur) {
-                        $html .= '<p><strong>'.$label.'</strong> : '.(is_array($valeur) ? implode(', ', $valeur) : $valeur).'</p>';
+                    foreach ($decodedData->fields as $fieldData) {
+                        $html .= '<p><strong>' . $fieldData->label . '</strong> : ' . (is_array($fieldData->value) ? implode(', ', $fieldData->value) : $fieldData->value) . '</p>';
                     }
 
                     $data['fields'] = $html;
 
                     return $data;
                 }),
+                DeleteAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
-            ->defaultSort('created_at','desc');
+            ->defaultSort('created_at', 'desc');
     }
 
     public static function infolist(Infolist $infolist): Infolist
@@ -79,9 +81,12 @@ class ContactFormEntryResource extends Resource
         return $infolist
             ->schema([
                 TextEntry::make('created_at')->label('Date')->date('d/m/Y H:i'),
-                TextEntry::make('form'),
-                TextEntry::make('subject'),
-                TextEntry::make('recipients'),
+                TextEntry::make('form')
+                    ->label(__('Form name')),
+                TextEntry::make('subject')
+                    ->label(__('Subject')),
+                TextEntry::make('recipients')
+                    ->label(__('Recipients')),
                 ViewEntry::make('fields')
                     ->view('components.forms.entries.infolist-fields')
                     ->columnSpanFull(),

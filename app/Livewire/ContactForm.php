@@ -97,7 +97,7 @@ class ContactForm extends Component
 
         ContactFormEntry::create([
             'fields' => json_encode($formattedData),
-            'subject' => $this->form->subject,
+            'subject' => $this->form->subject ? $this->generateContentFromTemplate($this->form->subject, $formattedData['fields']) : '',
             'recipients' => $this->form->recipients,
             'form' => $this->form->name,
         ]);
@@ -107,9 +107,9 @@ class ContactForm extends Component
             Mail::to(explode(',', $this->form->recipients))
                 ->send(
                     new ContactFormMail(
-                        $this->form->subject ?? '',
-                        $formattedData,
-                        $this->form->template
+                        subject: $this->form->subject ? $this->generateContentFromTemplate($this->form->subject, $formattedData['fields']) : '',
+                        data: $formattedData,
+                        body: $this->generateContentFromTemplate($this->form->template, $formattedData['fields'])
                     )
                 )
         ) {
@@ -122,9 +122,17 @@ class ContactForm extends Component
         }
     }
 
+    private function generateContentFromTemplate(string $template, array $data): string
+    {
+        foreach ($data as $key => $fieldData) {
+            $value = is_array($fieldData['value']) ? implode(', ', $fieldData['value']) : $fieldData['value'];
+            $template = str_replace('[[' . $key . ']]',  $value, $template);
+        }
+        return $template;
+    }
+
     /**
-     * Génère les données pour le mail sous la forme de
-     * label => valeur
+     * Génère les données pour le mail
      */
     private function formatDataForMail(array $validatedData): array
     {
@@ -138,8 +146,9 @@ class ContactForm extends Component
 
             if ($champInformations !== null && $champInformations !== []) {
 
-                if ($champInformations['type'] === 'file' && $value) {
-                    $mailData['files'][] = $value->getRealPath();
+                if ($champInformations['type'] === 'file') {
+                    if($value)
+                        $mailData['files'][] = $value->getRealPath();
                 } else {
 
                     if ($value == '0') {
@@ -149,7 +158,10 @@ class ContactForm extends Component
                         $value = 'oui';
                     }
 
-                    $mailData['fields'][$champInformations['data']['slug'] ?? $key] = $value;
+                    $mailData['fields'][$champInformations['data']['slug'] ?? $key] = [
+                        'label' => $champInformations['data']['label'] ?? $key,
+                        'value' => $value
+                    ];
                 }
             }
         }
