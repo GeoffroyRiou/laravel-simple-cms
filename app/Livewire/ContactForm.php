@@ -108,7 +108,8 @@ class ContactForm extends Component
                 ->send(
                     new ContactFormMail(
                         $this->form->subject ?? '',
-                        $formattedData
+                        $formattedData,
+                        $this->form->template
                     )
                 )
         ) {
@@ -148,7 +149,7 @@ class ContactForm extends Component
                         $value = 'oui';
                     }
 
-                    $mailData['fields'][$champInformations['data']['label'] ?? $key] = $value;
+                    $mailData['fields'][$champInformations['data']['slug'] ?? $key] = $value;
                 }
             }
         }

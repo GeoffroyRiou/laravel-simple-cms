@@ -19,7 +19,7 @@ class ContactFormMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(string $subject, public array $data)
+    public function __construct(string $subject, public array $data, public string $template)
     {
         $this->subject = $subject;
     }
@@ -31,7 +31,7 @@ class ContactFormMail extends Mailable
     {
         return new Envelope(
             from: new Address(config('mail.from.address'), config('mail.from.name')),
-            subject: $this->subject ?: 'Demande de contact',
+            subject: $this->subject ? $this->generateContentFromTemplate($this->subject, $this->data['fields']) : 'Demande de contact',
         );
     }
 
@@ -42,7 +42,19 @@ class ContactFormMail extends Mailable
     {
         return new Content(
             view: 'mails.contact',
+            with: [
+                'body' => $this->generateContentFromTemplate($this->template, $this->data['fields'])
+            ]
         );
+    }
+
+    private function generateContentFromTemplate(string $template, array $data): string
+    {
+        foreach ($data as $key => $value) {
+            $value = is_array($value) ? implode(', ', $value) : $value;
+            $template = str_replace('[[' . $key . ']]',  $value, $template);
+        }
+        return $template;
     }
 
     /**

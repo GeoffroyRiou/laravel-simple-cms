@@ -19,6 +19,7 @@ class ContactForm extends Model
         'fields',
         'subject',
         'recipients',
+        'template',
     ];
 
     public $translatable = [

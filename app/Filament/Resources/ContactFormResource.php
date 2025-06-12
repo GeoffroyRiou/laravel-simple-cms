@@ -12,6 +12,8 @@ use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
@@ -22,6 +24,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
+use Livewire\Component as Livewire;
 
 class ContactFormResource extends Resource
 {
@@ -42,113 +45,132 @@ class ContactFormResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                    ->label('Nom du formulaire')
+                    ->label(__("Form name"))
                     ->required(),
                 TextInput::make('subject')
-                    ->label('Sujet')
+                    ->label(__('Subject'))
                     ->required(),
                 TextInput::make('recipients')
-                    ->label('Destinataires')
-                    ->helperText('Emails séparés par des virgules')
+                    ->label(__('Recipients'))
+                    ->helperText(__('Split emails with a comma'))
                     ->required(),
-                Section::make('Champs du formulaire')
-                    ->schema([
-                        Builder::make('fields')
-                            ->label('')
-                            ->addActionLabel('Ajouter un nouveau champ')
-                            ->blockNumbers(false)
-                            ->blockPickerColumns(3)
-                            ->collapsible()
-                            ->cloneable()
-                            ->collapsed()
-                            ->blocks([
-                                Builder\Block::make('text')
-                                    ->label(fn (?array $state): string => $state['label'] ?? 'Champ de texte')
-                                    ->icon('heroicon-o-document-text')
-                                    ->schema([
-                                        TextInput::make('label')
-                                            ->label('Label')
-                                            ->required()
+                Tabs::make('Tabs')
+                    ->tabs([
+                        Tabs\Tab::make(__('Form fields'))
+                            ->schema([
+                                Builder::make('fields')
+                                    ->label('')
+                                    ->addActionLabel('Ajouter un nouveau champ')
+                                    ->blockNumbers(false)
+                                    ->blockPickerColumns(3)
+                                    ->collapsible()
+                                    ->cloneable()
+                                    ->collapsed()
+                                    ->blocks([
+                                        Builder\Block::make('text')
+                                            ->label(fn(?array $state): string => $state['label'] ?? 'Champ de texte')
+                                            ->icon('heroicon-o-document-text')
+                                            ->schema([
+                                                TextInput::make('label')
+                                                    ->label('Label')
+                                                    ->required()
+                                                    ->live(onBlur: true)
+                                                    ->afterStateUpdated(fn(Set $set, ?string $state): mixed => $set('slug', Str::slug($state))),
+                                                TextInput::make('slug')
+                                                    ->label('Slug')
+                                                    ->required(),
+                                                Select::make('type')->options(['text' => 'Texte', 'email' => 'Email'])->required(),
+                                                TextInput::make('mask')
+                                                    ->label(__('Mask'))
+                                                    ->helperText(__('If necessary, enter the format to check when validating the field')),
+                                                Checkbox::make('required')->label(__('Required field')),
+                                                Toggle::make('fullWidth')->label(__('Full width'))->default(false),
+                                            ])
+                                            ->columns(2),
+                                        Builder\Block::make('textarea')
+                                            ->label(fn(?array $state): string => $state['label'] ?? 'Zone de texte')
+                                            ->icon('heroicon-o-bars-3-bottom-left')
+                                            ->schema([
+                                                TextInput::make('label')
+                                                    ->label('Label')
+                                                    ->required()
+                                                    ->live(onBlur: true)
+                                                    ->afterStateUpdated(fn(Set $set, ?string $state): mixed => $set('slug', Str::slug($state))),
+                                                TextInput::make('slug')
+                                                    ->label('Slug')
+                                                    ->required(),
+                                                Checkbox::make('required')->label(__('Required field')),
+                                                Toggle::make('fullWidth')->label(__('Full width'))->default(false),
+                                            ])
                                             ->live(onBlur: true)
-                                            ->afterStateUpdated(fn (Set $set, ?string $state): mixed => $set('slug', Str::slug($state))),
-                                        TextInput::make('slug')
-                                            ->label('Slug')
-                                            ->required(),
-                                        Select::make('type')->options(['text' => 'Texte', 'email' => 'Email'])->required(),
-                                        TextInput::make('mask')
-                                            ->label('Masque')
-                                            ->helperText('Si besoin, renseigner le format à vérifier lors de la validation du champ'),
-                                        Checkbox::make('required')->label('Champ requis'),
-                                        Toggle::make('fullWidth')->label('Pleine largeur')->default(false),
-                                    ])
-                                    ->columns(2),
-                                Builder\Block::make('textarea')
-                                    ->label(fn (?array $state): string => $state['label'] ?? 'Zone de texte')
-                                    ->icon('heroicon-o-bars-3-bottom-left')
-                                    ->schema([
-                                        TextInput::make('label')
-                                            ->label('Label')
-                                            ->required()
-                                            ->live(onBlur: true)
-                                            ->afterStateUpdated(fn (Set $set, ?string $state): mixed => $set('slug', Str::slug($state))),
-                                        TextInput::make('slug')
-                                            ->label('Slug')
-                                            ->required(),
-                                        Checkbox::make('required')->label('Champ requis'),
-                                        Toggle::make('fullWidth')->label('Pleine largeur')->default(false),
-                                    ])
-                                    ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (Set $set, ?string $state): mixed => $set('slug', Str::slug($state))),
-                                Builder\Block::make('choices')
-                                    ->label(fn (?array $state): string => $state['label'] ?? 'Choix multiples')
-                                    ->icon('heroicon-o-list-bullet')
-                                    ->schema([
-                                        TextInput::make('label')
-                                            ->label('Label')
-                                            ->required()
-                                            ->live(onBlur: true)
-                                            ->afterStateUpdated(fn (Set $set, ?string $state): mixed => $set('slug', Str::slug($state))),
-                                        TextInput::make('slug')
-                                            ->label('Slug')
-                                            ->required(),
-                                        KeyValue::make('values')->label('Valeurs possibles')->required(),
-                                        Select::make('type')->options(['checkbox' => 'Cases à cocher', 'radio' => 'Boutons radio', 'select' => 'Liste de sélection'])->required(),
-                                        Checkbox::make('required')->label('Champ requis'),
-                                        Toggle::make('fullWidth')->label('Pleine largeur')->default(false),
-                                    ]),
-                                Builder\Block::make('file')
-                                    ->label(fn (?array $state): string => $state['label'] ?? 'Fichier')
-                                    ->icon('heroicon-o-arrow-up-on-square')
-                                    ->schema([
-                                        TextInput::make('label')
-                                            ->label('Label')
-                                            ->required()
-                                            ->live(onBlur: true)
-                                            ->afterStateUpdated(fn (Set $set, ?string $state): mixed => $set('slug', Str::slug($state))),
-                                        TextInput::make('slug')
-                                            ->label('Slug')
-                                            ->required(),
-                                        TextInput::make('format')
-                                            ->label('Formats autorisés')
-                                            ->helperText('Séparer par des virgules. ex: jpg,png'),
-                                        Checkbox::make('required')->label('Champ requis'),
-                                        Toggle::make('fullWidth')->label('Pleine largeur')->default(false),
-                                    ]),
-                                Builder\Block::make('optin')
-                                    ->label(fn (?array $state): string => $state['label'] ?? 'Consentement')
-                                    ->icon('heroicon-o-check-badge')
-                                    ->schema([
-                                        TextInput::make('slug')
-                                            ->label('Slug')
-                                            ->required(),
-                                        RichEditor::make('text')
-                                            ->label('Texte'),
-                                        Checkbox::make('required')->label('Champ requis'),
-                                        Toggle::make('fullWidth')->label('Pleine largeur')->default(false),
-                                    ]),
+                                            ->afterStateUpdated(fn(Set $set, ?string $state): mixed => $set('slug', Str::slug($state))),
+                                        Builder\Block::make('choices')
+                                            ->label(fn(?array $state): string => $state['label'] ?? __('Multiple choices'))
+                                            ->icon('heroicon-o-list-bullet')
+                                            ->schema([
+                                                TextInput::make('label')
+                                                    ->label('Label')
+                                                    ->required()
+                                                    ->live(onBlur: true)
+                                                    ->afterStateUpdated(fn(Set $set, ?string $state): mixed => $set('slug', Str::slug($state))),
+                                                TextInput::make('slug')
+                                                    ->label('Slug')
+                                                    ->required(),
+                                                KeyValue::make('values')->label(__('Available values'))->required(),
+                                                Select::make('type')->options(['checkbox' => __('Checkboxes'), 'radio' => __('Radio buttons'), 'select' => __('Select list')])->required(),
+                                                Checkbox::make('required')->label(__('Required field')),
+                                                Toggle::make('fullWidth')->label(__('Full width'))->default(false),
+                                            ]),
+                                        Builder\Block::make('file')
+                                            ->label(fn(?array $state): string => $state['label'] ?? __('File'))
+                                            ->icon('heroicon-o-arrow-up-on-square')
+                                            ->schema([
+                                                TextInput::make('label')
+                                                    ->label('Label')
+                                                    ->required()
+                                                    ->live(onBlur: true)
+                                                    ->afterStateUpdated(fn(Set $set, ?string $state): mixed => $set('slug', Str::slug($state))),
+                                                TextInput::make('slug')
+                                                    ->label('Slug')
+                                                    ->required(),
+                                                TextInput::make('format')
+                                                    ->label(__('Authorized formats'))
+                                                    ->helperText(__('Split with commas. ex: jpg,png')),
+                                                Checkbox::make('required')->label(__('Required field')),
+                                                Toggle::make('fullWidth')->label(__('Full width'))->default(false),
+                                            ]),
+                                        Builder\Block::make('optin')
+                                            ->label(fn(?array $state): string => $state['label'] ?? __('Consent'))
+                                            ->icon('heroicon-o-check-badge')
+                                            ->schema([
+                                                TextInput::make('slug')
+                                                    ->label('Slug')
+                                                    ->required(),
+                                                RichEditor::make('text')
+                                                    ->label('Texte'),
+                                                Checkbox::make('required')->label(__('Required field')),
+                                                Toggle::make('fullWidth')->label(__('Full width'))->default(false),
+                                            ]),
 
-                            ])->columnSpan(2),
-                    ]),
+                                    ])->columnSpan(2),
+                            ]),
+                        Tabs\Tab::make(__('Email template'))
+                            ->schema([
+                                RichEditor::make('template')
+                                    ->helperText(function (Livewire $livewire) {
+                                        $tags = [];
+                                        foreach ($livewire->data['fields'] as $field) {
+                                            if (empty($field['data']['slug'])) continue;
+                                            if ($field['type'] == 'file') continue;
+                                            $tags[] = "[[" . $field['data']['slug'] . "]]";
+                                        }
+
+                                        return count($tags) ? __('Available tags : ') . implode(', ', $tags) : '';
+                                    })
+                                    ->label('')
+                            ]),
+                    ])
+                    ->columnSpanFull()
             ]);
     }
 

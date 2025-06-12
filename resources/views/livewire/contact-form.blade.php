@@ -41,7 +41,7 @@ declare(strict_types=1);
                                 @case('checkbox')
                                 @case('radio')
                                     @foreach ($block['data']['values'] as $cle => $valeur)
-                                        @php($uniqid = md5(time()) . rand(0, 9999))
+                                        @php($uniqid = md5( (string) time()) . rand(0, 9999) )
                                         <div>
                                             <input :key="{{ 'field_' . $uniqid }}" id="field_{{ $uniqid }}"
                                                 wire:model="formData.{{ $block['data']['slug'] }}"
