@@ -23,6 +23,8 @@ class ArticleCategoryResource extends ContentResource
 
     public static bool $hasIllustration = false;
 
+    public static bool $hasParent = true;
+
     public static function getPages(): array
     {
         return [

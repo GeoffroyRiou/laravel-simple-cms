@@ -25,6 +25,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 abstract class ContentResource extends Resource
@@ -33,14 +34,14 @@ abstract class ContentResource extends Resource
 
     protected static bool $shouldRegisterNavigation = false;
 
-    public static bool $hasParent = true;
-
     public static bool $hasCategories = false;
-
+    
     public static bool $hasExcerpt = false;
-
+    
     public static bool $hasIllustration = true;
-
+    
+    public static bool $hasParent = false;
+    
     public static bool $hasSort = false;
 
     public static function form(Form $form): Form
@@ -93,7 +94,6 @@ abstract class ContentResource extends Resource
 
     public static function table(Table $table): Table
     {
-
         $columns = [
             TextColumn::make('title')
                 ->label(__('Title'))
@@ -116,8 +116,7 @@ abstract class ContentResource extends Resource
                 ->label('Ordre')
                 ->sortable();
 
-            $table
-                ->defaultSort('order', 'asc')
+            $table->defaultSort('order', 'asc')
                 ->reorderable('order');
         } else {
             $table

@@ -136,20 +136,21 @@ abstract class Content extends Model
     /**
      * Get the URL path for the page.
      */
-    public function getUrlPath(bool $includeSelf = true): string
+    public function getUrlPath(): string
     {
+        $path = '/';
 
         if ($this->is_home) {
-            return '/';
+            return $path;
         }
 
         if (! empty($this->parent_id)) {
-            $method = $includeSelf ? 'ancestorsAndSelf' : 'ancestors';
-
-            return $this->$method()->pluck('slug')->reverse()->implode('/');
+            $path = $this->ancestors()->pluck('slug')->reverse()->implode('/').'/';
         }
 
-        return $this->slug;
+        $path .= $this->slug;
+
+        return $path;
     }
 
     /**
