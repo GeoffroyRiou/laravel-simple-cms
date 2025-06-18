@@ -6,6 +6,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Fields\PageBuilder;
 use App\Filament\Resources\ContentResource\Pages\ListContents;
+use App\Filament\Schemas\ImageSchema;
 use App\Models\Content;
 use CodeWithDennis\FilamentSelectTree\SelectTree;
 use Filament\Forms\Components\FileUpload;
@@ -216,19 +217,19 @@ abstract class ContentResource extends Resource
             ->schema($sectionSchema);
     }
 
-    public static function getIllustrationField(): FileUpload
+    public static function getIllustrationField(): Section
     {
-        return FileUpload::make('illustration')
-            ->label(__('Illustration'))
-            ->image()
-            ->maxSize(5 * 1024)
-            ->imagePreviewHeight('250')
-            ->loadingIndicatorPosition('left')
-            ->panelAspectRatio('2:1.2')
-            ->panelLayout('integrated')
-            ->removeUploadedFileButtonPosition('right')
-            ->uploadButtonPosition('left')
-            ->uploadProgressIndicatorPosition('left');
+        $sectionSchema = [
+            ...ImageSchema::make(fieldName: 'illustration', label: 'Illustration', imagesOnly: true),
+            Toggle::make('illustration_full_page')
+                ->label(__('Image couvrante'))
+                ->default(false)
+                ->columnSpanFull(),
+        ];
+
+        return Section::make('')
+            ->schema($sectionSchema)
+            ->columnSpanFull();
     }
 
     public static function getParentSelectionField(string $modelClass, string $parentModelClass, string $parentKey = 'parent_id', string $labelKey = 'title', string $sectionLabel = 'Parent'): Select

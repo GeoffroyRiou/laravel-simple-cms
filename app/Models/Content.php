@@ -70,6 +70,7 @@ abstract class Content extends Model
 
     protected $casts = [
         'page_blocks' => 'array',
+        'illustration' => 'array',
         'custom_fields' => 'array',
     ];
 

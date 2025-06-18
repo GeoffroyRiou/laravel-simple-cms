@@ -43,11 +43,17 @@ class DuplicateLocalizedContentAction extends Action
                 $livewire->otherLocaleData[$data['destination_locale']] = [];
             }
             if ($livewire->activeLocale === $data['destination_locale']) {
-                $livewire->data = $livewire->otherLocaleData[$data['source_locale']];
+                $livewire->data = [
+                    ...$livewire->data,
+                    ...$livewire->otherLocaleData[$data['source_locale']]
+                ];
             } elseif ($livewire->activeLocale === $data['source_locale']) {
                 $livewire->otherLocaleData[$data['destination_locale']] = $livewire->data;
             } else {
-                $livewire->otherLocaleData[$data['destination_locale']] = $livewire->otherLocaleData[$data['source_locale']];
+                $livewire->otherLocaleData[$data['destination_locale']] = [
+                    ...$livewire->data,
+                    ...$livewire->otherLocaleData[$data['source_locale']]
+                ];
             }
         });
     }
