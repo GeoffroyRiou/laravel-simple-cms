@@ -2,7 +2,9 @@
 
 namespace App\Filament\Fields;
 
+use App\Filament\Schemas\MediaSchema;
 use App\Models\Media;
+use App\Services\MediaService;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Field;
@@ -21,6 +23,10 @@ class MediaField extends Field
     public bool $filesOnly = false;
 
     public bool $multiple = false;
+
+    public bool $showPicker = true;
+
+    public bool $showUpload = true;
 
     public int $max = 0;
 
@@ -62,6 +68,20 @@ class MediaField extends Field
         return $this;
     }
 
+    public function showPicker(bool $show = true): self
+    {
+        $this->showPicker = $show;
+
+        return $this;
+    }
+
+    public function showUpload(bool $show = true): self
+    {
+        $this->showUpload = $show;
+
+        return $this;
+    }
+
     public function isMultiple(): bool
     {
         return $this->multiple;
@@ -70,6 +90,16 @@ class MediaField extends Field
     public function getMax(): int
     {
         return $this->max;
+    }
+
+    public function getShowPicker(): bool
+    {
+        return $this->showPicker;
+    }
+
+    public function getShowUpload(): bool
+    {
+        return $this->showUpload;
     }
 
     public function getPickerAction(): Action
@@ -102,25 +132,24 @@ class MediaField extends Field
         return Action::make('upload')
             ->label(__('Upload a media file'))
             ->icon('heroicon-o-arrow-up-on-square')
-            ->form([
-                FileUpload::make('path')
-                    ->label('Media')
-                    ->maxSize(5120)
-                    ->columnSpanFull()
-                    ->panelLayout(null)
-                    ->afterStateUpdated(fn(Set $set, $state): mixed => $set('name', $state->getClientOriginalName()))
-                    ->required()
-                    ->panelLayout(null),
-                TextInput::make('name')
-                    ->label(__('Name'))
-                    ->live(onBlur: true),
-            ])
+            ->form(
+                MediaSchema::make(
+                    fieldName: 'path',
+                    label: 'Médias',
+                    multiple: $this->multiple,
+                    imagesOnly: $this->imagesOnly,
+                    filesOnly: $this->filesOnly,
+                    max: $this->max,
+                ) 
+            )
             ->action(function (array $data, Set $set, Component $component) {
 
-                $newMedia = Media::create($data);
+                $mediaService = app(MediaService::class);
+
+                $mediasPath = $mediaService->saveUploadedMediasFromFileUploadField($data);
 
                 $state = $this->getState() ?? [];
-                $newState = $this->multiple ? [...$state, $newMedia->path] : $newMedia->path;
+                $newState = $this->multiple ? [...$state, ...$mediasPath] : $mediasPath[0]->path;
 
                 $set(
                     $component->getStatePath(false),
@@ -146,6 +175,11 @@ class MediaField extends Field
         $state = array_map(function (string $item) use ($medias) {
             return $medias->filter(fn($media) => false !== stripos($media->path, $item))->first();
         }, $state);
+
+        $state = array_filter($state, function ($item) {
+            return $item instanceof Media;
+        });
+
 
         return $state ?? [];
     }

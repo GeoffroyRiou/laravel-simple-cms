@@ -1,6 +1,8 @@
 <x-dynamic-component :component="$getFieldWrapperView()" :field="$field" x-data="{
     state: $wire.$entangle('{{ $getStatePath() }}'),
-    multiple: {{ $isMultiple() ? 1 : 0 }},
+    multiple: {{ $isMultiple() ? 1 : 0 }},    
+    showUpload: {{ $getShowUpload() ? 1 : 0 }},
+    showPicker: {{ $getShowPicker() ? 1 : 0 }},
     max: {{ $getMax() ?? 0 }},
     showAddImageButtons : function() {
         const state = this.state || [];

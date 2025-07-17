@@ -12,8 +12,6 @@ class ImageSchema
         string $fieldName = 'image',
         string $label = 'Image',
         bool $multiple = false,
-        bool $imagesOnly = false,
-        bool $filesOnly = false,
         bool $required = false,
         int $max = 0,
     ): array {
@@ -21,8 +19,7 @@ class ImageSchema
            MediaField::make($fieldName)
                 ->label($label)
                 ->required($required)
-                ->imagesOnly($imagesOnly)
-                ->filesOnly($filesOnly)
+                ->imagesOnly(true)
                 ->multiple($multiple)
                 ->max($max)
                 ->columnSpanFull(),

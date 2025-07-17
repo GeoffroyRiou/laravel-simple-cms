@@ -7,10 +7,7 @@ use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-Route::get('/test', function(){
-    $article = App\Models\Article::find(5);
-    dd($article->illustration);
-});
+
 Route::group(['prefix' => LaravelLocalization::setLocale()], function (): void {
 
     Route::get('/', [CmsController::class, 'home'])->name('cms.home');
