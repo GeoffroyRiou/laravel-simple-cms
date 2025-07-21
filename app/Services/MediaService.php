@@ -24,8 +24,13 @@ class MediaService
 
         $mediasPath = [];
 
-        if (empty($data['path']) || (!empty($data['path']) && !is_array($data)))
+        if (empty($data['path']))
             return $mediasPath;
+
+        if(!is_array($data['path'])){
+            $data['path'] = [$data['path']];
+            $data['attachment_file_names'] = [$data['attachment_file_names']];
+        }
 
         foreach ($data['path'] as $path) {
             Media::create([
@@ -35,7 +40,7 @@ class MediaService
 
             $mediasPath[] = $path;
         }
-        
+
         return $mediasPath;
     }
 }

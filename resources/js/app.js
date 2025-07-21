@@ -1,9 +1,11 @@
 import Alpine from 'alpinejs'
 import { initRGPD } from './rgpd';
 
-window.Alpine = Alpine;
+if (window.Alpine === undefined) {
+    window.Alpine = Alpine;
+    Alpine.start();
+}
 
 window.addEventListener('DOMContentLoaded', () => {
     initRGPD();
-    Alpine.start();
 });

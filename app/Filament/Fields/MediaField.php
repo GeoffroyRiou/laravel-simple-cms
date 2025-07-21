@@ -149,7 +149,7 @@ class MediaField extends Field
                 $mediasPath = $mediaService->saveUploadedMediasFromFileUploadField($data);
 
                 $state = $this->getState() ?? [];
-                $newState = $this->multiple ? [...$state, ...$mediasPath] : $mediasPath[0]->path;
+                $newState = $this->multiple ? [...$state, ...$mediasPath] : $mediasPath[0];
 
                 $set(
                     $component->getStatePath(false),
