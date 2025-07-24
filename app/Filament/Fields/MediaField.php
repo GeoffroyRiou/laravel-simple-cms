@@ -140,7 +140,7 @@ class MediaField extends Field
                     imagesOnly: $this->imagesOnly,
                     filesOnly: $this->filesOnly,
                     max: $this->max,
-                ) 
+                )
             )
             ->action(function (array $data, Set $set, Component $component) {
 
@@ -164,23 +164,31 @@ class MediaField extends Field
         $state = $this->getState() ?? [];
 
         if (is_array($state)) {
-            $state = array_values($state);
+            $medias = array_values($state);
         } elseif (is_string($state)) {
-            $state = [$state];
+            $medias = [$state];
         }
 
         // TODO : Extract this query in an action
-        $medias = Media::all();
+        $mediasModels = Media::all();
 
-        $state = array_map(function (string $item) use ($medias) {
-            return $medias->filter(fn($media) => false !== stripos($media->path, $item))->first();
-        }, $state);
+        $medias = array_map(function (string $item) use ($mediasModels) {
+            return $mediasModels->filter(fn($media) => false !== stripos($media->path, $item))->first();
+        }, $medias);
 
-        $state = array_filter($state, function ($item) {
-            return $item instanceof Media;
-        });
+        // Cleaning files that could have been deleted elsewhere
+        foreach ($medias as $index => $media) {
+            $isMedia = $media instanceof Media;
+
+            if (!$isMedia) {
+                unset($state[$index]);
+                unset($medias[$index]);
+            }
+        }
+
+        $this->state($state);
 
 
-        return $state ?? [];
+        return $medias ?? [];
     }
 }
